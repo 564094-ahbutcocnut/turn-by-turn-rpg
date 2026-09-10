@@ -1,4 +1,3 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -26,6 +25,8 @@ public class Turns : MonoBehaviour
     int damagetoboss = 0;
 
     int bossdamagetransitionvalue = 0;
+
+    bool israndomising = false;
 
 
 
