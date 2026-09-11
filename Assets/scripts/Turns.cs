@@ -27,8 +27,6 @@ public class Turns : MonoBehaviour
 
     int bossdamagetransitionvalue = 0;
 
-    bool israndomising = false;
-    
 
 
 
@@ -185,6 +183,6 @@ public class Turns : MonoBehaviour
                 }
 
     }
-
+    //gameObject.SetActive(false/true)
 
 }
