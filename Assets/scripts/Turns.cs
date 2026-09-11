@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using System.Collections;
 
 public class Turns : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class Turns : MonoBehaviour
     int bossdamagetransitionvalue = 0;
 
     bool israndomising = false;
+    
 
 
 
@@ -48,25 +50,25 @@ public class Turns : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
 
-            playerroll();
+                //Start the coroutine we define below named ExampleCoroutine.
+               // StartCoroutine(ExampleCoroutine());
+                
+         
+          
+
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
             bossroll();
         }
 
-        if (damagetoboss > 0)
-        {
-            bossdamagetransitionvalue = bosscurrenthealth;
-            bosscurrenthealth = bossdamagetransitionvalue - damagetoboss;
-            Bosshealth.text = bosscurrenthealth.ToString() + "/100";
-            damagetoboss = 0;
-
-        }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Blackhole();
+
+            
+ 
         }
 
         if (Input.GetKeyDown(KeyCode.W))
@@ -81,6 +83,7 @@ public class Turns : MonoBehaviour
         var playerroll = Random.Range(1, 21);
         wheelrollsPlayers = playerroll;
         PlayerRoll.text = wheelrollsPlayers.ToString();
+
         return wheelrollsPlayers;
     }
     public int bossroll()
@@ -88,42 +91,98 @@ public class Turns : MonoBehaviour
         var bossroll = Random.Range(1, 21);
         wheelrollsBoss = bossroll;
         BossRoll.text = wheelrollsBoss.ToString();
+
         return wheelrollsBoss;
     }
 
-    int Blackhole()
+    void Blackhole()
     {
-        playerroll();
-        bossroll();
+        StartCoroutine(BlackHoleeCoroutine());
 
-        differenceinroll = wheelrollsPlayers - wheelrollsBoss;
+    }
 
-        if (differenceinroll == 0)
-        {
-            damagetoboss = 0;
-        }
-        if (differenceinroll >= 1 && differenceinroll <= 5)
-        {
-            damagetoboss = 1;
-        }
-        if (differenceinroll >= 6 && differenceinroll <= 10)
-        {
-            damagetoboss = 3;
-        }
-        if (differenceinroll >= 11 && differenceinroll <= 14)
-        {
-            damagetoboss = 5;
-        }
-        if (differenceinroll >= 15 && differenceinroll <= 19)
-        {
-            damagetoboss = 7;
-        }
-        if (differenceinroll == 20)
-        {
-            damagetoboss = 10;
-        }
-        return damagetoboss;
 
+    IEnumerator BlackHoleeCoroutine()
+    {
+
+
+            int rollNumber = playerroll();
+            int rollBossnumber = bossroll();
+            Debug.Log(rollNumber );
+        Debug.Log(rollBossnumber);
+
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(.2F);
+
+             rollNumber = playerroll();
+             rollBossnumber = bossroll();
+            Debug.Log(rollNumber );
+        Debug.Log(rollBossnumber);
+
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(.2F);
+
+            rollNumber = playerroll();
+            rollBossnumber = bossroll();
+            Debug.Log(rollNumber );
+        Debug.Log(rollBossnumber);
+
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(.2F);
+
+            rollNumber = playerroll();
+            rollBossnumber = bossroll();
+            Debug.Log(rollNumber);
+        Debug.Log(rollBossnumber);
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(.2F);
+
+            rollNumber = playerroll();
+            rollBossnumber = bossroll();
+            Debug.Log(rollNumber);
+
+            Debug.Log(rollBossnumber);
+
+
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(.2F);
+
+            differenceinroll = rollNumber - rollBossnumber;
+
+
+                if (differenceinroll == 0)
+                {
+                    damagetoboss = 0;
+                }
+                if (differenceinroll >= 1 && differenceinroll <= 5)
+                {
+                    damagetoboss = 1;
+                }
+                if (differenceinroll >= 6 && differenceinroll <= 10)
+                {
+                    damagetoboss = 3;
+                }
+                if (differenceinroll >= 11 && differenceinroll <= 14)
+                {
+                    damagetoboss = 5;
+                }
+                if (differenceinroll >= 15 && differenceinroll <= 19)
+                {
+                    damagetoboss = 7;
+                }
+                if (differenceinroll == 20)
+                {
+                    damagetoboss = 10;
+                }
+
+                if (damagetoboss > 0)
+                {
+                    bossdamagetransitionvalue = bosscurrenthealth;
+                    bosscurrenthealth = bossdamagetransitionvalue - damagetoboss;
+                    Bosshealth.text = bosscurrenthealth.ToString() + "/100";
+                    damagetoboss = 0;
+
+                }
 
     }
 
