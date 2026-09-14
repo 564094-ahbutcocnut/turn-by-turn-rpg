@@ -14,6 +14,10 @@ public class Turns : MonoBehaviour
     [SerializeField] TextMeshProUGUI Player3health;
     [SerializeField] TextMeshProUGUI Bosshealth;
 
+    [Header("who's turn")]
+    [SerializeField] string currentturn;
+    [SerializeField] TextMeshProUGUI whosTurnText;
+
     int wheelrollsPlayers = 0;
     int wheelrollsBoss = 0;
 
@@ -27,6 +31,9 @@ public class Turns : MonoBehaviour
 
     int bossdamagetransitionvalue = 0;
 
+    int bossmoveslot = 0;
+
+    
 
 
 
@@ -39,6 +46,7 @@ public class Turns : MonoBehaviour
         Player2health.text = player2currenthealth.ToString() + "/30";
         Player3health.text = player3currenthealth.ToString() + "/20";
         Bosshealth.text = bosscurrenthealth.ToString() + "/100";
+        whosTurnText.text = currentturn + "'s turn";
 
     }
 
@@ -73,6 +81,12 @@ public class Turns : MonoBehaviour
         {
             player1currenthealth--;
         }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            currentturn = "Boss";
+        }
+
+        bossturn();
 
     }
 
@@ -184,5 +198,36 @@ public class Turns : MonoBehaviour
 
     }
     //gameObject.SetActive(false/true)
+
+
+    void bossturn()
+    {
+        if(currentturn == "Boss")
+        {
+            var bossmoverandomiser = Random.Range(1, 11);
+            bossmoveslot = bossmoverandomiser;
+
+            if(bossmoverandomiser == 1)
+            {
+                Debug.Log("move 1");
+                currentturn = "notboss";
+            }
+            if (bossmoverandomiser >= 2  && bossmoverandomiser <6)
+            {
+                Debug.Log("move 2");
+                currentturn = "notboss";
+            }
+            if (bossmoverandomiser >=6 && bossmoverandomiser <8)
+            {
+                Debug.Log("move 3");
+                currentturn = "notboss";
+            }
+            if (bossmoverandomiser >=8 && bossmoverandomiser <11)
+            {
+                Debug.Log("move 4");
+                currentturn = "notboss";
+            }
+        }
+    }
 
 }
