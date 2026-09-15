@@ -15,7 +15,7 @@ public class Turns : MonoBehaviour
     [SerializeField] TextMeshProUGUI Bosshealth;
 
     [Header("who's turn")]
-    [SerializeField] string currentturn;
+    [SerializeField] public string currentturn;
     [SerializeField] TextMeshProUGUI whosTurnText;
 
     int wheelrollsPlayers = 0;
@@ -85,6 +85,21 @@ public class Turns : MonoBehaviour
         {
             currentturn = "Boss";
         }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            currentturn = "Player1";
+            whosTurnText.text = currentturn + "'s turn";
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            currentturn = "Player2";
+            whosTurnText.text = currentturn + "'s turn";
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            currentturn = "Player3";
+            whosTurnText.text = currentturn + "'s turn";
+        }
 
         bossturn();
 
@@ -107,14 +122,14 @@ public class Turns : MonoBehaviour
         return wheelrollsBoss;
     }
 
-    void Blackhole()
+    public void Blackhole()
     {
         StartCoroutine(BlackHoleeCoroutine());
 
     }
 
 
-    IEnumerator BlackHoleeCoroutine()
+   public  IEnumerator BlackHoleeCoroutine()
     {
 
 
@@ -197,9 +212,6 @@ public class Turns : MonoBehaviour
                 }
 
     }
-    //gameObject.SetActive(false/true)
-
-
     void bossturn()
     {
         if(currentturn == "Boss")
