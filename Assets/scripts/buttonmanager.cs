@@ -35,7 +35,7 @@ public class buttonmanager : MonoBehaviour
     void Start()
     {
         player1Move1.onClick.AddListener(blackholerunner);
-        player1Move2.onClick.AddListener(blackholerunner);
+        player1Move2.onClick.AddListener(TeamHealrunner);
         player1Move3.onClick.AddListener(blackholerunner);
         player1Move4.onClick.AddListener(blackholerunner);
 
@@ -52,6 +52,10 @@ public class buttonmanager : MonoBehaviour
     void blackholerunner()
     {
         turns.Blackhole();        
+    }
+    void TeamHealrunner()
+    {
+        turns.TeamHeal();
     }
 
     void Update()

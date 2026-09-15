@@ -21,10 +21,15 @@ public class Turns : MonoBehaviour
     int wheelrollsPlayers = 0;
     int wheelrollsBoss = 0;
 
-    public int player1currenthealth = 15;
-    int player2currenthealth = 30;
-    int player3currenthealth = 20;
-    int bosscurrenthealth = 100;
+    public int player1maxhealth = 15;
+    int player2maxthealth = 30;
+    int player3maxhealth = 20;
+    int bossmaxhealth = 100;
+
+    public int player1currenthealth = 0;
+    int player2currenthealth = 0;
+    int player3currenthealth = 0;
+    int bosscurrenthealth = 0;
 
     int differenceinroll = 0;
     int damagetoboss = 0;
@@ -40,6 +45,11 @@ public class Turns : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        player1currenthealth = player1maxhealth;
+        player2currenthealth = player2maxthealth;
+        player3currenthealth = player3maxhealth;
+        bosscurrenthealth = bossmaxhealth;
+
         PlayerRoll.text = wheelrollsPlayers.ToString();
         BossRoll.text = wheelrollsBoss.ToString();
         Player1health.text = player1currenthealth.ToString() + "/15";
@@ -71,10 +81,11 @@ public class Turns : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Blackhole();
+            player1currenthealth++;
+            Player3health.text = player3currenthealth.ToString() + "/20";
 
-            
- 
+
+
         }
 
         if (Input.GetKeyDown(KeyCode.W))
@@ -103,6 +114,29 @@ public class Turns : MonoBehaviour
 
         bossturn();
 
+        if(player1currenthealth > player1maxhealth)
+        {
+            player1currenthealth = player1maxhealth;
+            Player1health.text = player1currenthealth.ToString() + "/15";
+            Debug.Log("health reset ");
+        }
+        if (player2currenthealth > player2maxthealth)
+        {
+            player2currenthealth = player2maxthealth;
+            Player2health.text = player2currenthealth.ToString() + "/30";
+        }
+        if (player3currenthealth > player3maxhealth)
+        {
+            player3currenthealth = player3maxhealth;
+            Player3health.text = player3currenthealth.ToString() + "/20";
+        }
+        if (bosscurrenthealth > bossmaxhealth)
+        {
+            bosscurrenthealth = bossmaxhealth;
+            Bosshealth.text = bosscurrenthealth.ToString() + "/100";
+        }
+
+
     }
 
     public int playerroll()
@@ -128,47 +162,46 @@ public class Turns : MonoBehaviour
 
     }
 
+    public void TeamHeal()
+    {
+        StartCoroutine(TeamHealCoroutine());
+        Debug.Log("Team Heal");
+    }
 
-   public  IEnumerator BlackHoleeCoroutine()
+    public  IEnumerator BlackHoleeCoroutine()
     {
 
 
             int rollNumber = playerroll();
             int rollBossnumber = bossroll();
-            Debug.Log(rollNumber );
-        Debug.Log(rollBossnumber);
+            
 
         //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(.2F);
 
              rollNumber = playerroll();
              rollBossnumber = bossroll();
-            Debug.Log(rollNumber );
-        Debug.Log(rollBossnumber);
+            
 
         //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(.2F);
 
             rollNumber = playerroll();
             rollBossnumber = bossroll();
-            Debug.Log(rollNumber );
-        Debug.Log(rollBossnumber);
+            
 
         //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(.2F);
 
             rollNumber = playerroll();
             rollBossnumber = bossroll();
-            Debug.Log(rollNumber);
-        Debug.Log(rollBossnumber);
+            
         //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(.2F);
 
             rollNumber = playerroll();
             rollBossnumber = bossroll();
-            Debug.Log(rollNumber);
-
-            Debug.Log(rollBossnumber);
+            
 
 
         //yield on a new YieldInstruction that waits for 5 seconds.
@@ -212,6 +245,77 @@ public class Turns : MonoBehaviour
                 }
 
     }
+
+   public IEnumerator TeamHealCoroutine()
+    {
+        int rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        
+        if(rollNumber == 1)
+        {
+            player1currenthealth--;
+            Player1health.text = player1currenthealth.ToString() + "/15";
+            player2currenthealth--;
+            Player2health.text = player2currenthealth.ToString() + "/30";
+            player3currenthealth--;
+            Player3health.text = player3currenthealth.ToString() + "/20";
+        }
+        if (rollNumber >= 2 && rollNumber <= 5)
+        {
+            player1currenthealth++;
+            Player1health.text = player1currenthealth.ToString() + "/15";
+            player2currenthealth++;
+            Player2health.text = player2currenthealth.ToString() + "/30";
+            player3currenthealth++;
+            Player3health.text = player3currenthealth.ToString() + "/20";
+        }
+        if(rollNumber >= 6 && rollNumber <= 10)
+        {
+            player1currenthealth += 3;
+            Player1health.text = player1currenthealth.ToString() + "/15";
+            player2currenthealth += 5;
+            Player2health.text = player2currenthealth.ToString() + "/30";
+            player3currenthealth += 4;
+            Player3health.text = player3currenthealth.ToString() + "/20";
+        }
+        if (rollNumber >= 11 && rollNumber <= 15)
+        {
+            player1currenthealth += 5;
+            Player1health.text = player1currenthealth.ToString() + "/15";
+            player2currenthealth += 7;
+            Player2health.text = player2currenthealth.ToString() + "/30";
+            player3currenthealth += 6;
+            Player3health.text = player3currenthealth.ToString() + "/20";
+        }
+        if (rollNumber >= 16 && rollNumber <= 19)
+        {
+            player1currenthealth += 8;
+            Player1health.text = player1currenthealth.ToString() + "/15";
+            player2currenthealth += 10;
+            Player2health.text = player2currenthealth.ToString() + "/30";
+            player3currenthealth += 9;
+            Player3health.text = player3currenthealth.ToString() + "/20";
+        }
+        if (rollNumber ==20)
+        {
+            player1currenthealth += 10;
+            Player1health.text = player1currenthealth.ToString() + "/15";
+            player2currenthealth += 15;
+            Player2health.text = player2currenthealth.ToString() + "/30";
+            player3currenthealth += 13;
+            Player3health.text = player3currenthealth.ToString() + "/20";
+        }
+    }
+
     void bossturn()
     {
         if(currentturn == "Boss")
