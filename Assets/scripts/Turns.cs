@@ -18,6 +18,9 @@ public class Turns : MonoBehaviour
     [SerializeField] public string currentturn;
     [SerializeField] TextMeshProUGUI whosTurnText;
 
+    [Header("status")]
+    [SerializeField] GameObject bossconfusion;
+
     int wheelrollsPlayers = 0;
     int wheelrollsBoss = 0;
 
@@ -31,6 +34,8 @@ public class Turns : MonoBehaviour
     int player3currenthealth = 0;
     int bosscurrenthealth = 0;
 
+    int halvingcurrenthealth = 0;
+
     int differenceinroll = 0;
     int damagetoboss = 0;
 
@@ -38,7 +43,12 @@ public class Turns : MonoBehaviour
 
     int bossmoveslot = 0;
 
-    
+
+    public bool player1dead = false;
+    public bool player2dead = false;
+    public bool player3dead = false;
+
+    bool isbossconfused = false;
 
 
 
@@ -111,6 +121,11 @@ public class Turns : MonoBehaviour
             currentturn = "Player3";
             whosTurnText.text = currentturn + "'s turn";
         }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            currentturn = "Boss";
+            whosTurnText.text = currentturn + "'s turn";
+        }
 
         bossturn();
 
@@ -134,6 +149,28 @@ public class Turns : MonoBehaviour
         {
             bosscurrenthealth = bossmaxhealth;
             Bosshealth.text = bosscurrenthealth.ToString() + "/100";
+        }
+
+        if(player1currenthealth <= 0)
+        {            
+            player1dead = true;
+        }
+        if (player2currenthealth <= 0)
+        {
+            player2dead = true;
+        }
+        if (player3currenthealth <= 0)
+        {
+            player3dead = true;
+        }
+
+        if(isbossconfused == true)
+        {
+            bossconfusion.SetActive(true);
+        }
+        if (isbossconfused == false)
+        {
+            bossconfusion.SetActive(false);
         }
 
 
@@ -165,7 +202,19 @@ public class Turns : MonoBehaviour
     public void TeamHeal()
     {
         StartCoroutine(TeamHealCoroutine());
-        Debug.Log("Team Heal");
+        
+    }
+
+
+    public void FatesGambit()
+    {
+        StartCoroutine(FatesGambitCoroutine());
+        
+    }
+
+    public void ChaosChaos()
+    {
+        StartCoroutine(ChaosChaosCoroutine());
     }
 
     public  IEnumerator BlackHoleeCoroutine()
@@ -246,7 +295,7 @@ public class Turns : MonoBehaviour
 
     }
 
-   public IEnumerator TeamHealCoroutine()
+    public IEnumerator TeamHealCoroutine()
     {
         int rollNumber = playerroll();
         yield return new WaitForSeconds(.2F);
@@ -316,32 +365,182 @@ public class Turns : MonoBehaviour
         }
     }
 
+    public IEnumerator FatesGambitCoroutine()
+    {
+        int rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        if(rollNumber>= 1 && rollNumber <= 10)
+        {
+            int partymemeberdies = Random.Range(1, 4);
+            if(partymemeberdies == 1)
+            {
+                player1currenthealth = 0;
+                Player1health.text = player1currenthealth.ToString() + "/15";
+            }
+            if (partymemeberdies == 2)
+            {
+                player2currenthealth = 0;
+                Player2health.text = player2currenthealth.ToString() + "/30";
+            }
+            if (partymemeberdies == 3)
+            {
+                player3currenthealth = 0;
+                Player3health.text = player3currenthealth.ToString() + "/20";
+            }
+            int partymeamberhalfhealth = Random.Range(1, 3);
+            if(partymeamberhalfhealth == 1)
+            {
+                if(partymemeberdies == 1)
+                {
+                    halvingcurrenthealth = player2currenthealth / 2;
+                    player2currenthealth = halvingcurrenthealth;
+                    Player2health.text = player2currenthealth.ToString() + "/30";
+                }
+                else
+                {
+                    halvingcurrenthealth = player1currenthealth / 2;
+                    player1currenthealth = halvingcurrenthealth;
+                    Player1health.text = player1currenthealth.ToString() + "/15";
+                }
+            }
+            if(partymeamberhalfhealth == 2)
+            {
+                if(partymemeberdies == 2)
+                {
+                    halvingcurrenthealth = player3currenthealth / 2;
+                    player3currenthealth = halvingcurrenthealth;
+                    Player3health.text = player3currenthealth.ToString() + "/20";
+                }
+                else
+                {
+                    halvingcurrenthealth = player2currenthealth / 2;
+                    player2currenthealth = halvingcurrenthealth;
+                    Player2health.text = player2currenthealth.ToString() + "/30";
+                }   
+            }
+        } 
+        if(rollNumber >=11 && rollNumber <=20)
+        {
+            halvingcurrenthealth = bosscurrenthealth / 2;
+            bosscurrenthealth = halvingcurrenthealth;
+            Bosshealth.text = bosscurrenthealth.ToString() + "/100";
+        }
+    }
+
+    public IEnumerator ChaosChaosCoroutine()
+    {
+        int rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        if(rollNumber >= 1 && rollNumber <= 5)
+        {
+            FatesGambit();
+        }
+        if(rollNumber >= 6 && rollNumber <= 20)
+        {
+            isbossconfused = true;
+            bossconfusion.SetActive(true);
+        }
+    }
+
     void bossturn()
     {
         if(currentturn == "Boss")
         {
-            var bossmoverandomiser = Random.Range(1, 11);
-            bossmoveslot = bossmoverandomiser;
+            if (isbossconfused == true)
+            {
+                int confusionroll = Random.Range(1, 3);
+                if (confusionroll == 1)
+                {
+                    bosscurrenthealth = bosscurrenthealth - 5;
+                    Bosshealth.text = bosscurrenthealth.ToString() + "/100";
+                    isbossconfused = false;
+                    bossconfusion.SetActive(false);
+                    currentturn = "Player1";
+                }
+                if (confusionroll == 2)
+                {
+                    if (currentturn == "Boss")
+                    {
+                        var bossmoverandomiser = Random.Range(1, 11);
+                        bossmoveslot = bossmoverandomiser;
 
-            if(bossmoverandomiser == 1)
-            {
-                Debug.Log("move 1");
-                currentturn = "notboss";
+                        if (bossmoverandomiser == 1)
+                        {
+                            Debug.Log("move 1");
+                            currentturn = "Player1";
+                            whosTurnText.text = currentturn + "'s turn";
+                        }
+                        if (bossmoverandomiser >= 2 && bossmoverandomiser < 6)
+                        {
+                            Debug.Log("move 2");
+                            currentturn = "Player1";
+                            whosTurnText.text = currentturn + "'s turn";
+                        }
+                        if (bossmoverandomiser >= 6 && bossmoverandomiser < 8)
+                        {
+                            Debug.Log("move 3");
+                            currentturn = "Player1";
+                            whosTurnText.text = currentturn + "'s turn";
+                        }
+                        if (bossmoverandomiser >= 8 && bossmoverandomiser < 11)
+                        {
+                            Debug.Log("move 4");
+                            currentturn = "Player1";
+                            whosTurnText.text = currentturn + "'s turn";
+                        }
+                    }
+                }
             }
-            if (bossmoverandomiser >= 2  && bossmoverandomiser <6)
+            if (isbossconfused == false)
             {
-                Debug.Log("move 2");
-                currentturn = "notboss";
-            }
-            if (bossmoverandomiser >=6 && bossmoverandomiser <8)
-            {
-                Debug.Log("move 3");
-                currentturn = "notboss";
-            }
-            if (bossmoverandomiser >=8 && bossmoverandomiser <11)
-            {
-                Debug.Log("move 4");
-                currentturn = "notboss";
+                if (currentturn == "Boss")
+                {
+                    var bossmoverandomiser = Random.Range(1, 11);
+                    bossmoveslot = bossmoverandomiser;
+
+                    if (bossmoverandomiser == 1)
+                    {
+                        Debug.Log("move 1");
+                        currentturn = "Player1";
+                        whosTurnText.text = currentturn + "'s turn";
+                    }
+                    if (bossmoverandomiser >= 2 && bossmoverandomiser < 6)
+                    {
+                        Debug.Log("move 2");
+                        currentturn = "Player1";
+                        whosTurnText.text = currentturn + "'s turn";
+                    }
+                    if (bossmoverandomiser >= 6 && bossmoverandomiser < 8)
+                    {
+                        Debug.Log("move 3");
+                        currentturn = "Player1";
+                        whosTurnText.text = currentturn + "'s turn";
+                    }
+                    if (bossmoverandomiser >= 8 && bossmoverandomiser < 11)
+                    {
+                        Debug.Log("move 4");
+                        currentturn = "Player1";
+                        whosTurnText.text = currentturn + "'s turn";
+                    }
+                }
             }
         }
     }

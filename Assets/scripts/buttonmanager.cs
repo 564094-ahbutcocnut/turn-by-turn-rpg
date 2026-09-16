@@ -36,8 +36,8 @@ public class buttonmanager : MonoBehaviour
     {
         player1Move1.onClick.AddListener(blackholerunner);
         player1Move2.onClick.AddListener(TeamHealrunner);
-        player1Move3.onClick.AddListener(blackholerunner);
-        player1Move4.onClick.AddListener(blackholerunner);
+        player1Move3.onClick.AddListener(FatesGambitrunner);
+        player1Move4.onClick.AddListener(ChaosChaosrunner);
 
 
         player2Move1.onClick.AddListener(blackholerunner);
@@ -57,9 +57,25 @@ public class buttonmanager : MonoBehaviour
     {
         turns.TeamHeal();
     }
+    void FatesGambitrunner()
+    {
+        turns.FatesGambit();
+    }
+    void ChaosChaosrunner()
+    {
+        turns.ChaosChaos();
+    }
+
+
+
 
     void Update()
     {
+        if (turns.currentturn == "Boss")
+        {
+            Player1Moves.SetActive(false);
+            Player2Moves.SetActive(false);
+        }
         if (turns.currentturn == "Player1")
         {
             Player1Moves.SetActive(true);
@@ -68,6 +84,11 @@ public class buttonmanager : MonoBehaviour
         {
             Player1Moves.SetActive(false);
         }
+        if(turns.player1dead == true && turns.currentturn == "Player1")
+        {
+            Player1Moves.SetActive(false);
+            turns.currentturn = "Player2";
+        }
         if (turns.currentturn == "Player2")
         {
             Player2Moves.SetActive(true);
@@ -75,6 +96,11 @@ public class buttonmanager : MonoBehaviour
         if (turns.currentturn != "Player2")
         {
             Player2Moves.SetActive(false);
+        }
+        if (turns.player2dead == true && turns.currentturn == "Player2")
+        {
+            Player2Moves.SetActive(false);
+            turns.currentturn = "Player3";
         }
 
 
