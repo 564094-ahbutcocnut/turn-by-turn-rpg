@@ -84,6 +84,10 @@ public class buttonmanager : MonoBehaviour
 
         
     }
+    void Fireballrunner()
+    {
+        turns.FireBall();
+    }
 
 
 
