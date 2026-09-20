@@ -40,7 +40,7 @@ public class buttonmanager : MonoBehaviour
         player1Move4.onClick.AddListener(ChaosChaosrunner);
 
 
-        player2Move1.onClick.AddListener(Doitagainrunner);
+        player2Move1.onClick.AddListener(Fireballrunner);
         player2Move2.onClick.AddListener(FatesGambitrunner);
         player2Move3.onClick.AddListener(FatesGambitrunner);
         player2Move4.onClick.AddListener(FatesGambitrunner);
@@ -77,12 +77,6 @@ public class buttonmanager : MonoBehaviour
         turns.ChaosChaos();
 
        
-    }
-    void Doitagainrunner()
-    {
-        turns.Doitagain();
-
-        
     }
     void Fireballrunner()
     {

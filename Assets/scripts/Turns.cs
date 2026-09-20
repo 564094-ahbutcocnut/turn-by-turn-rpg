@@ -18,6 +18,7 @@ public class Turns : MonoBehaviour
     [SerializeField] TextMeshProUGUI Player1mana;
     [SerializeField] TextMeshProUGUI Player2mana;
     [SerializeField] TextMeshProUGUI Player3mana;
+    [SerializeField] GameObject NOMANA;
 
     [Header("who's turn")]
     [SerializeField] public string currentturn;
@@ -39,6 +40,14 @@ public class Turns : MonoBehaviour
     int player3currenthealth = 0;
     int bosscurrenthealth = 0;
 
+    int player1maxmana = 100;
+    int player2maxmana = 50;
+    int player3maxmana = 75;
+
+    int player1currentmana = 0;
+    int player2currentmana = 0;
+    int player3currentmana = 0;
+
     int halvingcurrenthealth = 0;
 
     int differenceinroll = 0;
@@ -48,6 +57,7 @@ public class Turns : MonoBehaviour
 
     int bossmoveslot = 0;
 
+    int lifestealamount = 0;
 
     public bool player1dead = false;
     public bool player2dead = false;
@@ -67,13 +77,21 @@ public class Turns : MonoBehaviour
         player3currenthealth = player3maxhealth;
         bosscurrenthealth = bossmaxhealth;
 
+        player1currentmana = player1maxmana;
+        player2currentmana = player2maxmana;
+        player3currentmana = player3maxmana;
+
         PlayerRoll.text = wheelrollsPlayers.ToString();
         BossRoll.text = wheelrollsBoss.ToString();
         Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+        Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
         Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+        Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
         Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
+        Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
         Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
         whosTurnText.text = currentturn + "'s turn";
+
 
     }
 
@@ -132,15 +150,30 @@ public class Turns : MonoBehaviour
             Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth; 
             Debug.Log("health reset ");
         }
+        if(player1currentmana > player1maxmana)
+        {
+            player1currentmana = player1maxmana;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+        }
         if (player2currenthealth > player2maxthealth)
         {
             player2currenthealth = player2maxthealth;
             Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
         }
+        if (player2currentmana > player2maxmana)
+        {
+            player2currentmana = player2maxmana;
+            Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
+        }
         if (player3currenthealth > player3maxhealth)
         {
             player3currenthealth = player3maxhealth;
             Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
+        }
+        if (player3currentmana > player3maxmana)
+        {
+            player3currentmana = player3maxmana;
+            Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
         }
         if (bosscurrenthealth > bossmaxhealth)
         {
@@ -228,11 +261,6 @@ public class Turns : MonoBehaviour
         StartCoroutine(ChaosChaosCoroutine());
     }
 
-    public void Doitagain()
-    {
-        StartCoroutine(DoitagainCoroutine());
-    }
-
     public void FireBall()
     {
         StartCoroutine(FireballCoroutine());
@@ -313,83 +341,93 @@ public class Turns : MonoBehaviour
 
     public  IEnumerator BlackHoleeCoroutine()
     {
+        if (player1currentmana < 30)
+        {
+            NOMANA.SetActive(true);
+        }
+        if (player1currentmana >=30)
+        {
+            player1currentmana = player1currentmana - 30;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
             int rollNumber = playerroll();
             int rollBossnumber = bossroll();
-        yield return new WaitForSeconds(.2F);
-             rollNumber = playerroll();
-             rollBossnumber = bossroll();
-        yield return new WaitForSeconds(.2F);
+            yield return new WaitForSeconds(.2F);
             rollNumber = playerroll();
             rollBossnumber = bossroll();
-        yield return new WaitForSeconds(.2F);
+            yield return new WaitForSeconds(.2F);
+            rollNumber = playerroll();
+            rollBossnumber = bossroll();
+            yield return new WaitForSeconds(.2F);
 
             rollNumber = playerroll();
             rollBossnumber = bossroll();
-        yield return new WaitForSeconds(.2F);
+            yield return new WaitForSeconds(.2F);
 
             rollNumber = playerroll();
             rollBossnumber = bossroll();
-        yield return new WaitForSeconds(.2F);
+            yield return new WaitForSeconds(.2F);
 
             differenceinroll = rollNumber - rollBossnumber;
 
 
-        if (differenceinroll <= 0)
-        {
-            player1currenthealth = player1currenthealth - 3;
-            Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
-            player2currenthealth = player2currenthealth - 4;
-            Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
-            player3currenthealth = player3currenthealth - 5;
-            Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
-            lastusedmove = "Blackhole";
-            switchPlayer();
+            if (differenceinroll <= 0)
+            {
+                player1currenthealth = player1currenthealth - 3;
+                Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+                player2currenthealth = player2currenthealth - 4;
+                Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+                player3currenthealth = player3currenthealth - 5;
+                Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
+                lastusedmove = "Blackhole";
+                switchPlayer();
 
-        }
-        if (differenceinroll >= 1 && differenceinroll <= 5)
-        {
-            player1currenthealth = player1currenthealth - 1;
-            Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
-            player2currenthealth = player2currenthealth - 2;
-            Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
-            player3currenthealth = player3currenthealth - 3;
-            Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
-            lastusedmove = "Blackhole";
-            switchPlayer();
-        }
-        if (differenceinroll >= 6 && differenceinroll <= 10)
-        {
-            damagetoboss = 3;
-            lastusedmove = "Blackhole";
-            switchPlayer();
-        }
-        if (differenceinroll >= 11 && differenceinroll <= 14)
-        {
-            damagetoboss = 5;
-            lastusedmove = "Blackhole";
-            switchPlayer();
-        }
-        if (differenceinroll >= 15 && differenceinroll <= 19)
-        {
-            damagetoboss = 7;
-            lastusedmove = "Blackhole";
-            switchPlayer();
-        }
-        if (differenceinroll == 20)
-        {
-            damagetoboss = 10;
-            lastusedmove = "Blackhole";
-            switchPlayer();
+            }
+            if (differenceinroll >= 1 && differenceinroll <= 5)
+            {
+                player1currenthealth = player1currenthealth - 1;
+                Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+                player2currenthealth = player2currenthealth - 2;
+                Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+                player3currenthealth = player3currenthealth - 3;
+                Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
+                lastusedmove = "Blackhole";
+                switchPlayer();
+            }
+            if (differenceinroll >= 6 && differenceinroll <= 10)
+            {
+                damagetoboss = 3;
+                lastusedmove = "Blackhole";
+                switchPlayer();
+            }
+            if (differenceinroll >= 11 && differenceinroll <= 14)
+            {
+                damagetoboss = 5;
+                lastusedmove = "Blackhole";
+                switchPlayer();
+            }
+            if (differenceinroll >= 15 && differenceinroll <= 19)
+            {
+                damagetoboss = 7;
+                lastusedmove = "Blackhole";
+                switchPlayer();
+            }
+            if (differenceinroll == 20)
+            {
+                damagetoboss = 10;
+                lastusedmove = "Blackhole";
+                switchPlayer();
+            }
+
+            if (damagetoboss > 0)
+            {
+                bossdamagetransitionvalue = bosscurrenthealth;
+                bosscurrenthealth = bossdamagetransitionvalue - damagetoboss;
+                Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+                damagetoboss = 0;
+
+            }
         }
 
-        if (damagetoboss > 0)
-        {
-            bossdamagetransitionvalue = bosscurrenthealth;
-            bosscurrenthealth = bossdamagetransitionvalue - damagetoboss;
-            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
-            damagetoboss = 0;
-
-        }
 
     }
 
@@ -589,36 +627,7 @@ public class Turns : MonoBehaviour
             switchPlayer();
         }
     }
-
-    public IEnumerator DoitagainCoroutine()
-    {        
-        yield return new WaitForSeconds(.002F);
-
-        if(lastusedmove == "Blackhole")
-        {
-            Blackhole();
-
-        }
-        if (lastusedmove == "TeamHeal")
-        {
-            TeamHeal();
-        }
-        if (lastusedmove == "FatesGambit")
-        {
-            FatesGambit();
-        }
-        if (lastusedmove == "ChaosChaos")
-        {
-            ChaosChaos();
-        }
-        if (lastusedmove == "Fireball")
-        {
-            FireBall();
-        }
-
-
-    }
-
+    
     public IEnumerator FireballCoroutine()
     {
         int rollNumber = playerroll();
@@ -681,6 +690,92 @@ public class Turns : MonoBehaviour
             lastusedmove = "Fireball";
             switchPlayer();
         }
+
+        if (damagetoboss > 0)
+        {
+            bossdamagetransitionvalue = bosscurrenthealth;
+            bosscurrenthealth = bossdamagetransitionvalue - damagetoboss;
+            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            damagetoboss = 0;
+
+        }
+    }
+
+    public IEumerator bounterfulbonk()
+    {
+
+        int rollNumber = playerroll();
+        int rollBossnumber = bossroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        rollBossnumber = bossroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        rollBossnumber = bossroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollNumber = playerroll();
+        rollBossnumber = bossroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollNumber = playerroll();
+        rollBossnumber = bossroll();
+        yield return new WaitForSeconds(.2F);
+
+        differenceinroll = rollNumber - rollBossnumber;
+
+        if(differenceinroll < 0)
+        {
+            damagetoboss = -5;
+            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+        }
+        if(differenceinroll == 0)
+        {
+            damagetoboss = -3;
+            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+        }
+        if(differenceinroll >= 1 && differenceinroll <= 5)
+        {
+            damagetoboss = 4;
+            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            lifestealamount = damagetoboss / 4;
+            player1currenthealth = player1currenthealth + lifestealamount;
+            Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+        }
+        if (differenceinroll >= 6 && differenceinroll <= 10)
+        {
+            damagetoboss = 6;
+            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            lifestealamount = damagetoboss / 4;
+            player1currenthealth = player1currenthealth + lifestealamount;
+            Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+        }
+        if (differenceinroll >= 11 && differenceinroll <= 15)
+        {
+            damagetoboss = 8;
+            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            lifestealamount = damagetoboss / 4;
+            player1currenthealth = player1currenthealth + lifestealamount;
+            Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+        }
+        if (differenceinroll >= 16 && differenceinroll <= 20)
+        {
+            damagetoboss = 10;
+            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            lifestealamount = damagetoboss / 4;
+            player1currenthealth = player1currenthealth + lifestealamount;
+            Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+        }
+
+        if (damagetoboss != 0)
+        {
+            bossdamagetransitionvalue = bosscurrenthealth;
+            bosscurrenthealth = bossdamagetransitionvalue - damagetoboss;
+            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            damagetoboss = 0;
+
+        }
+
     }
 
     void bossturn()
@@ -771,7 +866,8 @@ public class Turns : MonoBehaviour
 
     void switchPlayer()
     {
-        Debug.Log("switch player");
+
+        NOMANA.SetActive(false);
         if (currentturn == "Player3")
         {
             currentturn = "Boss";
