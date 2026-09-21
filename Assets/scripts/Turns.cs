@@ -5,6 +5,10 @@ using System.Collections;
 public class Turns : MonoBehaviour
 {
     [Header("Rolls")]
+    [SerializeField] GameObject BattleUI;
+    [SerializeField] GameObject Overworld;
+
+    [Header("Rolls")]
     [SerializeField] TextMeshProUGUI PlayerRoll;
     [SerializeField] TextMeshProUGUI BossRoll;
 
@@ -26,6 +30,9 @@ public class Turns : MonoBehaviour
 
     [Header("status")]
     [SerializeField] GameObject bossconfusion;
+
+    public bool inbattle = false;
+    bool hasnotbeensetyet = false;
 
     int wheelrollsPlayers = 0;
     int wheelrollsBoss = 0;
@@ -72,147 +79,180 @@ public class Turns : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player1currenthealth = player1maxhealth;
-        player2currenthealth = player2maxthealth;
-        player3currenthealth = player3maxhealth;
-        bosscurrenthealth = bossmaxhealth;
-
-        player1currentmana = player1maxmana;
-        player2currentmana = player2maxmana;
-        player3currentmana = player3maxmana;
-
-        PlayerRoll.text = wheelrollsPlayers.ToString();
-        BossRoll.text = wheelrollsBoss.ToString();
-        Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
-        Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
-        Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
-        Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
-        Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
-        Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
-        Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
-        whosTurnText.text = currentturn + "'s turn";
-
 
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
+
+
         if (Input.GetKeyDown(KeyCode.P))
         {
+            if (inbattle == true)
+            {
+                inbattle = false;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            if (inbattle == false)
+            {
 
-                //Start the coroutine we define below named ExampleCoroutine.
-               // StartCoroutine(ExampleCoroutine());
-                
-         
-          
-
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            bossroll();
-        }
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            player1currenthealth--;
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            currentturn = "Boss";
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            currentturn = "Player1";
-            whosTurnText.text = currentturn + "'s turn";
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            currentturn = "Player2";
-            whosTurnText.text = currentturn + "'s turn";
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            currentturn = "Player3";
-            whosTurnText.text = currentturn + "'s turn";
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            currentturn = "Boss";
-            whosTurnText.text = currentturn + "'s turn";
+                inbattle = true;
+            }
         }
 
-        bossturn();
+        if (inbattle == true)
+        {
+            BattleUI.SetActive(true);
+            Overworld.SetActive(false);
 
-        if(player1currenthealth > player1maxhealth)
-        {
-            player1currenthealth = player1maxhealth;
-            Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth; 
-            Debug.Log("health reset ");
-        }
-        if(player1currentmana > player1maxmana)
-        {
-            player1currentmana = player1maxmana;
-            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
-        }
-        if (player2currenthealth > player2maxthealth)
-        {
-            player2currenthealth = player2maxthealth;
-            Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
-        }
-        if (player2currentmana > player2maxmana)
-        {
-            player2currentmana = player2maxmana;
-            Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
-        }
-        if (player3currenthealth > player3maxhealth)
-        {
-            player3currenthealth = player3maxhealth;
-            Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
-        }
-        if (player3currentmana > player3maxmana)
-        {
-            player3currentmana = player3maxmana;
-            Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
-        }
-        if (bosscurrenthealth > bossmaxhealth)
-        {
-            bosscurrenthealth = bossmaxhealth;
-            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+
+            if(hasnotbeensetyet == false)
+            {
+                player1currenthealth = player1maxhealth;
+                player2currenthealth = player2maxthealth;
+                player3currenthealth = player3maxhealth;
+                bosscurrenthealth = bossmaxhealth;
+
+                player1currentmana = player1maxmana;
+                player2currentmana = player2maxmana;
+                player3currentmana = player3maxmana;
+
+                PlayerRoll.text = wheelrollsPlayers.ToString();
+                BossRoll.text = wheelrollsBoss.ToString();
+                Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+                Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+                Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+                Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
+                Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
+                Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
+                Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+                whosTurnText.text = currentturn + "'s turn";
+                hasnotbeensetyet = true;
+            }
+
+
+
+
+
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                bossroll();
+            }
+
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                player1currenthealth--;
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                currentturn = "Boss";
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                currentturn = "Player1";
+                whosTurnText.text = currentturn + "'s turn";
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                currentturn = "Player2";
+                whosTurnText.text = currentturn + "'s turn";
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                currentturn = "Player3";
+                whosTurnText.text = currentturn + "'s turn";
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                currentturn = "Boss";
+                whosTurnText.text = currentturn + "'s turn";
+            }
+
+            bossturn();
+
+            if (player1currenthealth > player1maxhealth)
+            {
+                player1currenthealth = player1maxhealth;
+                Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+                Debug.Log("health reset ");
+            }
+            if (player1currentmana > player1maxmana)
+            {
+                player1currentmana = player1maxmana;
+                Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            }
+            if (player2currenthealth > player2maxthealth)
+            {
+                player2currenthealth = player2maxthealth;
+                Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+            }
+            if (player2currentmana > player2maxmana)
+            {
+                player2currentmana = player2maxmana;
+                Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
+            }
+            if (player3currenthealth > player3maxhealth)
+            {
+                player3currenthealth = player3maxhealth;
+                Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
+            }
+            if (player3currentmana > player3maxmana)
+            {
+                player3currentmana = player3maxmana;
+                Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
+            }
+            if (bosscurrenthealth > bossmaxhealth)
+            {
+                bosscurrenthealth = bossmaxhealth;
+                Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            }
+
+            if (player1currenthealth <= 0)
+            {
+                player1dead = true;
+            }
+            if (player2currenthealth <= 0)
+            {
+                player2dead = true;
+            }
+            if (player3currenthealth <= 0)
+            {
+                player3dead = true;
+            }
+            if (player1currenthealth > 0)
+            {
+                player1dead = false;
+            }
+            if (player2currenthealth > 0)
+            {
+                player2dead = false;
+            }
+            if (player3currenthealth > 0)
+            {
+                player3dead = false;
+            }
+
+            if (isbossconfused == true)
+            {
+                bossconfusion.SetActive(true);
+            }
+            if (isbossconfused == false)
+            {
+                bossconfusion.SetActive(false);
+            }
+
+
         }
 
-        if(player1currenthealth <= 0)
-        {            
-            player1dead = true;
-        }
-        if (player2currenthealth <= 0)
+        if(inbattle == false)
         {
-            player2dead = true;
-        }
-        if (player3currenthealth <= 0)
-        {
-            player3dead = true;
-        }
-        if (player1currenthealth > 0)
-        {
-            player1dead = false;
-        }
-        if (player2currenthealth > 0)
-        {
-            player2dead = false;
-        }
-        if (player3currenthealth > 0)
-        {
-            player3dead = false;
-        }
-
-        if (isbossconfused == true)
-        {
-            bossconfusion.SetActive(true);
-        }
-        if (isbossconfused == false)
-        {
-            bossconfusion.SetActive(false);
+            BattleUI.SetActive(false);
+            Overworld.SetActive(true);
         }
 
 
@@ -615,7 +655,6 @@ public class Turns : MonoBehaviour
 
         if(rollNumber >= 1 && rollNumber <= 5)
         {
-            FatesGambit();
             lastusedmove = "ChaosChaos";
             switchPlayer();
         }
@@ -701,7 +740,7 @@ public class Turns : MonoBehaviour
         }
     }
 
-    public IEumerator bounterfulbonk()
+    public IEnumerator bounterfulbonk()
     {
 
         int rollNumber = playerroll();
