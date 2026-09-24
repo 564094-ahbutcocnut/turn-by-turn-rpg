@@ -35,20 +35,20 @@ public class buttonmanager : MonoBehaviour
     void Start()
     {
         player1Move1.onClick.AddListener(blackholerunner);
-        player1Move2.onClick.AddListener(TeamHealrunner);
-        player1Move3.onClick.AddListener(FatesGambitrunner);
-        player1Move4.onClick.AddListener(ChaosChaosrunner);
+        player1Move2.onClick.AddListener(Fireballrunner);
+        player1Move3.onClick.AddListener(Fireballrunner);
+        player1Move4.onClick.AddListener(Fireballrunner);
 
 
-        player2Move1.onClick.AddListener(Fireballrunner);
-        player2Move2.onClick.AddListener(FatesGambitrunner);
-        player2Move3.onClick.AddListener(FatesGambitrunner);
-        player2Move4.onClick.AddListener(FatesGambitrunner);
+        player2Move1.onClick.AddListener(FatesGambitrunner);
+        player2Move2.onClick.AddListener(Bountifulbonkrunner);
+        player2Move3.onClick.AddListener(Bountifulbonkrunner);
+        player2Move4.onClick.AddListener(Bountifulbonkrunner);
 
-        player3Move1.onClick.AddListener(blackholerunner);
-        player3Move2.onClick.AddListener(ChaosChaosrunner);
-        player3Move3.onClick.AddListener(blackholerunner);
-        player3Move4.onClick.AddListener(blackholerunner);
+        player3Move1.onClick.AddListener(ChaosChaosrunner);
+        player3Move2.onClick.AddListener(TeamHealrunner);
+        player3Move3.onClick.AddListener(TeamHealrunner);
+        player3Move4.onClick.AddListener(TeamHealrunner);
 
 
 
@@ -81,6 +81,11 @@ public class buttonmanager : MonoBehaviour
     void Fireballrunner()
     {
         turns.FireBall();
+    }
+
+    void Bountifulbonkrunner()
+    {
+        turns.bounterfulbonk();
     }
 
 
@@ -134,7 +139,122 @@ public class buttonmanager : MonoBehaviour
         }
 
 
+        if(turns.player1currentmana < 30)
+        {
+            player1Move1.interactable = false;
+        }
+        else
+        {
+            player1Move1.interactable = true;
+        }
 
+
+        if (turns.player1currentmana < 10)
+        {
+            player1Move2.interactable = false;
+        }
+        else
+        {
+            player1Move2.interactable = true;
+        }
+
+
+        if (turns.player1currentmana < 20)
+        {
+            player1Move3.interactable = false;
+        }
+        else
+        {
+            player1Move3.interactable = true;
+        }
+
+
+        if (turns.player1currentmana < 25)
+        {
+            player1Move4.interactable = false;
+        }
+        else
+        {
+            player1Move4.interactable = true;
+        }
+
+        if (turns.player2currentmana < -100)
+        {
+            player2Move1.interactable = false;
+        }
+        else
+        {
+            player2Move1.interactable = true;
+        }
+
+
+        if (turns.player2currentmana < 15)
+        {
+            player2Move2.interactable = false;
+        }
+        else
+        {
+            player2Move2.interactable = true;
+        }
+
+
+        if (turns.player2currentmana < 10)
+        {
+            player2Move3.interactable = false;
+        }
+        else
+        {
+            player2Move3.interactable = true;
+        }
+
+
+        if (turns.player2currentmana < 50)
+        {
+            player2Move4.interactable = false;
+        }
+        else
+        {
+            player2Move4.interactable = true;
+        }
+
+        if (turns.player2currentmana < 5)
+        {
+            player3Move1.interactable = false;
+        }
+        else
+        {
+            player3Move1.interactable = true;
+        }
+
+
+        if (turns.player2currentmana < 20)
+        {
+            player3Move2.interactable = false;
+        }
+        else
+        {
+            player3Move2.interactable = true;
+        }
+
+
+        if (turns.player2currentmana < 10)
+        {
+            player3Move3.interactable = false;
+        }
+        else
+        {
+            player3Move3.interactable = true;
+        }
+
+
+        if (turns.player2currentmana < 40)
+        {
+            player3Move4.interactable = false;
+        }
+        else
+        {
+            player3Move4.interactable = true;
+        }
 
     }
 

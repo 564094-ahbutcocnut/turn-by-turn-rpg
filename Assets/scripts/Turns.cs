@@ -51,9 +51,9 @@ public class Turns : MonoBehaviour
     int player2maxmana = 50;
     int player3maxmana = 75;
 
-    int player1currentmana = 0;
-    int player2currentmana = 0;
-    int player3currentmana = 0;
+    public int player1currentmana = 0;
+    public int player2currentmana = 0;
+    public int player3currentmana = 0;
 
     int halvingcurrenthealth = 0;
 
@@ -306,6 +306,11 @@ public class Turns : MonoBehaviour
         StartCoroutine(FireballCoroutine());
     }
 
+    public void bounterfulbonk()
+    {
+        StartCoroutine(bounterfulbonkCoroutine());
+    }
+
     IEnumerator Fallingdebree()
     {
 
@@ -381,12 +386,6 @@ public class Turns : MonoBehaviour
 
     public  IEnumerator BlackHoleeCoroutine()
     {
-        if (player1currentmana < 30)
-        {
-            NOMANA.SetActive(true);
-        }
-        if (player1currentmana >=30)
-        {
             player1currentmana = player1currentmana - 30;
             Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
             int rollNumber = playerroll();
@@ -466,7 +465,7 @@ public class Turns : MonoBehaviour
                 damagetoboss = 0;
 
             }
-        }
+        
 
 
     }
@@ -740,7 +739,7 @@ public class Turns : MonoBehaviour
         }
     }
 
-    public IEnumerator bounterfulbonk()
+    public IEnumerator bounterfulbonkCoroutine()
     {
 
         int rollNumber = playerroll();
