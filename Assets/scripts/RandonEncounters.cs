@@ -6,7 +6,7 @@ public class RandonEncounters : MonoBehaviour
 {
 
     [SerializeField] Turns turns;
-
+    [SerializeField] enemies Enemies;
 
 
     public string currentarea = "";
@@ -41,7 +41,7 @@ public class RandonEncounters : MonoBehaviour
 
             if(numbertillencounter == increasingnumber)
             {
-                turns.inbattle = true;
+                
 
                if(currentarea == "Area1")
                 {
@@ -50,14 +50,17 @@ public class RandonEncounters : MonoBehaviour
                     if(area1randomiser == 1)
                     {
                         currentenemy = "Goblin";
+                        Enemies.summoningnewenemy = true;
                     }
                     if (area1randomiser == 2)
                     {
                         currentenemy = "Rocky";
+                        Enemies.summoningnewenemy = true;
                     }
                     else
                     {
                         currentenemy = "Slime";
+                        Enemies.summoningnewenemy = true;
                     }
                 }
                if (currentarea == "Area2")
@@ -67,14 +70,17 @@ public class RandonEncounters : MonoBehaviour
                     if (area1randomiser == 1)
                     {
                         currentenemy = "Cactus";
+                        Enemies.summoningnewenemy = true;
                     }
                     if (area1randomiser == 2)
                     {
                         currentenemy = "minihydra";
+                        Enemies.summoningnewenemy = true;
                     }
                     else
                     {
                         currentenemy = "ArmouredScorpion";
+                        Enemies.summoningnewenemy = true;
                     }
                }
                if (currentarea == "Area3")
@@ -84,14 +90,17 @@ public class RandonEncounters : MonoBehaviour
                     if (area1randomiser == 1)
                     {
                         currentenemy = "GiantHydra";
+                        Enemies.summoningnewenemy = true;
                     }
                     if (area1randomiser == 2)
                     {
                         currentenemy = "lavamonster";
+                        Enemies.summoningnewenemy = true;
                     }
                     else
                     {
-                        currentenemy = "Slime";
+                        currentenemy = "lavabeatle";
+                        Enemies.summoningnewenemy = true;
                     }
                }
             }

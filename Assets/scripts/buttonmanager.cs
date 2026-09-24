@@ -70,7 +70,7 @@ public class buttonmanager : MonoBehaviour
     {
         turns.FatesGambit();
 
-        ;
+        
     }
     void ChaosChaosrunner()
     {

@@ -4,19 +4,19 @@ using System.Collections;
 
 public class Turns : MonoBehaviour
 {
-    [Header("Rolls")]
+    [Header("Game states")]
     [SerializeField] GameObject BattleUI;
     [SerializeField] GameObject Overworld;
 
     [Header("Rolls")]
     [SerializeField] TextMeshProUGUI PlayerRoll;
-    [SerializeField] TextMeshProUGUI BossRoll;
+    [SerializeField] TextMeshProUGUI EnemyRoll;
 
     [Header("Health")]
     [SerializeField] TextMeshProUGUI Player1health;
     [SerializeField] TextMeshProUGUI Player2health;
     [SerializeField] TextMeshProUGUI Player3health;
-    [SerializeField] TextMeshProUGUI Bosshealth;
+    [SerializeField] public TextMeshProUGUI Bosshealth;
 
     [Header("Mana")]
     [SerializeField] TextMeshProUGUI Player1mana;
@@ -47,7 +47,7 @@ public class Turns : MonoBehaviour
     int player3currenthealth = 0;
     int bosscurrenthealth = 0;
 
-    int player1maxmana = 100;
+    public int player1maxmana = 100;
     int player2maxmana = 50;
     int player3maxmana = 75;
 
@@ -123,7 +123,7 @@ public class Turns : MonoBehaviour
                 player3currentmana = player3maxmana;
 
                 PlayerRoll.text = wheelrollsPlayers.ToString();
-                BossRoll.text = wheelrollsBoss.ToString();
+                EnemyRoll.text = wheelrollsBoss.ToString();
                 Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
                 Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
                 Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
@@ -270,7 +270,7 @@ public class Turns : MonoBehaviour
     {
         var bossroll = Random.Range(1, 21);
         wheelrollsBoss = bossroll;
-        BossRoll.text = wheelrollsBoss.ToString();
+        EnemyRoll.text = wheelrollsBoss.ToString();
 
         return wheelrollsBoss;
     }
