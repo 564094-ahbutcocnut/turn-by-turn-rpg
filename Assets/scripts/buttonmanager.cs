@@ -36,7 +36,7 @@ public class buttonmanager : MonoBehaviour
     {
         player1Move1.onClick.AddListener(blackholerunner);
         player1Move2.onClick.AddListener(Fireballrunner);
-        player1Move3.onClick.AddListener(Fireballrunner);
+        player1Move3.onClick.AddListener(Thunderboltrunner);
         player1Move4.onClick.AddListener(Fireballrunner);
 
 
@@ -47,7 +47,7 @@ public class buttonmanager : MonoBehaviour
 
         player3Move1.onClick.AddListener(ChaosChaosrunner);
         player3Move2.onClick.AddListener(TeamHealrunner);
-        player3Move3.onClick.AddListener(TeamHealrunner);
+        player3Move3.onClick.AddListener(TeamBarrierrunner);
         player3Move4.onClick.AddListener(TeamHealrunner);
 
 
@@ -94,6 +94,15 @@ public class buttonmanager : MonoBehaviour
         turns.UltimateRage();
     }
 
+    void TeamBarrierrunner()
+    {
+        turns.TeamBarrier();
+    }
+
+    void Thunderboltrunner()
+    {
+        turns.Thunderbolt();
+    }
 
 
     void Update()
@@ -183,13 +192,20 @@ public class buttonmanager : MonoBehaviour
             player1Move4.interactable = true;
         }
 
-        if (turns.player2currentmana < -100)
+        if(turns.isbossparalysed)
         {
             player2Move1.interactable = false;
         }
         else
         {
-            player2Move1.interactable = true;
+            if (turns.player2currentmana < -100)
+            {
+                player2Move1.interactable = false;
+            }
+            else
+            {
+                player2Move1.interactable = true;
+            }
         }
 
 
