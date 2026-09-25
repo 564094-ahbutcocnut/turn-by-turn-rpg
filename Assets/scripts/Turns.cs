@@ -30,6 +30,9 @@ public class Turns : MonoBehaviour
 
     [Header("status")]
     [SerializeField] GameObject bossconfusion;
+    [SerializeField] GameObject enraged;
+
+    [Header("battlestuff")]
 
     public bool inbattle = false;
     bool hasnotbeensetyet = false;
@@ -47,7 +50,7 @@ public class Turns : MonoBehaviour
     int player3currenthealth = 0;
     int bosscurrenthealth = 0;
 
-    public int player1maxmana = 100;
+    int player1maxmana = 100;
     int player2maxmana = 50;
     int player3maxmana = 75;
 
@@ -72,6 +75,9 @@ public class Turns : MonoBehaviour
 
     bool isbossconfused = false;
 
+    bool rageactive = false;
+    int ragemultiplier = 1;
+
     public string lastusedmove = "";
 
     //when entering a battle setplayer active to false to stop moving during battle
@@ -85,7 +91,16 @@ public class Turns : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(rageactive == true)
+        {
+            enraged.SetActive(true);
+            ragemultiplier = 3;
+        }
+        if(rageactive == false)
+        {
+            ragemultiplier = 1;
+            enraged.SetActive(false);
+        }
 
 
 
@@ -311,6 +326,11 @@ public class Turns : MonoBehaviour
         StartCoroutine(bounterfulbonkCoroutine());
     }
 
+    public void UltimateRage()
+    {
+        StartCoroutine(UltimateRageCoroutine());
+    }
+
     IEnumerator Fallingdebree()
     {
 
@@ -472,6 +492,8 @@ public class Turns : MonoBehaviour
 
     public IEnumerator TeamHealCoroutine()
     {
+        player3currentmana = player3currentmana - 20;
+        Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
         int rollNumber = playerroll();
         yield return new WaitForSeconds(.2F);
         rollNumber = playerroll();
@@ -565,82 +587,164 @@ public class Turns : MonoBehaviour
         rollNumber = playerroll();
         yield return new WaitForSeconds(.2F);
 
-        if(rollNumber>= 1 && rollNumber <= 10)
+        if(rageactive == false)
         {
-            int partymemeberdies = Random.Range(1, 4);
-            if(partymemeberdies == 1)
+            if (rollNumber >= 1 && rollNumber <= 10)
             {
-                player1currenthealth = 0;
-                Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
-                lastusedmove = "FatesGambit";
-                switchPlayer();
-            }
-            if (partymemeberdies == 2)
-            {
-                player2currenthealth = 0;
-                Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
-                lastusedmove = "FatesGambit";
-                switchPlayer();
-            }
-            if (partymemeberdies == 3)
-            {
-                player3currenthealth = 0;
-                Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
-                lastusedmove = "FatesGambit";
-                switchPlayer();
-            }
-            int partymeamberhalfhealth = Random.Range(1, 3);
-            if(partymeamberhalfhealth == 1)
-            {
-                if(partymemeberdies == 1)
+                int partymemeberdies = Random.Range(1, 4);
+                if (partymemeberdies == 1)
                 {
-                    halvingcurrenthealth = player2currenthealth / 2;
-                    player2currenthealth = halvingcurrenthealth;
-                    Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
-                    lastusedmove = "FatesGambit";
-                    switchPlayer();
-                }
-                else
-                {
-                    halvingcurrenthealth = player1currenthealth / 2;
-                    player1currenthealth = halvingcurrenthealth;
+                    player1currenthealth = 0;
                     Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
                     lastusedmove = "FatesGambit";
                     switchPlayer();
                 }
-            }
-            if(partymeamberhalfhealth == 2)
-            {
-                if(partymemeberdies == 2)
+                if (partymemeberdies == 2)
                 {
-                    halvingcurrenthealth = player3currenthealth / 2;
-                    player3currenthealth = halvingcurrenthealth;
+                    player2currenthealth = 0;
+                    Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+                    lastusedmove = "FatesGambit";
+                    switchPlayer();
+                }
+                if (partymemeberdies == 3)
+                {
+                    player3currenthealth = 0;
                     Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
                     lastusedmove = "FatesGambit";
                     switchPlayer();
                 }
-                else
+                int partymeamberhalfhealth = Random.Range(1, 3);
+                if (partymeamberhalfhealth == 1)
                 {
-                    halvingcurrenthealth = player2currenthealth / 2;
-                    player2currenthealth = halvingcurrenthealth;
+                    if (partymemeberdies == 1)
+                    {
+                        halvingcurrenthealth = player2currenthealth / 2;
+                        player2currenthealth = halvingcurrenthealth;
+                        Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+                        lastusedmove = "FatesGambit";
+                        switchPlayer();
+                    }
+                    else
+                    {
+                        halvingcurrenthealth = player1currenthealth / 2;
+                        player1currenthealth = halvingcurrenthealth;
+                        Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+                        lastusedmove = "FatesGambit";
+                        switchPlayer();
+                    }
+                }
+                if (partymeamberhalfhealth == 2)
+                {
+                    if (partymemeberdies == 2)
+                    {
+                        halvingcurrenthealth = player3currenthealth / 2;
+                        player3currenthealth = halvingcurrenthealth;
+                        Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
+                        lastusedmove = "FatesGambit";
+                        switchPlayer();
+                    }
+                    else
+                    {
+                        halvingcurrenthealth = player2currenthealth / 2;
+                        player2currenthealth = halvingcurrenthealth;
+                        Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+                        lastusedmove = "FatesGambit";
+                        switchPlayer();
+                    }
+                }
+            }
+            if (rollNumber >= 11 && rollNumber <= 20)
+            {
+                halvingcurrenthealth = bosscurrenthealth / 2;
+                bosscurrenthealth = halvingcurrenthealth;
+                Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+                lastusedmove = "FatesGambit";
+                switchPlayer();
+            }
+        }
+
+        if(rageactive == true)
+        {
+            if (rollNumber >= 1 && rollNumber <= 5)
+            {
+                int partymemeberdies = Random.Range(1, 4);
+                if (partymemeberdies == 1)
+                {
+                    player1currenthealth = 0;
+                    Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+                    lastusedmove = "FatesGambit";
+                    switchPlayer();
+                }
+                if (partymemeberdies == 2)
+                {
+                    player2currenthealth = 0;
                     Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
                     lastusedmove = "FatesGambit";
                     switchPlayer();
-                }   
+                }
+                if (partymemeberdies == 3)
+                {
+                    player3currenthealth = 0;
+                    Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
+                    lastusedmove = "FatesGambit";
+                    switchPlayer();
+                }
+                int partymeamberhalfhealth = Random.Range(1, 3);
+                if (partymeamberhalfhealth == 1)
+                {
+                    if (partymemeberdies == 1)
+                    {
+                        halvingcurrenthealth = player2currenthealth / 2;
+                        player2currenthealth = halvingcurrenthealth;
+                        Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+                        lastusedmove = "FatesGambit";
+                        switchPlayer();
+                    }
+                    else
+                    {
+                        halvingcurrenthealth = player1currenthealth / 2;
+                        player1currenthealth = halvingcurrenthealth;
+                        Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+                        lastusedmove = "FatesGambit";
+                        switchPlayer();
+                    }
+                }
+                if (partymeamberhalfhealth == 2)
+                {
+                    if (partymemeberdies == 2)
+                    {
+                        halvingcurrenthealth = player3currenthealth / 2;
+                        player3currenthealth = halvingcurrenthealth;
+                        Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
+                        lastusedmove = "FatesGambit";
+                        switchPlayer();
+                    }
+                    else
+                    {
+                        halvingcurrenthealth = player2currenthealth / 2;
+                        player2currenthealth = halvingcurrenthealth;
+                        Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+                        lastusedmove = "FatesGambit";
+                        switchPlayer();
+                    }
+                }
             }
-        } 
-        if(rollNumber >=11 && rollNumber <=20)
-        {
-            halvingcurrenthealth = bosscurrenthealth / 2;
-            bosscurrenthealth = halvingcurrenthealth;
-            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
-            lastusedmove = "FatesGambit";
-            switchPlayer();
+            if (rollNumber >= 6 && rollNumber <= 20)
+            {
+                halvingcurrenthealth = bosscurrenthealth / 2;
+                bosscurrenthealth = halvingcurrenthealth;
+                Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+                lastusedmove = "FatesGambit";
+                switchPlayer();
+            }
+            rageactive = false;
         }
     }
 
     public IEnumerator ChaosChaosCoroutine()
     {
+        player3currentmana = player3currentmana - 5;
+        Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
         int rollNumber = playerroll();
         yield return new WaitForSeconds(.2F);
         rollNumber = playerroll();
@@ -668,6 +772,8 @@ public class Turns : MonoBehaviour
     
     public IEnumerator FireballCoroutine()
     {
+        player1currentmana = player1currentmana - 10;
+        Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
         int rollNumber = playerroll();
         int rollBossnumber = bossroll();
         yield return new WaitForSeconds(.2F);
@@ -741,6 +847,8 @@ public class Turns : MonoBehaviour
 
     public IEnumerator bounterfulbonkCoroutine()
     {
+        player2currentmana = player2currentmana - 15;
+        Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
 
         int rollNumber = playerroll();
         int rollBossnumber = bossroll();
@@ -764,45 +872,49 @@ public class Turns : MonoBehaviour
 
         if(differenceinroll < 0)
         {
-            damagetoboss = -5;
+            damagetoboss = -5 * ragemultiplier;
             Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
         }
         if(differenceinroll == 0)
         {
-            damagetoboss = -3;
+            damagetoboss = -3 * ragemultiplier;
             Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
         }
         if(differenceinroll >= 1 && differenceinroll <= 5)
         {
-            damagetoboss = 4;
+            damagetoboss = 4 * ragemultiplier;
             Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
             lifestealamount = damagetoboss / 4;
-            player1currenthealth = player1currenthealth + lifestealamount;
-            Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+            player2currenthealth = player2currenthealth + lifestealamount;
+            Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+            rageactive = false;
         }
         if (differenceinroll >= 6 && differenceinroll <= 10)
         {
-            damagetoboss = 6;
+            damagetoboss = 6 * ragemultiplier;
             Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
             lifestealamount = damagetoboss / 4;
-            player1currenthealth = player1currenthealth + lifestealamount;
-            Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+            player2currenthealth = player2currenthealth + lifestealamount;
+            Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+            rageactive = false;
         }
         if (differenceinroll >= 11 && differenceinroll <= 15)
         {
-            damagetoboss = 8;
+            damagetoboss = 8 * ragemultiplier;
             Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
             lifestealamount = damagetoboss / 4;
-            player1currenthealth = player1currenthealth + lifestealamount;
-            Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+            player2currenthealth = player2currenthealth + lifestealamount;
+            Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+            rageactive = false;
         }
         if (differenceinroll >= 16 && differenceinroll <= 20)
         {
-            damagetoboss = 10;
+            damagetoboss = 10 * ragemultiplier;
             Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
             lifestealamount = damagetoboss / 4;
-            player1currenthealth = player1currenthealth + lifestealamount;
-            Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+            player2currenthealth = player2currenthealth + lifestealamount;
+            Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+            rageactive = false;
         }
 
         if (damagetoboss != 0)
@@ -814,6 +926,37 @@ public class Turns : MonoBehaviour
 
         }
 
+    }
+
+    public IEnumerator UltimateRageCoroutine()
+    {
+        player2currentmana = player2currentmana - 10;
+        Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
+        int rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        if(rollNumber == 1)
+        {
+            player2currenthealth = player2currenthealth - 5;
+            Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+        }
+        if (rollNumber > 1 && rollNumber <=5)
+        {
+            player2currenthealth = player2currenthealth - 3;
+            Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+        }
+        if (rollNumber > 5)
+        {
+            rageactive = true;
+        }
     }
 
     void bossturn()
@@ -909,17 +1052,14 @@ public class Turns : MonoBehaviour
         if (currentturn == "Player3")
         {
             currentturn = "Boss";
-            Debug.Log(currentturn);
         }
         if (currentturn == "Player2")
         {
             currentturn = "Player3";
-            Debug.Log(currentturn);
         }
         if (currentturn == "Player1")
         {
             currentturn = "Player2";
-            Debug.Log(currentturn);
         }
 
 

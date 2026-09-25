@@ -42,8 +42,8 @@ public class buttonmanager : MonoBehaviour
 
         player2Move1.onClick.AddListener(FatesGambitrunner);
         player2Move2.onClick.AddListener(Bountifulbonkrunner);
-        player2Move3.onClick.AddListener(Bountifulbonkrunner);
-        player2Move4.onClick.AddListener(Bountifulbonkrunner);
+        player2Move3.onClick.AddListener(UltimateRagerunner);
+        player2Move4.onClick.AddListener(UltimateRagerunner);
 
         player3Move1.onClick.AddListener(ChaosChaosrunner);
         player3Move2.onClick.AddListener(TeamHealrunner);
@@ -85,9 +85,14 @@ public class buttonmanager : MonoBehaviour
 
     void Bountifulbonkrunner()
     {
+        
         turns.bounterfulbonk();
     }
 
+    void UltimateRagerunner()
+    {
+        turns.UltimateRage();
+    }
 
 
 
