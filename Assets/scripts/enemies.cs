@@ -13,20 +13,31 @@ public class enemies : MonoBehaviour
 
     [Header("Area 1")]
     [SerializeField] GameObject Goblin;
+    int Goblinmaxhealth = 20;
     [SerializeField] GameObject Rocky;
+    int Rockymaxhealth = 50;
     [SerializeField] GameObject Slime;
-    [SerializeField] GameObject AreaBoss1;
+    int Slimemaxhealth = 10;
+    [SerializeField] GameObject swordmage;
+    int swordmagemaxhealth = 100;
 
     [Header("Area 2")]
     [SerializeField] GameObject Cactus;
+    int Cactusmaxhealth = 75;
     [SerializeField] GameObject minihydra;
+    int minihydramaxhealth = 40;
     [SerializeField] GameObject ArmouredScorpion;
-    [SerializeField] GameObject AreaBoss2;
+    int ArmouredScorpionmaxhealth = 80;
+    [SerializeField] GameObject sandworm;
+    int sandwormmaxhealth = 150;
 
     [Header("Area 3")]
     [SerializeField] GameObject GiantHydra;
+    int GiantHydramaxhealth = 150;
     [SerializeField] GameObject lavamonster;
+    int lavamonstermaxhealth = 200;
     [SerializeField] GameObject lavabeatle;
+    int lavabeatlemaxhealth = 175;
     [SerializeField] GameObject AreaBoss3;
 
     [Header("Area final")]
@@ -61,7 +72,8 @@ public class enemies : MonoBehaviour
             var enemyType = determineenemy < 90 ? Goblin : Goblin;
             var enemy = Instantiate(enemyType, CenterPosition(), Quaternion.identity);
             enemy.transform.SetParent(currentenemy);
-            turns.Bosshealth = enemy.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+            
+            turns.Enemyhealth = enemy.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
         }
         if (randomencounters.currentenemy == "Rocky")
         {

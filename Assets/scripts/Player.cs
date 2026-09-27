@@ -17,8 +17,6 @@ public class Player : MonoBehaviour
 
     int facingDirection = 1; // 1 = right, -1 = left
 
-    bool notalreadyavtice = true;
-
     private void Start()
     {
         

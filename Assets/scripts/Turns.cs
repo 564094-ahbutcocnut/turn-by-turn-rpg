@@ -16,7 +16,7 @@ public class Turns : MonoBehaviour
     [SerializeField] TextMeshProUGUI Player1health;
     [SerializeField] TextMeshProUGUI Player2health;
     [SerializeField] TextMeshProUGUI Player3health;
-    [SerializeField] public TextMeshProUGUI Bosshealth;
+    [SerializeField] public TextMeshProUGUI Enemyhealth;
 
     [Header("Mana")]
     [SerializeField] TextMeshProUGUI Player1mana;
@@ -40,17 +40,17 @@ public class Turns : MonoBehaviour
     bool hasnotbeensetyet = false;
 
     int wheelrollsPlayers = 0;
-    int wheelrollsBoss = 0;
+    int wheelrollsEnemy = 0;
 
     int player1maxhealth = 15;
     int player2maxthealth = 30;
     int player3maxhealth = 20;
-    int bossmaxhealth = 100;
+    int enemymaxhealth = 100;
 
     int player1currenthealth = 0;
     int player2currenthealth = 0;
     int player3currenthealth = 0;
-    int bosscurrenthealth = 0;
+    int enemycurrenthealth = 0;
 
     int player1maxmana = 100;
     int player2maxmana = 50;
@@ -161,21 +161,21 @@ public class Turns : MonoBehaviour
                 player1currenthealth = player1maxhealth;
                 player2currenthealth = player2maxthealth;
                 player3currenthealth = player3maxhealth;
-                bosscurrenthealth = bossmaxhealth;
+                enemycurrenthealth = enemymaxhealth;
 
                 player1currentmana = player1maxmana;
                 player2currentmana = player2maxmana;
                 player3currentmana = player3maxmana;
 
                 PlayerRoll.text = wheelrollsPlayers.ToString();
-                EnemyRoll.text = wheelrollsBoss.ToString();
+                EnemyRoll.text = wheelrollsEnemy.ToString();
                 Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
                 Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
                 Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
                 Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
                 Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
                 Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
-                Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+                Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
                 whosTurnText.text = currentturn + "'s turn";
                 hasnotbeensetyet = true;
             }
@@ -251,10 +251,10 @@ public class Turns : MonoBehaviour
                 player3currentmana = player3maxmana;
                 Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
             }
-            if (bosscurrenthealth > bossmaxhealth)
+            if (enemycurrenthealth > enemymaxhealth)
             {
-                bosscurrenthealth = bossmaxhealth;
-                Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+                enemycurrenthealth = enemymaxhealth;
+                Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             }
 
             if (player1currenthealth <= 0)
@@ -322,10 +322,10 @@ public class Turns : MonoBehaviour
     public int bossroll()
     {
         var bossroll = Random.Range(1, 21);
-        wheelrollsBoss = bossroll;
-        EnemyRoll.text = wheelrollsBoss.ToString();
+        wheelrollsEnemy = bossroll;
+        EnemyRoll.text = wheelrollsEnemy.ToString();
 
-        return wheelrollsBoss;
+        return wheelrollsEnemy;
     }
 
 
@@ -368,6 +368,7 @@ public class Turns : MonoBehaviour
     {
         StartCoroutine(UltimateRageCoroutine());
     }
+
     public void TeamBarrier()
     {
         StartCoroutine(TeamBarrierCoroutine());
@@ -403,13 +404,13 @@ public class Turns : MonoBehaviour
 
         if(differenceinroll < 0)
         {
-            bosscurrenthealth = bosscurrenthealth - 5;
-            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            enemycurrenthealth = enemycurrenthealth - 5;
+            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
         }
         if(differenceinroll == 0)
         {
-            bosscurrenthealth = bosscurrenthealth - 1;
-            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            enemycurrenthealth = enemycurrenthealth - 1;
+            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
         }
         if(differenceinroll >=1 && differenceinroll <=5)
         {
@@ -531,9 +532,9 @@ public class Turns : MonoBehaviour
 
             if (damagetoboss > 0)
             {
-                bossdamagetransitionvalue = bosscurrenthealth;
-                bosscurrenthealth = bossdamagetransitionvalue - damagetoboss;
-                Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+                bossdamagetransitionvalue = enemycurrenthealth;
+            enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
+                Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
                 damagetoboss = 0;
 
             }
@@ -567,7 +568,7 @@ public class Turns : MonoBehaviour
             player3currenthealth--;
             Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
             lastusedmove = "TeamHeal";
-            switchPlayer();
+            currentturn = "Boss";
         }
         if (rollNumber >= 2 && rollNumber <= 5)
         {
@@ -578,7 +579,7 @@ public class Turns : MonoBehaviour
             player3currenthealth++;
             Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
             lastusedmove = "TeamHeal";
-            switchPlayer();
+            currentturn = "Boss";
         }
         if(rollNumber >= 6 && rollNumber <= 10)
         {
@@ -589,7 +590,7 @@ public class Turns : MonoBehaviour
             player3currenthealth += 4;
             Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
             lastusedmove = "TeamHeal";
-            switchPlayer();
+            currentturn = "Boss";
         }
         if (rollNumber >= 11 && rollNumber <= 15)
         {
@@ -600,7 +601,7 @@ public class Turns : MonoBehaviour
             player3currenthealth += 6;
             Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
             lastusedmove = "TeamHeal";
-            switchPlayer();
+            currentturn = "Boss";
         }
         if (rollNumber >= 16 && rollNumber <= 19)
         {
@@ -611,7 +612,7 @@ public class Turns : MonoBehaviour
             player3currenthealth += 9;
             Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
             lastusedmove = "TeamHeal";
-            switchPlayer();
+            currentturn = "Boss";
         }
         if (rollNumber ==20)
         {
@@ -622,7 +623,7 @@ public class Turns : MonoBehaviour
             player3currenthealth += 13;
             Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
             lastusedmove = "TeamHeal";
-            switchPlayer();
+            currentturn = "Boss";
         }
     }
 
@@ -707,9 +708,9 @@ public class Turns : MonoBehaviour
             }
             if (rollNumber >= 11 && rollNumber <= 20)
             {
-                halvingcurrenthealth = bosscurrenthealth / 2;
-                bosscurrenthealth = halvingcurrenthealth;
-                Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+                halvingcurrenthealth = enemycurrenthealth / 2;
+                enemycurrenthealth = halvingcurrenthealth;
+                Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
                 lastusedmove = "FatesGambit";
                 switchPlayer();
             }
@@ -783,9 +784,9 @@ public class Turns : MonoBehaviour
             }
             if (rollNumber >= 6 && rollNumber <= 20)
             {
-                halvingcurrenthealth = bosscurrenthealth / 2;
-                bosscurrenthealth = halvingcurrenthealth;
-                Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+                halvingcurrenthealth = enemycurrenthealth / 2;
+                enemycurrenthealth = halvingcurrenthealth;
+                Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
                 lastusedmove = "FatesGambit";
                 switchPlayer();
             }
@@ -811,14 +812,14 @@ public class Turns : MonoBehaviour
         if(rollNumber >= 1 && rollNumber <= 5)
         {
             lastusedmove = "ChaosChaos";
-            switchPlayer();
+            currentturn = "Boss";
         }
         if(rollNumber >= 6 && rollNumber <= 20)
         {
             isbossconfused = true;
             bossconfusion.SetActive(true);
             lastusedmove = "ChaosChaos";
-            switchPlayer();
+            currentturn = "Boss";
         }
     }
     
@@ -889,9 +890,9 @@ public class Turns : MonoBehaviour
 
         if (damagetoboss > 0)
         {
-            bossdamagetransitionvalue = bosscurrenthealth;
-            bosscurrenthealth = bossdamagetransitionvalue - damagetoboss;
-            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            bossdamagetransitionvalue = enemycurrenthealth;
+            enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
+            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             damagetoboss = 0;
 
         }
@@ -925,19 +926,19 @@ public class Turns : MonoBehaviour
         if(differenceinroll < 0)
         {
             damagetoboss = -5 * ragemultiplier;
-            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             switchPlayer();
         }
         if(differenceinroll == 0)
         {
             damagetoboss = -3 * ragemultiplier;
-            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             switchPlayer();
         }
         if(differenceinroll >= 1 && differenceinroll <= 5)
         {
             damagetoboss = 4 * ragemultiplier;
-            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             lifestealamount = damagetoboss / 4;
             player2currenthealth = player2currenthealth + lifestealamount;
             Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
@@ -947,7 +948,7 @@ public class Turns : MonoBehaviour
         if (differenceinroll >= 6 && differenceinroll <= 10)
         {
             damagetoboss = 6 * ragemultiplier;
-            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             lifestealamount = damagetoboss / 4;
             player2currenthealth = player2currenthealth + lifestealamount;
             Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
@@ -957,7 +958,7 @@ public class Turns : MonoBehaviour
         if (differenceinroll >= 11 && differenceinroll <= 15)
         {
             damagetoboss = 8 * ragemultiplier;
-            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             lifestealamount = damagetoboss / 4;
             player2currenthealth = player2currenthealth + lifestealamount;
             Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
@@ -967,7 +968,7 @@ public class Turns : MonoBehaviour
         if (differenceinroll >= 16 && differenceinroll <= 20)
         {
             damagetoboss = 10 * ragemultiplier;
-            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             lifestealamount = damagetoboss / 4;
             player2currenthealth = player2currenthealth + lifestealamount;
             Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
@@ -977,9 +978,9 @@ public class Turns : MonoBehaviour
 
         if (damagetoboss != 0)
         {
-            bossdamagetransitionvalue = bosscurrenthealth;
-            bosscurrenthealth = bossdamagetransitionvalue - damagetoboss;
-            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            bossdamagetransitionvalue = enemycurrenthealth;
+            enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
+            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             damagetoboss = 0;
 
         }
@@ -1045,7 +1046,7 @@ public class Turns : MonoBehaviour
             Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
             player3currenthealth = player3currenthealth - 3;
             Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
-            switchPlayer();
+            currentturn = "Boss";
 
         }
         if (rollNumber >= 2 && rollNumber <=7)
@@ -1057,14 +1058,14 @@ public class Turns : MonoBehaviour
             Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
             player3currenthealth--;
             Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
-            switchPlayer();
+            currentturn = "Boss";
         }
         if (rollNumber >= 8 && rollNumber <= 20)
         {
             Debug.Log("barrier active");
             turnsleftofbarrier = 3;
             barrieractive = true;
-            switchPlayer();
+            currentturn = "Boss";
         }
     }
 
@@ -1183,9 +1184,9 @@ public class Turns : MonoBehaviour
 
         if (damagetoboss > 0)
         {
-            bossdamagetransitionvalue = bosscurrenthealth;
-            bosscurrenthealth = bossdamagetransitionvalue - damagetoboss;
-            Bosshealth.text = bosscurrenthealth.ToString() + "/" + bossmaxhealth;
+            bossdamagetransitionvalue = enemycurrenthealth;
+            enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
+            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             damagetoboss = 0;
 
         }
@@ -1212,8 +1213,8 @@ public class Turns : MonoBehaviour
                         int confusionroll = Random.Range(1, 3);
                         if (confusionroll == 1)
                         {
-                            bosscurrenthealth = bosscurrenthealth - 5;
-                            Bosshealth.text = bosscurrenthealth.ToString() + "/100";
+                            enemycurrenthealth = enemycurrenthealth - 5;
+                            Enemyhealth.text = enemycurrenthealth.ToString() + "/100";
                             isbossconfused = false;
                             bossconfusion.SetActive(false);
                             currentturn = "Player1";
@@ -1288,6 +1289,89 @@ public class Turns : MonoBehaviour
                     }
                 }
             }
+
+            if (isbossparalysed == false)
+            {
+                if (isbossconfused == true)
+                {
+                    int confusionroll = Random.Range(1, 3);
+                    if (confusionroll == 1)
+                    {
+                        enemycurrenthealth = enemycurrenthealth - 5;
+                        Enemyhealth.text = enemycurrenthealth.ToString() + "/100";
+                        isbossconfused = false;
+                        bossconfusion.SetActive(false);
+                        currentturn = "Player1";
+                    }
+                    if (confusionroll == 2)
+                    {
+                        if (currentturn == "Boss")
+                        {
+                            var bossmoverandomiser = Random.Range(1, 11);
+                            bossmoveslot = bossmoverandomiser;
+
+                            if (bossmoverandomiser == 1)
+                            {
+                                Debug.Log("move 1");
+                                currentturn = "Player1";
+                                whosTurnText.text = currentturn + "'s turn";
+                            }
+                            if (bossmoverandomiser >= 2 && bossmoverandomiser < 6)
+                            {
+                                Debug.Log("move 2");
+                                currentturn = "Player1";
+                                whosTurnText.text = currentturn + "'s turn";
+                            }
+                            if (bossmoverandomiser >= 6 && bossmoverandomiser < 8)
+                            {
+                                Debug.Log("move 3");
+                                currentturn = "Player1";
+                                whosTurnText.text = currentturn + "'s turn";
+                            }
+                            if (bossmoverandomiser >= 8 && bossmoverandomiser < 11)
+                            {
+                                Debug.Log("move 4");
+                                currentturn = "Player1";
+                                whosTurnText.text = currentturn + "'s turn";
+                            }
+                        }
+                    }
+                }
+                if (isbossconfused == false)
+                {
+                    if (currentturn == "Boss")
+                    {
+                        var bossmoverandomiser = Random.Range(1, 11);
+                        bossmoveslot = bossmoverandomiser;
+
+                        if (bossmoverandomiser == 1)
+                        {
+                            StartCoroutine(Fallingdebree());
+                            Debug.Log("move 1");
+                            currentturn = "Player1";
+                            whosTurnText.text = currentturn + "'s turn";
+                        }
+                        if (bossmoverandomiser >= 2 && bossmoverandomiser < 6)
+                        {
+                            Debug.Log("move 2");
+                            currentturn = "Player1";
+                            whosTurnText.text = currentturn + "'s turn";
+                        }
+                        if (bossmoverandomiser >= 6 && bossmoverandomiser < 8)
+                        {
+                            Debug.Log("move 3");
+                            currentturn = "Player1";
+                            whosTurnText.text = currentturn + "'s turn";
+                        }
+                        if (bossmoverandomiser >= 8 && bossmoverandomiser < 11)
+                        {
+                            Debug.Log("move 4");
+                            currentturn = "Player1";
+                            whosTurnText.text = currentturn + "'s turn";
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -1295,10 +1379,7 @@ public class Turns : MonoBehaviour
     {
 
         NOMANA.SetActive(false);
-        if (currentturn == "Player3")
-        {
-            currentturn = "Boss";
-        }
+
         if (currentturn == "Player2")
         {
             currentturn = "Player3";
@@ -1308,6 +1389,10 @@ public class Turns : MonoBehaviour
             currentturn = "Player2";
         }
         if (currentturn == "Boss")
+        {
+            currentturn = "Player1";
+        }
+        if (currentturn == "Enemy")
         {
             currentturn = "Player1";
         }
