@@ -8,6 +8,11 @@ public class enemies : MonoBehaviour
 
     [SerializeField] Turns turns;
     [SerializeField] RandonEncounters randomencounters;
+    [SerializeField] GameObject whoyouwinisstored;
+
+
+    [SerializeField] TextMeshProUGUI battlewintest; 
+    string whatwillbeinwintext= "You won the battle";
 
     [Header("Enemyencounters")]
 
@@ -46,20 +51,39 @@ public class enemies : MonoBehaviour
     [SerializeField] GameObject Bossminion3;
     [SerializeField] GameObject AreaBossFinal;
 
+
+
+
+
     public bool summoningnewenemy = false;
 
-    Transform currentenemy;
+    Transform currentenemies;
     // Start is called before the first frame update
     void Start()
     {
-        
-        currentenemy = GameObject.Find("currentenemies").transform;
+
+        currentenemies = GameObject.Find("currentenemies").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
 
+        if(summoningnewenemy == true)
+        {
+            Startingnewbattle();
+        }
+
+        if(turns.enemycurrenthealth < 0)
+        {
+            turns.enemycurrenthealth = 0;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+        }
+
+        if(turns.enemycurrenthealth == 0)
+        {
+            StartCoroutine(textforyouwin());
+        }
     }
 
 
@@ -69,59 +93,113 @@ public class enemies : MonoBehaviour
 
         if(randomencounters.currentenemy == "Goblin")
         {
+            turns.inbattle = true;
+            turns.enemymaxhealth = Goblinmaxhealth;
+            turns.enemycurrenthealth = turns.enemymaxhealth;
             var enemyType = determineenemy < 90 ? Goblin : Goblin;
             var enemy = Instantiate(enemyType, CenterPosition(), Quaternion.identity);
-            enemy.transform.SetParent(currentenemy);
-            
+            enemy.transform.SetParent(currentenemies);
             turns.Enemyhealth = enemy.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            summoningnewenemy = false;
+            randomencounters.increasingnumber = 0;
+            
         }
         if (randomencounters.currentenemy == "Rocky")
         {
+            turns.inbattle = true;
+            turns.enemymaxhealth = Rockymaxhealth;
+            turns.enemycurrenthealth = turns.enemymaxhealth;
             var enemyType = determineenemy < 90 ? Rocky : Rocky;
             var enemy = Instantiate(enemyType, CenterPosition(), Quaternion.identity);
-            enemy.transform.SetParent(currentenemy);
+            enemy.transform.SetParent(currentenemies);
+            turns.Enemyhealth = enemy.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            summoningnewenemy = false;
         }
         if (randomencounters.currentenemy == "Slime")
         {
+            turns.enemymaxhealth = Slimemaxhealth;
+            turns.enemycurrenthealth = turns.enemymaxhealth;
             var enemyType = determineenemy < 90 ? Slime : Slime;
             var enemy = Instantiate(enemyType, CenterPosition(), Quaternion.identity);
-            enemy.transform.SetParent(currentenemy);
+            enemy.transform.SetParent(currentenemies);
+            turns.Enemyhealth = enemy.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            summoningnewenemy = false;
+            turns.inbattle = true;
         }
         if (randomencounters.currentenemy == "Cactus")
         {
+            turns.inbattle = true;
+            turns.enemymaxhealth = Cactusmaxhealth;
+            turns.enemycurrenthealth = turns.enemymaxhealth;
             var enemyType = determineenemy < 90 ? Cactus : Cactus;
             var enemy = Instantiate(enemyType, CenterPosition(), Quaternion.identity);
-            enemy.transform.SetParent(currentenemy);
+            enemy.transform.SetParent(currentenemies);
+            turns.Enemyhealth = enemy.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            summoningnewenemy = false;
         }
         if (randomencounters.currentenemy == "minihydra")
         {
+            turns.inbattle = true;
+            turns.enemymaxhealth = minihydramaxhealth;
+            turns.enemycurrenthealth = turns.enemymaxhealth;
             var enemyType = determineenemy < 90 ? minihydra : minihydra;
             var enemy = Instantiate(enemyType, CenterPosition(), Quaternion.identity);
-            enemy.transform.SetParent(currentenemy);
+            enemy.transform.SetParent(currentenemies);
+            turns.Enemyhealth = enemy.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            summoningnewenemy = false;
         }
         if (randomencounters.currentenemy == "ArmouredScorpion")
         {
+            turns.inbattle = true;
+            turns.enemymaxhealth = ArmouredScorpionmaxhealth;
+            turns.enemycurrenthealth = turns.enemymaxhealth;
             var enemyType = determineenemy < 90 ? ArmouredScorpion : ArmouredScorpion;
             var enemy = Instantiate(enemyType, CenterPosition(), Quaternion.identity);
-            enemy.transform.SetParent(currentenemy);
+            enemy.transform.SetParent(currentenemies);
+            turns.Enemyhealth = enemy.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            summoningnewenemy = false;
         }
         if (randomencounters.currentenemy == "GiantHydra")
         {
+            turns.inbattle = true;
+            turns.enemymaxhealth = GiantHydramaxhealth;
+            turns.enemycurrenthealth = turns.enemymaxhealth;
             var enemyType = determineenemy < 90 ? GiantHydra : GiantHydra;
             var enemy = Instantiate(enemyType, CenterPosition(), Quaternion.identity);
-            enemy.transform.SetParent(currentenemy);
+            enemy.transform.SetParent(currentenemies);
+            turns.Enemyhealth = enemy.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            summoningnewenemy = false;
         }
         if (randomencounters.currentenemy == "lavamonster")
         {
+            turns.inbattle = true;
+            turns.enemymaxhealth = lavamonstermaxhealth;
+            turns.enemycurrenthealth = turns.enemymaxhealth;
             var enemyType = determineenemy < 90 ? lavamonster : lavamonster;
             var enemy = Instantiate(enemyType, CenterPosition(), Quaternion.identity);
-            enemy.transform.SetParent(currentenemy);
+            enemy.transform.SetParent(currentenemies);
+            turns.Enemyhealth = enemy.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            summoningnewenemy = false;
         }
         if (randomencounters.currentenemy == "lavabeatle")
         {
+            turns.inbattle = true;
+            turns.enemymaxhealth = lavabeatlemaxhealth;            
+            turns.enemycurrenthealth = turns.enemymaxhealth;
             var enemyType = determineenemy < 90 ? lavabeatle : lavabeatle;
             var enemy = Instantiate(enemyType, CenterPosition(), Quaternion.identity);
-            enemy.transform.SetParent(currentenemy);
+            enemy.transform.SetParent(currentenemies);
+            turns.Enemyhealth = enemy.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            summoningnewenemy = false;
         }
     }
 
@@ -130,7 +208,31 @@ public class enemies : MonoBehaviour
 
     Vector2 CenterPosition()
     {
-        Vector2 Centreposition = new Vector2(Random.Range(0, 0), Random.Range(0, 0));
+        Vector2 Centreposition = new Vector2(Random.Range(5, 5), Random.Range(0, 0));
         return Centreposition;
+    }
+
+
+    public void DestroyAllEnemies()
+    {
+        foreach (Transform e in currentenemies)
+            Destroy(e.gameObject);
+    }
+
+    IEnumerator textforyouwin()
+    {
+        randomencounters.increasingnumber = 0;
+        whatwillbeinwintext = "you have won the battle";
+        whoyouwinisstored.SetActive(true);
+        yield return new WaitForSeconds(2F);
+        whatwillbeinwintext = "You have gain exp";
+        battlewintest.text = whatwillbeinwintext;
+        yield return new WaitForSeconds(2F);
+        whoyouwinisstored.SetActive(false);
+        turns.enemycurrenthealth = 1;
+
+
+        turns.inbattle = false;
+        DestroyAllEnemies();
     }
 }

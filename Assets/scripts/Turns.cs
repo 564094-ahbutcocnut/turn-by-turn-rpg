@@ -45,12 +45,12 @@ public class Turns : MonoBehaviour
     int player1maxhealth = 15;
     int player2maxthealth = 30;
     int player3maxhealth = 20;
-    int enemymaxhealth = 100;
+    public int enemymaxhealth = 100;
 
     int player1currenthealth = 0;
     int player2currenthealth = 0;
     int player3currenthealth = 0;
-    int enemycurrenthealth = 0;
+    public int enemycurrenthealth = 1;
 
     int player1maxmana = 100;
     int player2maxmana = 50;

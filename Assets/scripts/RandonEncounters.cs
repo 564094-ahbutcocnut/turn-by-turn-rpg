@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class RandonEncounters : MonoBehaviour
@@ -13,7 +14,7 @@ public class RandonEncounters : MonoBehaviour
 
 
     int numbertillencounter = 2000;
-    int increasingnumber = 0;
+    public int increasingnumber = 0;
 
     public string currentenemy =  "";
 
@@ -41,6 +42,8 @@ public class RandonEncounters : MonoBehaviour
 
             if(numbertillencounter == increasingnumber)
             {
+
+                Debug.Log("rjfbnfrvjab");
                 
 
                if(currentarea == "Area1")
@@ -57,7 +60,7 @@ public class RandonEncounters : MonoBehaviour
                         currentenemy = "Rocky";
                         Enemies.summoningnewenemy = true;
                     }
-                    else
+                    if(area1randomiser == 3)
                     {
                         currentenemy = "Slime";
                         Enemies.summoningnewenemy = true;
@@ -72,7 +75,7 @@ public class RandonEncounters : MonoBehaviour
                         currentenemy = "Cactus";
                         Enemies.summoningnewenemy = true;
                     }
-                    if (area1randomiser == 2)
+                    else if (area1randomiser == 2)
                     {
                         currentenemy = "minihydra";
                         Enemies.summoningnewenemy = true;
@@ -92,7 +95,7 @@ public class RandonEncounters : MonoBehaviour
                         currentenemy = "GiantHydra";
                         Enemies.summoningnewenemy = true;
                     }
-                    if (area1randomiser == 2)
+                    else if (area1randomiser == 2)
                     {
                         currentenemy = "lavamonster";
                         Enemies.summoningnewenemy = true;
