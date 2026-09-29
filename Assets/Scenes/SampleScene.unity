@@ -1264,7 +1264,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 30/30
+  m_text: you have won the battle
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2090,7 +2090,7 @@ Transform:
   m_GameObject: {fileID: 814685103}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.71, y: 1.15, z: 0}
+  m_LocalPosition: {x: 7.71, y: 1.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2694,7 +2694,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 586, y: 266.2}
+  m_AnchoredPosition: {x: 586, y: 287.5}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1118246109
@@ -2963,7 +2963,7 @@ Transform:
   m_GameObject: {fileID: 1160353671}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.71, y: 1.15, z: 0}
+  m_LocalPosition: {x: 7.71, y: 1.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3729,6 +3729,7 @@ MonoBehaviour:
   currentarea: Area1
   increasingnumber: 0
   currentenemy: 
+  inbattle: 0
 --- !u!114 &1393892873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4218,6 +4219,9 @@ MonoBehaviour:
   inbattle: 0
   enemymaxhealth: 100
   enemycurrenthealth: 0
+  player1maxmana: 100
+  player2maxmana: 50
+  player3maxmana: 75
   player1currentmana: 0
   player2currentmana: 0
   player3currentmana: 0

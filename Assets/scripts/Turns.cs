@@ -19,9 +19,9 @@ public class Turns : MonoBehaviour
     [SerializeField] public TextMeshProUGUI Enemyhealth;
 
     [Header("Mana")]
-    [SerializeField] TextMeshProUGUI Player1mana;
-    [SerializeField] TextMeshProUGUI Player2mana;
-    [SerializeField] TextMeshProUGUI Player3mana;
+    [SerializeField] public TextMeshProUGUI Player1mana;
+    [SerializeField] public TextMeshProUGUI Player2mana;
+    [SerializeField] public TextMeshProUGUI Player3mana;
     [SerializeField] GameObject NOMANA;
 
     [Header("who's turn")]
@@ -52,9 +52,9 @@ public class Turns : MonoBehaviour
     int player3currenthealth = 0;
     public int enemycurrenthealth = 1;
 
-    int player1maxmana = 100;
-    int player2maxmana = 50;
-    int player3maxmana = 75;
+    public int player1maxmana = 100;
+    public int player2maxmana = 50;
+    public int player3maxmana = 75;
 
     public int player1currentmana = 0;
     public int player2currentmana = 0;
@@ -857,6 +857,17 @@ public class Turns : MonoBehaviour
             Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
             lastusedmove = "Fireball";
             switchPlayer();
+            if (differenceinroll == 0)
+            {
+                player1currenthealth = player1currenthealth - 1;
+                Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+                player2currenthealth = player2currenthealth - 1;
+                Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+                player3currenthealth = player3currenthealth - 1;
+                Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
+                lastusedmove = "Fireball";
+                switchPlayer();
+            }
         }
         if (differenceinroll >=1 && differenceinroll >=5)
         {
@@ -1214,7 +1225,7 @@ public class Turns : MonoBehaviour
                         if (confusionroll == 1)
                         {
                             enemycurrenthealth = enemycurrenthealth - 5;
-                            Enemyhealth.text = enemycurrenthealth.ToString() + "/100";
+                            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
                             isbossconfused = false;
                             bossconfusion.SetActive(false);
                             currentturn = "Player1";
@@ -1298,7 +1309,7 @@ public class Turns : MonoBehaviour
                     if (confusionroll == 1)
                     {
                         enemycurrenthealth = enemycurrenthealth - 5;
-                        Enemyhealth.text = enemycurrenthealth.ToString() + "/100";
+                        Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
                         isbossconfused = false;
                         bossconfusion.SetActive(false);
                         currentturn = "Player1";

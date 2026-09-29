@@ -61,7 +61,7 @@ public class enemies : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        turns.enemycurrenthealth = 1;
         currentenemies = GameObject.Find("currentenemies").transform;
     }
 
@@ -82,6 +82,7 @@ public class enemies : MonoBehaviour
 
         if(turns.enemycurrenthealth == 0)
         {
+            turns.enemycurrenthealth = 1;
             StartCoroutine(textforyouwin());
         }
     }
@@ -219,7 +220,8 @@ public class enemies : MonoBehaviour
             Destroy(e.gameObject);
     }
 
-    IEnumerator textforyouwin()
+ 
+    public  IEnumerator textforyouwin()
     {
         randomencounters.increasingnumber = 0;
         whatwillbeinwintext = "you have won the battle";
@@ -232,7 +234,17 @@ public class enemies : MonoBehaviour
         turns.enemycurrenthealth = 1;
 
 
+
+
         turns.inbattle = false;
         DestroyAllEnemies();
+
+        turns.player1currentmana = turns.player1maxmana;
+        turns.Player1mana.text = turns.player1currentmana.ToString() + "/" + turns.player1maxmana;
+        turns.player2currentmana = turns.player2maxmana;
+        turns.Player2mana.text = turns.player2currentmana.ToString() + "/" + turns.player2maxmana;
+        turns.player3currentmana = turns.player3maxmana;
+        turns.Player3mana.text = turns.player3currentmana.ToString() + "/" + turns.player3maxmana;
     }
+    
 }

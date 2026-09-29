@@ -16,20 +16,27 @@ public class RandonEncounters : MonoBehaviour
     int numbertillencounter = 2000;
     public int increasingnumber = 0;
 
+    int randomiserforincreaingnumber = 0;
+
     public string currentenemy =  "";
+
+
+    public bool  inbattle = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(turns.inbattle == false)
+        inbattle = turns.inbattle;
+
+        if (turns.inbattle == false)
         {
-            var randomiserforincreaingnumber = Random.Range(1, 3);
+            randomiserforincreaingnumber = Random.Range(1, 3);
 
             if(randomiserforincreaingnumber == 1)
             {
