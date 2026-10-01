@@ -10,6 +10,8 @@ public class buttonmanager : MonoBehaviour
     [SerializeField] Button player1Move2;
     [SerializeField] Button player1Move3;
     [SerializeField] Button player1Move4;
+    [SerializeField] GameObject player1nomanabutton;
+    [SerializeField] Button player1MoveNomana;
 
     [Header("Player2")]
     [SerializeField] GameObject Player2Moves;
@@ -17,6 +19,8 @@ public class buttonmanager : MonoBehaviour
     [SerializeField] Button player2Move2;
     [SerializeField] Button player2Move3;
     [SerializeField] Button player2Move4;
+    [SerializeField] GameObject player2nomanabutton;
+    [SerializeField] Button player2MoveNomana;
 
     [Header("Player3")]
     [SerializeField] GameObject Player3Moves;
@@ -24,6 +28,8 @@ public class buttonmanager : MonoBehaviour
     [SerializeField] Button player3Move2;
     [SerializeField] Button player3Move3;
     [SerializeField] Button player3Move4;
+    [SerializeField] GameObject player3nomanabutton;
+    [SerializeField] Button player3MoveNomana;
 
 
 
@@ -38,6 +44,7 @@ public class buttonmanager : MonoBehaviour
         player1Move2.onClick.AddListener(Fireballrunner);
         player1Move3.onClick.AddListener(Thunderboltrunner);
         player1Move4.onClick.AddListener(Fireballrunner);
+        player1MoveNomana.onClick.AddListener(blackholerunner);
 
 
         player2Move1.onClick.AddListener(FatesGambitrunner);
@@ -103,6 +110,7 @@ public class buttonmanager : MonoBehaviour
     {
         turns.Thunderbolt();
     }
+
 
 
     void Update()
@@ -192,13 +200,22 @@ public class buttonmanager : MonoBehaviour
             player1Move4.interactable = true;
         }
 
-        if(turns.isbossparalysed)
+        if (turns.currentturn == "Player1" && player1Move1.interactable == false && player1Move2.interactable == false && player1Move3.interactable == false && player1Move4.interactable == false && turns.player1currentmana <10)
+        {
+            player1nomanabutton.SetActive(true);
+        }
+        else
+        {
+            player1nomanabutton.SetActive(false);
+        }
+
+        if (turns.isbossparalysed)
         {
             player2Move1.interactable = false;
         }
         else
         {
-            if (turns.player2currentmana < -100)
+            if (turns.player2currentmana < 5)
             {
                 player2Move1.interactable = false;
             }
@@ -238,7 +255,16 @@ public class buttonmanager : MonoBehaviour
             player2Move4.interactable = true;
         }
 
-        if (turns.player2currentmana < 5)
+        if (turns.currentturn == "Player2" && player2Move1.interactable == false && player2Move2.interactable == false && player2Move3.interactable == false && player2Move4.interactable == false && turns.player2currentmana < 5)
+        {
+            player2nomanabutton.SetActive(true);
+        }
+        else
+        {
+            player2nomanabutton.SetActive(false);
+        }
+
+        if (turns.player3currentmana < 5)
         {
             player3Move1.interactable = false;
         }
@@ -248,7 +274,7 @@ public class buttonmanager : MonoBehaviour
         }
 
 
-        if (turns.player2currentmana < 20)
+        if (turns.player3currentmana < 20)
         {
             player3Move2.interactable = false;
         }
@@ -258,7 +284,7 @@ public class buttonmanager : MonoBehaviour
         }
 
 
-        if (turns.player2currentmana < 10)
+        if (turns.player3currentmana < 10)
         {
             player3Move3.interactable = false;
         }
@@ -268,7 +294,7 @@ public class buttonmanager : MonoBehaviour
         }
 
 
-        if (turns.player2currentmana < 40)
+        if (turns.player3currentmana < 40)
         {
             player3Move4.interactable = false;
         }
@@ -276,6 +302,16 @@ public class buttonmanager : MonoBehaviour
         {
             player3Move4.interactable = true;
         }
+
+        if (turns.currentturn == "Player3" && player3Move1.interactable == false && player3Move2.interactable == false && player3Move3.interactable == false && player3Move4.interactable == false && turns.player1currentmana < 5)
+        {
+            player3nomanabutton.SetActive(true);
+        }
+        else
+        {
+            player3nomanabutton.SetActive(false);
+        }
+
 
     }
 

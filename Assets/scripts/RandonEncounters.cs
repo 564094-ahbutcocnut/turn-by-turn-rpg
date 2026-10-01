@@ -50,7 +50,6 @@ public class RandonEncounters : MonoBehaviour
             if(numbertillencounter == increasingnumber)
             {
 
-                Debug.Log("rjfbnfrvjab");
                 
 
                if(currentarea == "Area1")
