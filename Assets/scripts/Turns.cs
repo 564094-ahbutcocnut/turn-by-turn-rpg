@@ -90,7 +90,7 @@ public class Turns : MonoBehaviour
 
     bool haschangedturns = false;
 
-    bool hasusedmove = false;
+    public bool hasusedmove = false;
 
     public string lastusedmove = "";
 
@@ -301,50 +301,56 @@ public class Turns : MonoBehaviour
     public void Blackhole()
     {
         StartCoroutine(BlackHoleeCoroutine());
-
+        hasusedmove = true;
     }
 
     public void TeamHeal()
     {
         StartCoroutine(TeamHealCoroutine());
-        
+        hasusedmove = true;
     }
 
 
     public void FatesGambit()
     {
         StartCoroutine(FatesGambitCoroutine());
-        
+        hasusedmove = true;
     }
 
     public void ChaosChaos()
     {
         StartCoroutine(ChaosChaosCoroutine());
+        hasusedmove = true;
     }
 
     public void FireBall()
     {
         StartCoroutine(FireballCoroutine());
+        hasusedmove = true;
     }
 
     public void bounterfulbonk()
     {
         StartCoroutine(bounterfulbonkCoroutine());
+        hasusedmove = true;
     }
 
     public void UltimateRage()
     {
         StartCoroutine(UltimateRageCoroutine());
+        hasusedmove = true;
     }
 
     public void TeamBarrier()
     {
         StartCoroutine(TeamBarrierCoroutine());
+        hasusedmove = true;
     }
 
     public void Thunderbolt()
     {
         StartCoroutine(ThunderboltCoroutine());
+        hasusedmove = true;
     }
 
     IEnumerator Fallingdebree()
@@ -1292,6 +1298,7 @@ public class Turns : MonoBehaviour
 
     void switchPlayer()
     {
+        hasusedmove = false;
         haschangedturns = false;
 
         NOMANA.SetActive(false);

@@ -165,6 +165,14 @@ public class buttonmanager : MonoBehaviour
         {
             player1Move1.interactable = false;
         }
+        else if(turns.hasusedmove == true)
+        {
+            player1Move1.interactable = false;
+        }
+        else if (turns.hasusedmove == false)
+        {
+            player1Move1.interactable = true;
+        }
         else
         {
             player1Move1.interactable = true;
@@ -174,6 +182,14 @@ public class buttonmanager : MonoBehaviour
         if (turns.player1currentmana < 10)
         {
             player1Move2.interactable = false;
+        }
+        else if (turns.hasusedmove == true)
+        {
+            player1Move2.interactable = false;
+        }
+        else if (turns.hasusedmove == false)
+        {
+            player1Move2.interactable = true;
         }
         else
         {
@@ -185,6 +201,14 @@ public class buttonmanager : MonoBehaviour
         {
             player1Move3.interactable = false;
         }
+        else if (turns.hasusedmove == true)
+        {
+            player1Move3.interactable = false;
+        }
+        else if (turns.hasusedmove == false)
+        {
+            player1Move3.interactable = true;
+        }
         else
         {
             player1Move3.interactable = true;
@@ -195,6 +219,14 @@ public class buttonmanager : MonoBehaviour
         {
             player1Move4.interactable = false;
         }
+        else if (turns.hasusedmove == true)
+        {
+            player1Move4.interactable = false;
+        }
+        else if (turns.hasusedmove == false)
+        {
+            player1Move4.interactable = true;
+        }
         else
         {
             player1Move4.interactable = true;
@@ -203,6 +235,14 @@ public class buttonmanager : MonoBehaviour
         if (turns.currentturn == "Player1" && player1Move1.interactable == false && player1Move2.interactable == false && player1Move3.interactable == false && player1Move4.interactable == false && turns.player1currentmana <10)
         {
             player1nomanabutton.SetActive(true);
+        }
+        else if (turns.hasusedmove == true)
+        {
+            player1MoveNomana.interactable = false;
+        }
+        else if (turns.hasusedmove == false)
+        {
+            player1MoveNomana.interactable = true;
         }
         else
         {
@@ -219,6 +259,14 @@ public class buttonmanager : MonoBehaviour
             {
                 player2Move1.interactable = false;
             }
+            else if (turns.hasusedmove == true)
+            {
+                player2Move1.interactable = false;
+            }
+            else if (turns.hasusedmove == false)
+            {
+                player2Move1.interactable = true;
+            }
             else
             {
                 player2Move1.interactable = true;
@@ -230,6 +278,14 @@ public class buttonmanager : MonoBehaviour
         {
             player2Move2.interactable = false;
         }
+        else if (turns.hasusedmove == true)
+        {
+            player2Move2.interactable = false;
+        }
+        else if (turns.hasusedmove == false)
+        {
+            player2Move2.interactable = true;
+        }
         else
         {
             player2Move2.interactable = true;
@@ -239,6 +295,14 @@ public class buttonmanager : MonoBehaviour
         if (turns.player2currentmana < 10)
         {
             player2Move3.interactable = false;
+        }
+        else if (turns.hasusedmove == true)
+        {
+            player2Move3.interactable = false;
+        }
+        else if (turns.hasusedmove == false)
+        {
+            player2Move3.interactable = true;
         }
         else
         {
@@ -250,6 +314,14 @@ public class buttonmanager : MonoBehaviour
         {
             player2Move4.interactable = false;
         }
+        else if (turns.hasusedmove == true)
+        {
+            player2Move4.interactable = false;
+        }
+        else if (turns.hasusedmove == false)
+        {
+            player2Move4.interactable = true;
+        }
         else
         {
             player2Move4.interactable = true;
@@ -259,6 +331,14 @@ public class buttonmanager : MonoBehaviour
         {
             player2nomanabutton.SetActive(true);
         }
+        else if (turns.hasusedmove == true)
+        {
+            player2MoveNomana.interactable = false;
+        }
+        else if (turns.hasusedmove == false)
+        {
+            player2MoveNomana.interactable = true;
+        }
         else
         {
             player2nomanabutton.SetActive(false);
@@ -267,6 +347,14 @@ public class buttonmanager : MonoBehaviour
         if (turns.player3currentmana < 5)
         {
             player3Move1.interactable = false;
+        }
+        else if (turns.hasusedmove == true)
+        {
+            player3Move1.interactable = false;
+        }
+        else if (turns.hasusedmove == false)
+        {
+            player3Move1.interactable = true;
         }
         else
         {
@@ -278,6 +366,14 @@ public class buttonmanager : MonoBehaviour
         {
             player3Move2.interactable = false;
         }
+        else if (turns.hasusedmove == true)
+        {
+            player3Move2.interactable = false;
+        }
+        else if (turns.hasusedmove == false)
+        {
+            player3Move2.interactable = true;
+        }
         else
         {
             player3Move2.interactable = true;
@@ -287,6 +383,14 @@ public class buttonmanager : MonoBehaviour
         if (turns.player3currentmana < 10)
         {
             player3Move3.interactable = false;
+        }
+        else if (turns.hasusedmove == true)
+        {
+            player3Move3.interactable = false;
+        }
+        else if (turns.hasusedmove == false)
+        {
+            player3Move3.interactable = true;
         }
         else
         {
@@ -298,6 +402,14 @@ public class buttonmanager : MonoBehaviour
         {
             player3Move4.interactable = false;
         }
+        else if (turns.hasusedmove == true)
+        {
+            player3Move4.interactable = false;
+        }
+        else if (turns.hasusedmove == false)
+        {
+            player3Move4.interactable = true;
+        }
         else
         {
             player3Move4.interactable = true;
@@ -306,6 +418,14 @@ public class buttonmanager : MonoBehaviour
         if (turns.currentturn == "Player3" && player3Move1.interactable == false && player3Move2.interactable == false && player3Move3.interactable == false && player3Move4.interactable == false && turns.player1currentmana < 5)
         {
             player3nomanabutton.SetActive(true);
+        }
+        else if (turns.hasusedmove == true)
+        {
+            player3MoveNomana.interactable = false;
+        }
+        else if (turns.hasusedmove == false)
+        {
+            player3MoveNomana.interactable = true;
         }
         else
         {
