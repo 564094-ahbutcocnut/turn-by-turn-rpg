@@ -2295,7 +2295,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Split personality - 50
+  m_Text: Second chance - 50
 --- !u!222 &749433070
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4773,6 +4773,7 @@ MonoBehaviour:
   player3dead: 0
   isbossconfused: 0
   isbossparalysed: 0
+  hasusedmove: 0
   lastusedmove: 
 --- !u!4 &1524814124
 Transform:

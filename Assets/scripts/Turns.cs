@@ -353,6 +353,36 @@ public class Turns : MonoBehaviour
         hasusedmove = true;
     }
 
+    public void Nucruel()
+    {
+        StartCoroutine(NucruelCorcoutine());
+        hasusedmove = true;
+    }
+
+    public void Staffpoke()
+    {
+        StartCoroutine(StaffpokeCoroutine());
+        hasusedmove = true;
+    }
+
+    public void BasicBonk()
+    {
+        StartCoroutine(basicbonkCoroutine());
+        hasusedmove = true;
+    }
+
+    public void energyblast()
+    {
+        StartCoroutine(energyblastCoroutine());
+        hasusedmove = true;
+    }
+
+    public void teammanaregen()
+    {
+        StartCoroutine(teammanaregenCoroutine());
+        hasusedmove = true;
+    }
+
     IEnumerator Fallingdebree()
     {
 
@@ -487,7 +517,7 @@ public class Turns : MonoBehaviour
             if (damagetoboss > 0)
             {
                 bossdamagetransitionvalue = enemycurrenthealth;
-            enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
+                enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
                 Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
                 damagetoboss = 0;
 
@@ -584,8 +614,17 @@ public class Turns : MonoBehaviour
     public IEnumerator FatesGambitCoroutine()
     {
 
-        player2currentmana = player2currentmana - 5;
-        Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
+        if(currentturn == "Player2")
+        {
+            player2currentmana = player2currentmana - 5;
+            Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
+        }
+        if(currentturn == "Player3")
+        {
+            player3currentmana = player3currentmana - 5;
+            Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
+        }
+
         int rollNumber = playerroll();
         yield return new WaitForSeconds(.2F);
         rollNumber = playerroll();
@@ -1112,6 +1151,339 @@ public class Turns : MonoBehaviour
 
         }
     }
+
+    public IEnumerator NucruelCorcoutine()
+    {
+        player1currentmana = player1currentmana - 25;
+        Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+        int rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        if(rollNumber >= 1 && rollNumber <= 5)
+        {
+            player1currenthealth = player1currenthealth - 2;
+            Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+            player2currenthealth = player2currenthealth - 2;
+            Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+            player3currenthealth = player3currenthealth - 2;
+            Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
+            switchPlayer();
+        }
+        if (rollNumber >= 6 && rollNumber <= 10)
+        {
+            damagetoboss = 2;
+            switchPlayer();
+        }
+        if (rollNumber >= 11 && rollNumber <= 15)
+        {
+            damagetoboss = 4;
+            switchPlayer();
+        }
+        if (rollNumber >= 16 && rollNumber <= 19)
+        {
+            damagetoboss = 6;
+            switchPlayer();
+        }
+        if (rollNumber == 20)
+        {
+            damagetoboss = 8;
+            switchPlayer();
+        }
+
+        if (damagetoboss > 0)
+        {
+            bossdamagetransitionvalue = enemycurrenthealth;
+            enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
+            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
+            damagetoboss = 0;
+
+        }
+
+    }
+
+    public IEnumerator StaffpokeCoroutine()
+    {
+        player1currentmana = player1currentmana + 10;
+        Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+        int rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        if(rollNumber >= 1 && rollNumber <= 5)
+        {
+            player1currenthealth = player1currenthealth - 1;
+            Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+            switchPlayer();
+        }
+        if (rollNumber >= 6 && rollNumber <= 10)
+        {
+            player1currentmana = player1currentmana + 5;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            switchPlayer();
+        }
+        if (rollNumber >= 6 && rollNumber <= 10)
+        {
+            player1currentmana = player1currentmana + 10;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            damagetoboss = 1;
+            switchPlayer();
+        }
+        if (rollNumber >= 11 && rollNumber <= 15)
+        {
+            player1currentmana = player1currentmana + 15;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            damagetoboss = 2;
+            switchPlayer();
+        }
+        if (rollNumber >= 16 && rollNumber <= 19)
+        {
+            player1currentmana = player1currentmana + 20;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            damagetoboss = 3;
+            switchPlayer();
+        }  
+        if (rollNumber == 20)
+        {
+            player1currentmana = player1currentmana + 50;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            damagetoboss = 3;
+            switchPlayer();
+        }
+
+        if (damagetoboss > 0)
+        {
+            bossdamagetransitionvalue = enemycurrenthealth;
+            enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
+            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
+            damagetoboss = 0;
+        }
+    }
+
+    public IEnumerator basicbonkCoroutine()
+    {
+        player2currentmana = player2currentmana + 5;
+        Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
+        int rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        if(rollNumber >= 1 && rollNumber <= 3)
+        {
+            player2currenthealth = player2currenthealth - 1;
+            Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+            switchPlayer();
+        }
+        if (rollNumber >= 4 && rollNumber <= 10)
+        {
+            
+            damagetoboss = 1;
+            switchPlayer();
+        }
+        if (rollNumber >= 11 && rollNumber <= 15)
+        {
+            player1currentmana = player1currentmana + 5;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            damagetoboss = 2;
+            switchPlayer();
+        }
+        if (rollNumber >= 16 && rollNumber <= 19)
+        {
+            player1currentmana = player1currentmana + 10;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            damagetoboss = 3;
+            switchPlayer();
+        }
+        if (rollNumber == 20)
+        {
+            player1currentmana = player1currentmana + 15;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            damagetoboss = 4;
+            switchPlayer();
+        }
+        if (damagetoboss > 0)
+        {
+            bossdamagetransitionvalue = enemycurrenthealth;
+            enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
+            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
+            damagetoboss = 0;
+
+        }
+    }
+
+    public IEnumerator energyblastCoroutine()
+    {
+        player3currentmana = player3currentmana + 5;
+        Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
+        int rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        if(rollNumber >= 1 && rollNumber <= 2)
+        {
+            player3currenthealth = player3currenthealth - 1;
+            Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
+            switchPlayer();
+        }
+        if (rollNumber >= 3 && rollNumber <= 5)
+        {
+            player1currentmana = player1currentmana + 5;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            switchPlayer();
+        }
+        if (rollNumber >= 6 && rollNumber <= 10)
+        {
+            player1currentmana = player1currentmana + 5;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            damagetoboss = 1;
+            switchPlayer();
+        }
+        if (rollNumber >= 11 && rollNumber <= 15)
+        {
+            player1currentmana = player1currentmana + 10;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            damagetoboss = 2;
+            switchPlayer();
+        }
+        if (rollNumber >= 16 && rollNumber <= 19)
+        {
+            player1currentmana = player1currentmana + 10;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            damagetoboss = 3;
+            switchPlayer();
+        }
+        if (rollNumber == 20)
+        {
+            player1currentmana = player1currentmana + 20;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            damagetoboss = 4;
+            switchPlayer();
+        }
+        if (damagetoboss > 0)
+        {
+            bossdamagetransitionvalue = enemycurrenthealth;
+            enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
+            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
+            damagetoboss = 0;
+
+        }
+    }
+
+    public IEnumerator teammanaregenCoroutine()
+    {
+        player3currentmana = player3currentmana - 40;
+        Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
+        int rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        if(rollNumber >= 1 && rollNumber <= 2)
+        {
+            player1currentmana = player1currentmana --;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            player2currentmana = player2currentmana --;
+            Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
+            player3currentmana = player3currentmana --; 
+            Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
+            switchPlayer();
+        }
+        if (rollNumber >= 3 && rollNumber <= 5)
+        {
+            player1currentmana = player1currentmana ++;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            player2currentmana = player2currentmana ++;
+            Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
+            player3currentmana = player3currentmana ++;
+            Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
+            switchPlayer();
+        }
+        if (rollNumber >= 6 && rollNumber <= 10)
+        {
+            player1currentmana = player1currentmana + 5;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            player2currentmana = player2currentmana + 5;
+            Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
+            player3currentmana = player3currentmana + 5;
+            Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
+            switchPlayer();
+        }
+        if (rollNumber >= 11 && rollNumber <= 15)
+        {
+            player1currentmana = player1currentmana + 10;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            player2currentmana = player2currentmana + 10;
+            Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
+            player3currentmana = player3currentmana + 10;
+            Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
+            switchPlayer();
+        }
+        if (rollNumber >= 16 && rollNumber <= 19)
+        {
+            player1currentmana = player1currentmana + 15;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            player2currentmana = player2currentmana + 15;
+            Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
+            player3currentmana = player3currentmana + 15;
+            Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
+            switchPlayer();
+        }
+        if (rollNumber == 20)
+        {
+            player1currentmana = player1currentmana + 25;
+            Player1mana.text = player1currentmana.ToString() + "/" + player1maxmana;
+            player2currentmana = player2currentmana + 25;
+            Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
+            player3currentmana = player3currentmana + 25;
+            Player3mana.text = player3currentmana.ToString() + "/" + player3maxmana;
+            switchPlayer();
+        }
+    }
+
 
     void bossturn()
     {

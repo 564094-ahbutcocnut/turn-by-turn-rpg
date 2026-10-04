@@ -43,19 +43,21 @@ public class buttonmanager : MonoBehaviour
         player1Move1.onClick.AddListener(blackholerunner);
         player1Move2.onClick.AddListener(Fireballrunner);
         player1Move3.onClick.AddListener(Thunderboltrunner);
-        player1Move4.onClick.AddListener(Fireballrunner);
-        player1MoveNomana.onClick.AddListener(blackholerunner);
+        player1Move4.onClick.AddListener(Nucruelrunner);
+        player1MoveNomana.onClick.AddListener(Staffpokerunner);
 
 
         player2Move1.onClick.AddListener(FatesGambitrunner);
         player2Move2.onClick.AddListener(Bountifulbonkrunner);
         player2Move3.onClick.AddListener(UltimateRagerunner);
         player2Move4.onClick.AddListener(UltimateRagerunner);
+        player2MoveNomana.onClick.AddListener(basicbonkrunner);
 
         player3Move1.onClick.AddListener(ChaosChaosrunner);
         player3Move2.onClick.AddListener(TeamHealrunner);
         player3Move3.onClick.AddListener(TeamBarrierrunner);
-        player3Move4.onClick.AddListener(TeamHealrunner);
+        player3Move4.onClick.AddListener(teammanaregenrunner);
+        player3MoveNomana.onClick.AddListener(energyblastrunner);
 
 
 
@@ -111,6 +113,30 @@ public class buttonmanager : MonoBehaviour
         turns.Thunderbolt();
     }
 
+    void Nucruelrunner()
+    {
+        turns.Nucruel();
+    }
+
+    void Staffpokerunner()
+    {
+        turns.Staffpoke();
+    }
+
+    void basicbonkrunner()
+    {
+        turns.BasicBonk();
+    }
+
+    void energyblastrunner()
+    {
+        turns.energyblast();
+    }
+
+    void teammanaregenrunner()
+    {
+        turns.teammanaregen();
+    }
 
 
     void Update()
@@ -236,17 +262,18 @@ public class buttonmanager : MonoBehaviour
         {
             player1nomanabutton.SetActive(true);
         }
-        else if (turns.hasusedmove == true)
-        {
-            player1MoveNomana.interactable = false;
-        }
-        else if (turns.hasusedmove == false)
-        {
-            player1MoveNomana.interactable = true;
-        }
         else
         {
             player1nomanabutton.SetActive(false);
+        }
+
+        if (turns.hasusedmove == true)
+        {
+            player1MoveNomana.interactable = false;
+        }
+        if (turns.hasusedmove == false)
+        {
+            player1MoveNomana.interactable = true;
         }
 
         if (turns.isbossparalysed)
@@ -331,14 +358,6 @@ public class buttonmanager : MonoBehaviour
         {
             player2nomanabutton.SetActive(true);
         }
-        else if (turns.hasusedmove == true)
-        {
-            player2MoveNomana.interactable = false;
-        }
-        else if (turns.hasusedmove == false)
-        {
-            player2MoveNomana.interactable = true;
-        }
         else
         {
             player2nomanabutton.SetActive(false);
@@ -418,14 +437,6 @@ public class buttonmanager : MonoBehaviour
         if (turns.currentturn == "Player3" && player3Move1.interactable == false && player3Move2.interactable == false && player3Move3.interactable == false && player3Move4.interactable == false && turns.player1currentmana < 5)
         {
             player3nomanabutton.SetActive(true);
-        }
-        else if (turns.hasusedmove == true)
-        {
-            player3MoveNomana.interactable = false;
-        }
-        else if (turns.hasusedmove == false)
-        {
-            player3MoveNomana.interactable = true;
         }
         else
         {
