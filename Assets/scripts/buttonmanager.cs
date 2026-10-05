@@ -50,7 +50,7 @@ public class buttonmanager : MonoBehaviour
         player2Move1.onClick.AddListener(FatesGambitrunner);
         player2Move2.onClick.AddListener(Bountifulbonkrunner);
         player2Move3.onClick.AddListener(UltimateRagerunner);
-        player2Move4.onClick.AddListener(UltimateRagerunner);
+        player2Move4.onClick.AddListener(TeratonHammerrunner);
         player2MoveNomana.onClick.AddListener(basicbonkrunner);
 
         player3Move1.onClick.AddListener(ChaosChaosrunner);
@@ -136,6 +136,11 @@ public class buttonmanager : MonoBehaviour
     void teammanaregenrunner()
     {
         turns.teammanaregen();
+    }
+
+    void TeratonHammerrunner()
+    {
+        turns.TeratonHammer();
     }
 
 
@@ -337,7 +342,7 @@ public class buttonmanager : MonoBehaviour
         }
 
 
-        if (turns.player2currentmana < 50)
+        if (turns.player2currentmana < 25)
         {
             player2Move4.interactable = false;
         }

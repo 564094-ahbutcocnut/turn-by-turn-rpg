@@ -13,9 +13,9 @@ public class Turns : MonoBehaviour
     [SerializeField] TextMeshProUGUI EnemyRoll;
 
     [Header("Health")]
-    [SerializeField] TextMeshProUGUI Player1health;
-    [SerializeField] TextMeshProUGUI Player2health;
-    [SerializeField] TextMeshProUGUI Player3health;
+    [SerializeField] public TextMeshProUGUI Player1health;
+    [SerializeField] public TextMeshProUGUI Player2health;
+    [SerializeField] public TextMeshProUGUI Player3health;
     [SerializeField] public TextMeshProUGUI Enemyhealth;
 
     [Header("Mana")]
@@ -43,14 +43,14 @@ public class Turns : MonoBehaviour
     int wheelrollsPlayers = 0;
     int wheelrollsEnemy = 0;
 
-    int player1maxhealth = 15;
-    int player2maxthealth = 30;
-    int player3maxhealth = 20;
+    public int player1maxhealth = 15;
+    public int player2maxthealth = 30;
+    public int player3maxhealth = 20;
     public int enemymaxhealth = 100;
 
-    int player1currenthealth = 0;
-    int player2currenthealth = 0;
-    int player3currenthealth = 0;
+    public int player1currenthealth = 0;
+    public int player2currenthealth = 0;
+    public int player3currenthealth = 0;
     public int enemycurrenthealth = 1;
 
     public int player1maxmana = 100;
@@ -81,10 +81,10 @@ public class Turns : MonoBehaviour
     int parachancetostatus = 0;
     int parachancehappen = 0;
 
-    bool rageactive = false;
+    public bool rageactive = false;
     int ragemultiplier = 1;
 
-    bool barrieractive = false;
+    public bool barrieractive = false;
     int barrierreducer = 1;
     int turnsleftofbarrier = 0;
 
@@ -94,9 +94,9 @@ public class Turns : MonoBehaviour
 
     public string lastusedmove = "";
 
-    //when entering a battle setplayer active to false to stop moving during battle
+    //public int turnstillyoucanuseTeratonhammeragain = 0;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     void Start()
     {
 
@@ -383,6 +383,10 @@ public class Turns : MonoBehaviour
         hasusedmove = true;
     }
 
+    public void TeratonHammer()
+    {
+        StartCoroutine(Teratonhammercoroutine());
+    }
     IEnumerator Fallingdebree()
     {
 
@@ -1484,6 +1488,104 @@ public class Turns : MonoBehaviour
         }
     }
 
+    public IEnumerator Teratonhammercoroutine()
+    {
+        //turnstillyoucanuseTeratonhammeragain = 2;
+        player2currentmana = player2currentmana - 25;
+        Player2mana.text = player2currentmana.ToString() + "/" + player2maxmana;
+        int rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollNumber = playerroll();
+        yield return new WaitForSeconds(.2F);
+
+
+        if(rageactive == false)
+        {
+            if (rollNumber >= 1 && rollNumber <= 3)
+            {
+                player2currenthealth = player2currenthealth - 5;
+                Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+                switchPlayer();
+            }
+            if (rollNumber >= 4 && rollNumber <= 5)
+            {
+                damagetoboss = 3;
+                switchPlayer();
+            }
+            if (rollNumber >= 6 && rollNumber <= 10)
+            {
+                damagetoboss = 5;
+                switchPlayer();
+            }
+            if (rollNumber >= 11 && rollNumber <= 15)
+            {
+                damagetoboss = 7;
+                switchPlayer();
+            }
+            if (rollNumber >= 16 && rollNumber <= 19)
+            {
+                damagetoboss = 10;
+                switchPlayer();
+            }
+            if (rollNumber == 20)
+            {
+                damagetoboss = 15;
+                switchPlayer();
+            }
+        }
+        if (rageactive == true)
+        {
+            if (rollNumber >= 1 && rollNumber <= 5)
+            {
+                damagetoboss = 3;
+                rageactive = false;
+                switchPlayer();
+            }
+            if (rollNumber >= 6 && rollNumber <= 10)
+            {
+                damagetoboss = 5/2 * ragemultiplier;
+                rageactive = false;
+                switchPlayer();
+            }
+            if (rollNumber >= 11 && rollNumber <= 15)
+            {
+                damagetoboss = 7/2 * ragemultiplier;
+                rageactive = false;
+                switchPlayer();
+            }
+            if (rollNumber >= 16 && rollNumber <= 19)
+            {
+                damagetoboss = 10 * ragemultiplier;
+                rageactive = false;
+                switchPlayer();
+            }
+            if (rollNumber == 20)
+            {
+                damagetoboss = 15 * ragemultiplier;
+                rageactive = false;
+                switchPlayer();
+            }
+        }
+
+        if (damagetoboss > 0)
+        {
+            bossdamagetransitionvalue = enemycurrenthealth;
+            enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
+            Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
+            damagetoboss = 0;
+
+        }
+
+    }
+
 
     void bossturn()
     {
@@ -1691,6 +1793,12 @@ public class Turns : MonoBehaviour
                 currentturn = "Player3";
                 whosTurnText.text = currentturn + "'s turn";
                 haschangedturns = true;
+
+
+                /*if(turnstillyoucanuseTeratonhammeragain > 0)
+                {
+                    turnstillyoucanuseTeratonhammeragain--;
+                }*/
             }
         }
         if(haschangedturns == false)

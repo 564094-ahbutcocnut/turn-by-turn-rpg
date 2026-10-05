@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using UnityEngine;
 
@@ -9,6 +10,9 @@ public class RandonEncounters : MonoBehaviour
     [SerializeField] Turns turns;
     [SerializeField] enemies Enemies;
 
+    [SerializeField] public GameObject forrestbattlebackground;
+    [SerializeField] public GameObject desertbattlebackground;
+    [SerializeField] public GameObject lavabattlebackground;
 
     public string currentarea = "";
 
@@ -54,6 +58,7 @@ public class RandonEncounters : MonoBehaviour
 
                if(currentarea == "Area1")
                 {
+                    forrestbattlebackground.SetActive(true);
                     var area1randomiser = Random.Range(1, 4);
 
                     if(area1randomiser == 1)
@@ -74,6 +79,7 @@ public class RandonEncounters : MonoBehaviour
                 }
                if (currentarea == "Area2")
                {
+                    desertbattlebackground.SetActive(true);
                     var area1randomiser = Random.Range(1, 4);
 
                     if (area1randomiser == 1)
@@ -94,6 +100,7 @@ public class RandonEncounters : MonoBehaviour
                }
                if (currentarea == "Area3")
                {
+                    lavabattlebackground.SetActive(true);
                     var area1randomiser = Random.Range(1, 4);
 
                     if (area1randomiser == 1)

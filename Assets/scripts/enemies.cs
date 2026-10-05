@@ -219,6 +219,14 @@ public class enemies : MonoBehaviour
         foreach (Transform e in currentenemies)
             Destroy(e.gameObject);
     }
+    
+
+    public void DisableBattleBackground()
+    {
+        randomencounters.forrestbattlebackground.SetActive(false);
+        randomencounters.desertbattlebackground.SetActive(false);
+        randomencounters.lavabattlebackground.SetActive(false);
+    }
 
  
     public  IEnumerator textforyouwin()
@@ -233,12 +241,20 @@ public class enemies : MonoBehaviour
         whoyouwinisstored.SetActive(false);
         turns.enemycurrenthealth = 1;
 
-
-
+        turns.isbossconfused = false;
+        turns.isbossparalysed = false;
+        turns.rageactive = false;
+        turns.barrieractive = false;
+        //turns.turnstillyoucanuseTeratonhammeragain = 0;
+        DisableBattleBackground();
 
         turns.inbattle = false;
         DestroyAllEnemies();
-
+        turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+        turns.Player1mana.text = turns.player1currentmana.ToString() + "/" + turns.player1maxmana;
+        turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+        turns.Player2mana.text = turns.player2currentmana.ToString() + "/" + turns.player2maxmana;
+        turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
         turns.player1currentmana = turns.player1maxmana;
         turns.Player1mana.text = turns.player1currentmana.ToString() + "/" + turns.player1maxmana;
         turns.player2currentmana = turns.player2maxmana;
