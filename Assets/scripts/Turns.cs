@@ -4,6 +4,9 @@ using System.Collections;
 
 public class Turns : MonoBehaviour
 {
+
+    [SerializeField] EnemyTurns enemyturns;
+
     [Header("Game states")]
     [SerializeField] GameObject BattleUI;
     [SerializeField] GameObject Overworld;
@@ -287,10 +290,10 @@ public class Turns : MonoBehaviour
 
         return wheelrollsPlayers;
     }
-    public int bossroll()
+    public int enemyroll()
     {
-        var bossroll = Random.Range(1, 21);
-        wheelrollsEnemy = bossroll;
+        var enemyroll = Random.Range(1, 21);
+        wheelrollsEnemy = enemyroll;
         EnemyRoll.text = wheelrollsEnemy.ToString();
 
         return wheelrollsEnemy;
@@ -391,20 +394,20 @@ public class Turns : MonoBehaviour
     {
 
         
-        int rollBossnumber = bossroll();
+        int rollEnemynumber = enemyroll();
         yield return new WaitForSeconds(.2F);
-        rollBossnumber = bossroll();
+        rollEnemynumber = enemyroll();
         yield return new WaitForSeconds(.2F);
-        rollBossnumber = bossroll();
-        yield return new WaitForSeconds(.2F);
-
-        rollBossnumber = bossroll();
+        rollEnemynumber = enemyroll();
         yield return new WaitForSeconds(.2F);
 
-        rollBossnumber = bossroll();
+        rollEnemynumber = enemyroll();
         yield return new WaitForSeconds(.2F);
 
-        if(rollBossnumber >= 1 && rollBossnumber <= 5)
+        rollEnemynumber = enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        if(rollEnemynumber >= 1 && rollEnemynumber <= 5)
         {
             player1currenthealth = player1currenthealth - 2 / barrierreducer;
             Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
@@ -413,7 +416,7 @@ public class Turns : MonoBehaviour
             player3currenthealth = player3currenthealth - 2 / barrierreducer;
             Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
         }
-        if (rollBossnumber >= 6 && rollBossnumber <= 10)
+        if (rollEnemynumber >= 6 && rollEnemynumber <= 10)
         {
             player1currenthealth = player1currenthealth - 4 / barrierreducer;
             Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
@@ -422,7 +425,7 @@ public class Turns : MonoBehaviour
             player3currenthealth = player3currenthealth - 4 / barrierreducer;
             Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
         }
-        if (rollBossnumber >= 11 && rollBossnumber <= 15)
+        if (rollEnemynumber >= 11 && rollEnemynumber <= 15)
         {
             player1currenthealth = player1currenthealth - 7 / barrierreducer;
             Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
@@ -431,7 +434,7 @@ public class Turns : MonoBehaviour
             player3currenthealth = player3currenthealth - 7 / barrierreducer;
             Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
         }
-        if (rollBossnumber >= 16 && rollBossnumber <= 19)
+        if (rollEnemynumber >= 16 && rollEnemynumber <= 19)
         {
             player1currenthealth = player1currenthealth - 10 / barrierreducer;
             Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
@@ -440,7 +443,7 @@ public class Turns : MonoBehaviour
             player3currenthealth = player3currenthealth - 10 / barrierreducer;
             Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
         }
-        if(rollBossnumber == 20)
+        if(rollEnemynumber == 20)
         {
 
             player1currenthealth = player1currenthealth - 15 / barrierreducer;
@@ -1770,7 +1773,7 @@ public class Turns : MonoBehaviour
         }
     }
 
-    void switchPlayer()
+    public void switchPlayer()
     {
         hasusedmove = false;
         haschangedturns = false;
@@ -1834,6 +1837,7 @@ public class Turns : MonoBehaviour
             {
                 currentturn = "Player1";
                 whosTurnText.text = currentturn + "'s turn";
+                enemyturns.hasenemyusedattack = false;
                 haschangedturns = true;
             }
         }
