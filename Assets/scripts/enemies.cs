@@ -8,6 +8,7 @@ public class enemies : MonoBehaviour
 
     [SerializeField] Turns turns;
     [SerializeField] RandonEncounters randomencounters;
+    [SerializeField] EnemyTurns enemyturns;
     [SerializeField] GameObject whoyouwinisstored;
 
 
@@ -261,6 +262,7 @@ public class enemies : MonoBehaviour
         turns.Player2mana.text = turns.player2currentmana.ToString() + "/" + turns.player2maxmana;
         turns.player3currentmana = turns.player3maxmana;
         turns.Player3mana.text = turns.player3currentmana.ToString() + "/" + turns.player3maxmana;
+
         turns.currentturn = "Player1";
         turns.whosTurnText.text = turns.currentturn + "'s turn";
     }

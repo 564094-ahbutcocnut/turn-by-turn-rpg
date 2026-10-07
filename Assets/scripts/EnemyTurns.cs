@@ -15,8 +15,8 @@ public class EnemyTurns : MonoBehaviour
     [SerializeField] GameObject enenyusedmoveholder;
     [SerializeField] TextMeshProUGUI enemymoveused;
 
-    [SerializeField] SpriteRenderer slimebeforeexplosion;
-    [SerializeField] SpriteRenderer slimeafterexplosion;
+    [SerializeField] public SpriteRenderer slimebeforeexplosion;
+    [SerializeField] public SpriteRenderer slimeafterexplosion;
 
     int Enemydamagemodifier = 1;
 
@@ -80,21 +80,23 @@ public class EnemyTurns : MonoBehaviour
                 }
                 if (randomencounters.currentenemy == "Slime")
                 {
+                    SpriteRenderer slimeafterexplosion = slimebeforeexplosion;
+
                     int enemymoveselector = Random.Range(1, 11);
 
                     if (enemymoveselector >= 1 && enemymoveselector <= 4)
                     {
-                        StartCoroutine(Lunge());
+                        StartCoroutine(Slimebonk());
                         hasenemyusedattack = true;
                     }
                     else if (enemymoveselector >= 5 && enemymoveselector <= 8)
                     {
-                        StartCoroutine(SpearStab());
+                        StartCoroutine(Slimejab());
                         hasenemyusedattack = true;
                     }
                     else
                     {
-                        StartCoroutine(WingGust());
+                        StartCoroutine(Slimeexplosion());
                         hasenemyusedattack = true;
                     }
                 }
@@ -673,6 +675,7 @@ public class EnemyTurns : MonoBehaviour
         enenyusedmoveholder.SetActive(false);
 
     }
+
     IEnumerator Slimejab()
     {
         enenyusedmoveholder.SetActive(true);
@@ -961,6 +964,8 @@ public class EnemyTurns : MonoBehaviour
         enenyusedmoveholder.SetActive(true);
         enemymoveused.text = "The Slime exploded";
 
+        SpriteRenderer slimebeforeexplosion = slimeafterexplosion;
+
         int rollEnemynumber = turns.enemyroll();
         yield return new WaitForSeconds(.2F);
         rollEnemynumber = turns.enemyroll();
@@ -1044,7 +1049,7 @@ public class EnemyTurns : MonoBehaviour
             enemymoveused.text = "BUT IT REFUSED!!!";
 
 
-            SpriteRenderer slimebeforeexplosion = slimeafterexplosion;
+            SpriteRenderer slimeafterexplosion = slimebeforeexplosion;
 
             turns.enemymaxhealth = 100;
 
@@ -1056,6 +1061,8 @@ public class EnemyTurns : MonoBehaviour
             {
                 yield return new WaitForSeconds(.5F);
                 enemymoveused.text = "but not for long";
+
+                
 
                 turns.enemymaxhealth = 1;
                 turns.enemycurrenthealth = 0;
