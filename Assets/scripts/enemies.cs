@@ -118,6 +118,7 @@ public class enemies : MonoBehaviour
             turns.Enemyhealth = enemy.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
             turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
             summoningnewenemy = false;
+            enemyturns.Rockyspriterender = enemy.GetComponent<SpriteRenderer>();
         }
         if (randomencounters.currentenemy == "Slime")
         {
@@ -130,6 +131,8 @@ public class enemies : MonoBehaviour
             turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
             summoningnewenemy = false;
             turns.inbattle = true;
+
+            enemyturns.Slimespriterender = enemy.GetComponent<SpriteRenderer>();
         }
         if (randomencounters.currentenemy == "Cactus")
         {
@@ -242,20 +245,14 @@ public class enemies : MonoBehaviour
         whoyouwinisstored.SetActive(false);
         turns.enemycurrenthealth = 1;
 
-        turns.isbossconfused = false;
-        turns.isbossparalysed = false;
-        turns.rageactive = false;
-        turns.barrieractive = false;
-        //turns.turnstillyoucanuseTeratonhammeragain = 0;
-        DisableBattleBackground();
-
-        turns.inbattle = false;
-        DestroyAllEnemies();
+        turns.player1currenthealth = turns.player1maxhealth;
         turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
-        turns.Player1mana.text = turns.player1currentmana.ToString() + "/" + turns.player1maxmana;
+        turns.player2currenthealth = turns.player2maxthealth;
         turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
-        turns.Player2mana.text = turns.player2currentmana.ToString() + "/" + turns.player2maxmana;
+        turns.player3currenthealth = turns.player3maxhealth;
         turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+
+
         turns.player1currentmana = turns.player1maxmana;
         turns.Player1mana.text = turns.player1currentmana.ToString() + "/" + turns.player1maxmana;
         turns.player2currentmana = turns.player2maxmana;
@@ -265,6 +262,21 @@ public class enemies : MonoBehaviour
 
         turns.currentturn = "Player1";
         turns.whosTurnText.text = turns.currentturn + "'s turn";
+
+        turns.isbossconfused = false;
+        turns.isbossparalysed = false;
+        turns.rageactive = false;
+        turns.turnsleftofbarrier = 0;
+        turns.barrieractive = false;
+
+        enemyturns.hasenemyusedattack = false;
+
+        //turns.turnstillyoucanuseTeratonhammeragain = 0;
+        DisableBattleBackground();
+
+        turns.inbattle = false;
+        DestroyAllEnemies();
+
     }
     
 }

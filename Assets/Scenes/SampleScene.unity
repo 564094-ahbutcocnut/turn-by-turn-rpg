@@ -4726,7 +4726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turns: {fileID: 1524814123}
   randomencounters: {fileID: 1393892872}
-  enemyturns: {fileID: 0}
+  enemyturns: {fileID: 1393892874}
   whoyouwinisstored: {fileID: 290697731}
   battlewintest: {fileID: 200321931}
   Goblin: {fileID: 5074528785792124708, guid: f059c66360163f24d971f652d881a8f1, type: 3}
@@ -4761,11 +4761,24 @@ MonoBehaviour:
   turns: {fileID: 1524814123}
   randomencounters: {fileID: 1393892872}
   Enemy: {fileID: 1393892873}
+  Slimespriterender: {fileID: 0}
+  slimebeforeexplosion: {fileID: 21300000, guid: 9163af48cdca32f419ea0e4efcacc9f9, type: 3}
+  slimeafterexplosion: {fileID: 21300000, guid: 08281fbb9d482e849857447ab16156cd, type: 3}
+  MachoSlime: {fileID: 21300000, guid: f67898c08ce0e6f439f2f1701d760bd6, type: 3}
+  Rockyspriterender: {fileID: 0}
+  norockslost: {fileID: 21300000, guid: fc13e16151bab0149bc1a14aef069256, type: 3}
+  onerocklost: {fileID: 21300000, guid: 006340a2229adf54999fdf014938fcab, type: 3}
+  tworockslost: {fileID: 21300000, guid: 65a5431412536b8488c858e0bf28075e, type: 3}
+  threerockslost: {fileID: 21300000, guid: 5ae5cd67aff6f77469d45d28f308833c, type: 3}
+  fourrockslost: {fileID: 21300000, guid: f90e6e791a40ca940ae05523b3b6ef5d, type: 3}
+  fiverockslost: {fileID: 21300000, guid: 516c625c76895b04e8a5e4f61120fcd8, type: 3}
+  sixrockslost: {fileID: 21300000, guid: f102e8fd1fd8cef429ac200994f99cba, type: 3}
+  sevenrockslost: {fileID: 21300000, guid: 4055349cf182ef545820d1046f10872d, type: 3}
+  eightrockslost: {fileID: 21300000, guid: 4d035ab2ac950d348a7d4cb84fb1461e, type: 3}
   enenyusedmoveholder: {fileID: 1709356928}
   enemymoveused: {fileID: 569777132}
-  slimebeforeexplosion: {fileID: 0}
-  slimeafterexplosion: {fileID: 0}
   hasenemyusedattack: 0
+  rockslost: 0
 --- !u!1 &1400891202
 GameObject:
   m_ObjectHideFlags: 0
@@ -5192,6 +5205,8 @@ MonoBehaviour:
   isbossparalysed: 0
   rageactive: 0
   barrieractive: 0
+  barrierreducer: 1
+  turnsleftofbarrier: 0
   hasusedmove: 0
   lastusedmove: 
 --- !u!4 &1524814124
@@ -5826,7 +5841,7 @@ Transform:
   m_GameObject: {fileID: 1709356928}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1918.699, y: -1080.0969, z: -0.05568162}
+  m_LocalPosition: {x: -2000, y: -1080.0969, z: -0.05568162}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

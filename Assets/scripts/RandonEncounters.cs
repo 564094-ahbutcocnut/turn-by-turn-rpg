@@ -63,7 +63,7 @@ public class RandonEncounters : MonoBehaviour
 
                     if(area1randomiser == 1)
                     {
-                        currentenemy = "Goblin";
+                        currentenemy = "Rocky";
                         Enemies.summoningnewenemy = true;
                     }
                     if (area1randomiser == 2)
@@ -73,7 +73,7 @@ public class RandonEncounters : MonoBehaviour
                     }
                     if(area1randomiser == 3)
                     {
-                        currentenemy = "Slime";
+                        currentenemy = "Rocky";
                         Enemies.summoningnewenemy = true;
                     }
                 }

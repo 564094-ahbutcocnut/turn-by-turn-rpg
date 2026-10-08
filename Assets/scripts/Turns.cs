@@ -88,8 +88,8 @@ public class Turns : MonoBehaviour
     int ragemultiplier = 1;
 
     public bool barrieractive = false;
-    int barrierreducer = 1;
-    int turnsleftofbarrier = 0;
+    public int barrierreducer = 1;
+    public int turnsleftofbarrier = 0;
 
     bool haschangedturns = false;
 
@@ -108,6 +108,31 @@ public class Turns : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (player1currenthealth < 0 && player1currenthealth > -100)
+        {
+            player1currenthealth = 0;
+            Player1health.text = player1currenthealth.ToString() + "/" + player1maxhealth;
+        }
+        if (player2currenthealth < 0)
+        {
+            player2currenthealth = 0;
+            Player2health.text = player2currenthealth.ToString() + "/" + player2maxthealth;
+        }
+        if (player3currenthealth < 0)
+        {
+            player3currenthealth = 0;
+            Player3health.text = player3currenthealth.ToString() + "/" + player3maxhealth;
+        }
+
+
+
+        if (player1dead == true && player2dead == true && player3dead == true)
+        {
+            StopAllCoroutines();
+        }
+
+
         if(turnsleftofbarrier == 0)
         {
             barrieractive = false;
@@ -185,7 +210,7 @@ public class Turns : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                currentturn = "Boss";
+                currentturn = "Enemy";
                 whosTurnText.text = currentturn + "'s turn";
             }
 
@@ -1779,6 +1804,13 @@ public class Turns : MonoBehaviour
         haschangedturns = false;
 
         NOMANA.SetActive(false);
+
+        if(enemycurrenthealth <=0)
+        {
+            currentturn = "NUH UH";
+        }
+
+
 
         if(haschangedturns == false)
         {
