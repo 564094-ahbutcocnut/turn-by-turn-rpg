@@ -122,6 +122,22 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &4918805 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6950906685309382722, guid: c9041575e517483489f793181f4e05b5, type: 3}
+  m_PrefabInstance: {fileID: 854533428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4918806 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8218507068841675070, guid: c9041575e517483489f793181f4e05b5, type: 3}
+  m_PrefabInstance: {fileID: 854533428}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84d74b1827732e345a61a137af733734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7556935
 GameObject:
   m_ObjectHideFlags: 0
@@ -2307,7 +2323,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1918.699, y: 230.09692}
+  m_AnchoredPosition: {x: 1918.699, y: 300}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &569777132
@@ -2330,7 +2346,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '   used    '
+  m_text: The enemy summoned minesweeper
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2927,6 +2943,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814940637}
   m_CullTransparentMesh: 1
+--- !u!1001 &854533428
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1862365106}
+    m_Modifications:
+    - target: {fileID: 4357611011876750744, guid: c9041575e517483489f793181f4e05b5, type: 3}
+      propertyPath: m_Name
+      value: MinesweeperManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950906685309382722, guid: c9041575e517483489f793181f4e05b5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950906685309382722, guid: c9041575e517483489f793181f4e05b5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950906685309382722, guid: c9041575e517483489f793181f4e05b5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950906685309382722, guid: c9041575e517483489f793181f4e05b5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950906685309382722, guid: c9041575e517483489f793181f4e05b5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.09611116
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950906685309382722, guid: c9041575e517483489f793181f4e05b5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950906685309382722, guid: c9041575e517483489f793181f4e05b5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950906685309382722, guid: c9041575e517483489f793181f4e05b5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950906685309382722, guid: c9041575e517483489f793181f4e05b5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950906685309382722, guid: c9041575e517483489f793181f4e05b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950906685309382722, guid: c9041575e517483489f793181f4e05b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950906685309382722, guid: c9041575e517483489f793181f4e05b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8218507068841675070, guid: c9041575e517483489f793181f4e05b5, type: 3}
+      propertyPath: enemyturns
+      value: 
+      objectReference: {fileID: 1393892874}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c9041575e517483489f793181f4e05b5, type: 3}
 --- !u!1 &862196785
 GameObject:
   m_ObjectHideFlags: 0
@@ -4298,6 +4383,7 @@ Transform:
   - {fileID: 1393892871}
   - {fileID: 1203876862}
   - {fileID: 1524814124}
+  - {fileID: 1862365106}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1266537899
@@ -4761,6 +4847,7 @@ MonoBehaviour:
   turns: {fileID: 1524814123}
   randomencounters: {fileID: 1393892872}
   Enemy: {fileID: 1393892873}
+  minesweeperattack: {fileID: 4918806}
   Slimespriterender: {fileID: 0}
   slimebeforeexplosion: {fileID: 21300000, guid: 9163af48cdca32f419ea0e4efcacc9f9, type: 3}
   slimeafterexplosion: {fileID: 21300000, guid: 08281fbb9d482e849857447ab16156cd, type: 3}
@@ -4775,10 +4862,12 @@ MonoBehaviour:
   sixrockslost: {fileID: 21300000, guid: f102e8fd1fd8cef429ac200994f99cba, type: 3}
   sevenrockslost: {fileID: 21300000, guid: 4055349cf182ef545820d1046f10872d, type: 3}
   eightrockslost: {fileID: 21300000, guid: 4d035ab2ac950d348a7d4cb84fb1461e, type: 3}
+  MinesweeperManager: {fileID: 4357611011876750744, guid: c9041575e517483489f793181f4e05b5, type: 3}
   enenyusedmoveholder: {fileID: 1709356928}
   enemymoveused: {fileID: 569777132}
   hasenemyusedattack: 0
   rockslost: 0
+  usingminesweeper: 0
 --- !u!1 &1400891202
 GameObject:
   m_ObjectHideFlags: 0
@@ -5951,6 +6040,38 @@ Transform:
   - {fileID: 1709193365}
   - {fileID: 1266537900}
   m_Father: {fileID: 1140786550}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1862365105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1862365106}
+  m_Layer: 0
+  m_Name: MinesweeperManagerHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1862365106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862365105}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.7912014, y: 1.1030966, z: -0.06828421}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4918805}
+  m_Father: {fileID: 1241801154}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1864530748
 GameObject:

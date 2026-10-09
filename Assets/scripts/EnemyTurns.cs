@@ -10,6 +10,7 @@ public class EnemyTurns : MonoBehaviour
     [SerializeField] Turns turns;
     [SerializeField] RandonEncounters randomencounters;
     [SerializeField] enemies Enemy;
+    [SerializeField] MineSweeperAttack minesweeperattack;
 
     [Header("sprites")]
 
@@ -30,6 +31,9 @@ public class EnemyTurns : MonoBehaviour
 
 
     [Header("battle variables")]
+
+    [SerializeField] GameObject MinesweeperManager;
+
     [SerializeField] GameObject enenyusedmoveholder;
     [SerializeField] TextMeshProUGUI enemymoveused;
 
@@ -45,11 +49,34 @@ public class EnemyTurns : MonoBehaviour
 
     public int rockslost = 0;
 
+    public bool usingminesweeper;
+
+
+    Transform Managers;
+
+    private void Start()
+    {
+        Managers = GameObject.Find("MinesweeperManagerHolder").transform;
+    }
+
     private void Update()
     {
+        if(minesweeperattack.haslost == true)
+        {
+            Debug.Log(minesweeperattack.haslost);
+            StartCoroutine(failedMinecsweeper());
+            minesweeperattack.haslost = false;
+        }
+
+        if (minesweeperattack.haswon == true)
+        {
+            StartCoroutine(Sucseededminesweeper());
+            minesweeperattack.haswon = false;
+        }
 
 
-        if(Rockyspriterender != null)
+
+        if (Rockyspriterender != null)
         {
 
 
@@ -156,9 +183,9 @@ public class EnemyTurns : MonoBehaviour
                 {
                     int enemymoveselector = Random.Range(1, 11);
 
-                    if (enemymoveselector >= 1 && enemymoveselector <= 4)
+                    if (enemymoveselector >= 1 && enemymoveselector <= 11)
                     {
-                        StartCoroutine(Lunge());
+                        MinesweeperAttack();
                         hasenemyusedattack = true;
                     }
                     else if (enemymoveselector >= 5 && enemymoveselector <= 8)
@@ -1814,4 +1841,63 @@ public class EnemyTurns : MonoBehaviour
 
     }
 
+    public void MinesweeperAttack()
+    {
+        
+
+
+        enenyusedmoveholder.SetActive(true);
+        enemymoveused.text = "The Enemy summoned minesweeper";
+
+        usingminesweeper = true;
+    }
+
+    IEnumerator failedMinecsweeper()
+    {
+            enemymoveused.text = "You failed";
+
+            yield return new WaitForSeconds(2F);
+
+
+            turns.player1currenthealth /= 2;
+            turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+
+            turns.player2currenthealth /= 2;
+            turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+
+            turns.player3currenthealth /= 2;
+            turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;            
+            
+            yield return new WaitForSeconds(2F);
+            enenyusedmoveholder.SetActive(false);
+            Destroyminesweeper();
+            turns.switchPlayer();        
+    }
+
+    IEnumerator Sucseededminesweeper()
+    {
+
+        enemymoveused.text = "You Win";
+
+        yield return new WaitForSeconds(2F);
+
+        enenyusedmoveholder.SetActive(false);
+        Destroyminesweeper();
+        turns.switchPlayer();
+    }
+
+
+
+
+    Vector2 CenterPosition()
+    {
+        Vector2 Centreposition = new Vector2(Random.Range(0, 0), Random.Range(3, 3));
+        return Centreposition;
+    }
+
+    public void Destroyminesweeper()
+    {
+        foreach (Transform e in Managers)
+            Destroy(e.gameObject);
+    }
 }

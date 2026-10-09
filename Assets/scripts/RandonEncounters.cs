@@ -17,7 +17,7 @@ public class RandonEncounters : MonoBehaviour
     public string currentarea = "";
 
 
-    int numbertillencounter = 2000;
+    int numbertillencounter = 2;
     public int increasingnumber = 0;
 
     int randomiserforincreaingnumber = 0;
@@ -63,17 +63,17 @@ public class RandonEncounters : MonoBehaviour
 
                     if(area1randomiser == 1)
                     {
-                        currentenemy = "Rocky";
+                        currentenemy = "Goblin";
                         Enemies.summoningnewenemy = true;
                     }
                     if (area1randomiser == 2)
                     {
-                        currentenemy = "Rocky";
+                        currentenemy = "Goblin";
                         Enemies.summoningnewenemy = true;
                     }
                     if(area1randomiser == 3)
                     {
-                        currentenemy = "Rocky";
+                        currentenemy = "Goblin";
                         Enemies.summoningnewenemy = true;
                     }
                 }
