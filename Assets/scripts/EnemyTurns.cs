@@ -32,7 +32,9 @@ public class EnemyTurns : MonoBehaviour
 
     [Header("battle variables")]
 
-    [SerializeField] GameObject MinesweeperManager;
+    [SerializeField] GameObject MinesweeperManagerEasy;
+    //[SerializeField] GameObject MinesweeperManagerMedium;
+    //[SerializeField] GameObject MinesweeperManagerHard;
 
     [SerializeField] GameObject enenyusedmoveholder;
     [SerializeField] TextMeshProUGUI enemymoveused;

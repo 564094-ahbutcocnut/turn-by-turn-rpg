@@ -4862,7 +4862,7 @@ MonoBehaviour:
   sixrockslost: {fileID: 21300000, guid: f102e8fd1fd8cef429ac200994f99cba, type: 3}
   sevenrockslost: {fileID: 21300000, guid: 4055349cf182ef545820d1046f10872d, type: 3}
   eightrockslost: {fileID: 21300000, guid: 4d035ab2ac950d348a7d4cb84fb1461e, type: 3}
-  MinesweeperManager: {fileID: 4357611011876750744, guid: c9041575e517483489f793181f4e05b5, type: 3}
+  MinesweeperManagerEasy: {fileID: 0}
   enenyusedmoveholder: {fileID: 1709356928}
   enemymoveused: {fileID: 569777132}
   hasenemyusedattack: 0
@@ -6051,7 +6051,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1862365106}
   m_Layer: 0
-  m_Name: MinesweeperManagerHolder
+  m_Name: MinesweeperManagerHolder-easy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

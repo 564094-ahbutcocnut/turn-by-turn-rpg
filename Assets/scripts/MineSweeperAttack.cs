@@ -23,6 +23,8 @@ public class MineSweeperAttack : MonoBehaviour
 
     private readonly float tileSize = 0.5f;
 
+    public int minecsweeperround = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,28 +41,36 @@ public class MineSweeperAttack : MonoBehaviour
 
     private void Update()
     {
-        if(enemyturns.usingminesweeper == true)
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            CreateGameBoard(7, 7, 9);
+            ResetGameState();
+        }
+
+
+
+            if (enemyturns.usingminesweeper == true)
         {
             if(hasusedminesweeperyet == false)
             {
                 Debug.Log("creatboard");
-                int difficultyrandomiser = Random.Range(1, 4);
+                
 
-                if(difficultyrandomiser == 1)
+                if(minecsweeperround == 1)
                 {
-                    CreateGameBoard(5, 5, 5);
+                    CreateGameBoard(7, 7, 9);
                     ResetGameState();
                     Debug.Log("Easy");
                 }
-                if (difficultyrandomiser == 2)
+                if (minecsweeperround == 2)
                 {
                     CreateGameBoard(10, 10, 12);
                     ResetGameState();
                     Debug.Log("Medium");
                 }
-                if (difficultyrandomiser == 3)
+                if (minecsweeperround == 3)
                 {
-                    CreateGameBoard(13, 13, 35);
+                    CreateGameBoard(20, 10, 40);
                     ResetGameState();
                     Debug.Log("Hard");
                 }
