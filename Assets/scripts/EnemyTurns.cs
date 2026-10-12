@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyTurns : MonoBehaviour
@@ -58,7 +59,7 @@ public class EnemyTurns : MonoBehaviour
 
     private void Start()
     {
-        Managers = GameObject.Find("MinesweeperManagerHolder").transform;
+        Managers = GameObject.Find("MinesweeperManagerHolder-easy").transform;
     }
 
     private void Update()
@@ -75,6 +76,7 @@ public class EnemyTurns : MonoBehaviour
             StartCoroutine(Sucseededminesweeper());
             minesweeperattack.haswon = false;
         }
+
 
 
 
@@ -163,7 +165,17 @@ public class EnemyTurns : MonoBehaviour
             Enemydamagemodifier = 1;
         }
 
-        if(turns.barrieractive == true && hasslimegonecrazy == true)
+        if(randomencounters.currentenemy == "lavamonster")
+        {
+            Enemydamagemodifier = 3;
+        }
+        if (randomencounters.currentenemy == "lavabeatle")
+        {
+            Enemydamagemodifier = 2;
+        }
+
+
+        if (turns.barrieractive == true && hasslimegonecrazy == true)
         {
             ultamateSlimeAttack = 6;
         }
@@ -187,7 +199,7 @@ public class EnemyTurns : MonoBehaviour
 
                     if (enemymoveselector >= 1 && enemymoveselector <= 11)
                     {
-                        MinesweeperAttack();
+                        StartCoroutine(Lunge());
                         hasenemyusedattack = true;
                     }
                     else if (enemymoveselector >= 5 && enemymoveselector <= 8)
@@ -214,7 +226,7 @@ public class EnemyTurns : MonoBehaviour
                         }
                         else
                         {
-                            StartCoroutine(SpearStab());
+                            StartCoroutine(RockCrush());
                             hasenemyusedattack = true;
                         }
                     }
@@ -228,12 +240,45 @@ public class EnemyTurns : MonoBehaviour
                         }
                         else if (enemymoveselector >= 7 && enemymoveselector <= 9)
                         {
-                            StartCoroutine(SpearStab());
+                            StartCoroutine(RockCrush());
                             hasenemyusedattack = true;
                         }
                         else
                         {
-                            StartCoroutine(WingGust());
+                            StartCoroutine(PebbleHealing());
+                            hasenemyusedattack = true;
+                        }
+                    }
+                    if(rockslost == 5 || rockslost == 6)
+                    {
+
+                        if (enemymoveselector >= 1 && enemymoveselector <= 2)
+                        {
+                            StartCoroutine(rockswing());
+                            hasenemyusedattack = true;
+                        }
+                        else if (enemymoveselector >= 3 && enemymoveselector <= 6)
+                        {
+                            StartCoroutine(RockCrush());
+                            hasenemyusedattack = true;
+                        }
+                        else
+                        {
+                            StartCoroutine(PebbleHealing());
+                            hasenemyusedattack = true;
+                        }
+                    }
+                    if(rockslost == 7 || rockslost == 8)
+                    {
+
+                        if (enemymoveselector >= 1 && enemymoveselector <= 5)
+                        {
+                            StartCoroutine(RockCrush());
+                            hasenemyusedattack = true;
+                        }
+                        else
+                        {
+                            StartCoroutine(PebbleHealing());
                             hasenemyusedattack = true;
                         }
                     }
@@ -260,6 +305,16 @@ public class EnemyTurns : MonoBehaviour
                     {
                         StartCoroutine(Slimeexplosion());
                         hasenemyusedattack = true;
+                    }
+                }
+
+                if(randomencounters.currentenemy == "")
+                {
+                    int enemymoveselector = Random.Range(1, 11);
+
+                    if(turns.enemycurrenthealth == turns.enemymaxhealth)
+                    {
+                        StartCoroutine(SpewLava());
                     }
                 }
             }
@@ -1225,6 +1280,551 @@ public class EnemyTurns : MonoBehaviour
         enenyusedmoveholder.SetActive(false);
 
     }
+    
+    IEnumerator RockCrush()
+    {
+        enenyusedmoveholder.SetActive(true);
+        enemymoveused.text = "The Rocky used Rock Crush";
+
+        int rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        if (rockslost >= 5 && rockslost <= 6)
+        {
+            if (rollEnemynumber >= 1 && rollEnemynumber <= 3)
+            {
+                rockslost += 1;
+                turns.switchPlayer();
+
+            }
+            if (rollEnemynumber >= 4 && rollEnemynumber <= 5)
+            {
+                Enemytarget();
+
+                rockslost++;
+
+                if (targetedplayer == "player1istargetted")
+                {
+
+                    turns.player1currenthealth -= 2 / turns.barrierreducer;
+                    turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else if (targetedplayer == "player2istargetted")
+                {
+                    turns.player2currenthealth -= 2 / turns.barrierreducer;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else
+                {
+                    turns.player3currenthealth -= 2 / turns.barrierreducer;
+                    turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                turns.switchPlayer();
+            }
+            if (rollEnemynumber >= 6 && rollEnemynumber <= 10)
+            {
+                Enemytarget();
+
+                if (targetedplayer == "player1istargetted")
+                {
+
+                    turns.player1currenthealth -= 4 / turns.barrierreducer;
+                    turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else if (targetedplayer == "player2istargetted")
+                {
+                    turns.player2currenthealth -= 4 / turns.barrierreducer;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else
+                {
+                    turns.player3currenthealth -= 4 / turns.barrierreducer;
+                    turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                turns.switchPlayer();
+            }
+            if (rollEnemynumber >= 11 && rollEnemynumber <= 15)
+            {
+                Enemytarget();
+
+                if (targetedplayer == "player1istargetted")
+                {
+
+                    turns.player1currenthealth -= 5 / turns.barrierreducer;
+                    turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else if (targetedplayer == "player2istargetted")
+                {
+                    turns.player2currenthealth -= 5 / turns.barrierreducer;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else
+                {
+                    turns.player3currenthealth -= 5 / turns.barrierreducer;
+                    turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                turns.switchPlayer();
+            }
+            if (rollEnemynumber >= 16 && rollEnemynumber <= 19)
+            {
+                Enemytarget();
+
+                if (targetedplayer == "player1istargetted")
+                {
+
+                    turns.player1currenthealth -= 6 / turns.barrierreducer;
+                    turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else if (targetedplayer == "player2istargetted")
+                {
+                    turns.player2currenthealth -= 6 / turns.barrierreducer;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else
+                {
+                    turns.player3currenthealth -= 6 / turns.barrierreducer;
+                    turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                turns.switchPlayer();
+            }
+            if (rollEnemynumber == 20)
+            {
+                Enemytarget();
+
+                if (targetedplayer == "player1istargetted")
+                {
+
+                    turns.player1currenthealth -= 8 / turns.barrierreducer;
+                    turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else if (targetedplayer == "player2istargetted")
+                {
+                    turns.player2currenthealth -= 8 / turns.barrierreducer;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else
+                {
+                    turns.player3currenthealth -= 8 / turns.barrierreducer;
+                    turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                turns.switchPlayer();
+            }
+        }
+
+        if (rockslost >= 2 && rockslost <= 4)
+        {
+            if (rollEnemynumber >= 1 && rollEnemynumber <= 3)
+            {
+                rockslost += 1;
+                turns.switchPlayer();
+
+            }
+            if (rollEnemynumber >= 4 && rollEnemynumber <= 5)
+            {
+                Enemytarget();
+
+                rockslost++;
+
+                if (targetedplayer == "player1istargetted")
+                {
+
+                    turns.player1currenthealth -= 3 / turns.barrierreducer;
+                    turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else if (targetedplayer == "player2istargetted")
+                {
+                    turns.player2currenthealth -= 3 / turns.barrierreducer;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else
+                {
+                    turns.player3currenthealth -= 3 / turns.barrierreducer;
+                    turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                turns.switchPlayer();
+            }
+            if (rollEnemynumber >= 6 && rollEnemynumber <= 10)
+            {
+                Enemytarget();
+
+                if (targetedplayer == "player1istargetted")
+                {
+
+                    turns.player1currenthealth -= 4 / turns.barrierreducer;
+                    turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else if (targetedplayer == "player2istargetted")
+                {
+                    turns.player2currenthealth -= 4 / turns.barrierreducer;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else
+                {
+                    turns.player3currenthealth -= 4 / turns.barrierreducer;
+                    turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                turns.switchPlayer();
+            }
+            if (rollEnemynumber >= 11 && rollEnemynumber <= 15)
+            {
+                Enemytarget();
+
+                if (targetedplayer == "player1istargetted")
+                {
+
+                    turns.player1currenthealth -= 6 / turns.barrierreducer;
+                    turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else if (targetedplayer == "player2istargetted")
+                {
+                    turns.player2currenthealth -= 6 / turns.barrierreducer;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else
+                {
+                    turns.player3currenthealth -= 6 / turns.barrierreducer;
+                    turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                turns.switchPlayer();
+            }
+            if (rollEnemynumber >= 16 && rollEnemynumber <= 19)
+            {
+                Enemytarget();
+
+                if (targetedplayer == "player1istargetted")
+                {
+
+                    turns.player1currenthealth -= 7 / turns.barrierreducer;
+                    turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else if (targetedplayer == "player2istargetted")
+                {
+                    turns.player2currenthealth -= 7 / turns.barrierreducer;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else
+                {
+                    turns.player3currenthealth -= 7 / turns.barrierreducer;
+                    turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                turns.switchPlayer();
+            }
+            if (rollEnemynumber == 20)
+            {
+                Enemytarget();
+
+                if (targetedplayer == "player1istargetted")
+                {
+
+                    turns.player1currenthealth -= 10 / turns.barrierreducer;
+                    turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else if (targetedplayer == "player2istargetted")
+                {
+                    turns.player2currenthealth -= 10 / turns.barrierreducer;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else
+                {
+                    turns.player3currenthealth -= 10 / turns.barrierreducer;
+                    turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                turns.switchPlayer();
+            }
+        }
+
+        if (rockslost >= 0 && rockslost <= 1)
+        {
+            if (rollEnemynumber >= 1 && rollEnemynumber <= 3)
+            {
+                rockslost += 2;
+                turns.switchPlayer();
+
+            }
+            if (rollEnemynumber >= 4 && rollEnemynumber <= 5)
+            {
+                Enemytarget();
+
+                rockslost++;
+
+                if (targetedplayer == "player1istargetted")
+                {
+
+                    turns.player1currenthealth -= 2 / turns.barrierreducer;
+                    turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else if (targetedplayer == "player2istargetted")
+                {
+                    turns.player2currenthealth -= 2 / turns.barrierreducer;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else
+                {
+                    turns.player3currenthealth -= 2 / turns.barrierreducer;
+                    turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                turns.switchPlayer();
+            }
+            if (rollEnemynumber >= 6 && rollEnemynumber <= 10)
+            {
+                Enemytarget();
+
+                if (targetedplayer == "player1istargetted")
+                {
+
+                    turns.player1currenthealth -= 3 / turns.barrierreducer;
+                    turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else if (targetedplayer == "player2istargetted")
+                {
+                    turns.player2currenthealth -= 3 / turns.barrierreducer;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else
+                {
+                    turns.player3currenthealth -= 3 / turns.barrierreducer;
+                    turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                turns.switchPlayer();
+            }
+            if (rollEnemynumber >= 11 && rollEnemynumber <= 15)
+            {
+                Enemytarget();
+
+                if (targetedplayer == "player1istargetted")
+                {
+
+                    turns.player1currenthealth -= 4 / turns.barrierreducer;
+                    turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else if (targetedplayer == "player2istargetted")
+                {
+                    turns.player2currenthealth -= 4 / turns.barrierreducer;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else
+                {
+                    turns.player3currenthealth -= 4 / turns.barrierreducer;
+                    turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                turns.switchPlayer();
+            }
+            if (rollEnemynumber >= 16 && rollEnemynumber <= 19)
+            {
+                Enemytarget();
+
+                if (targetedplayer == "player1istargetted")
+                {
+
+                    turns.player1currenthealth -= 5 / turns.barrierreducer;
+                    turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else if (targetedplayer == "player2istargetted")
+                {
+                    turns.player2currenthealth -= 5 / turns.barrierreducer;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else
+                {
+                    turns.player3currenthealth -= 5 / turns.barrierreducer;
+                    turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                turns.switchPlayer();
+            }
+            if (rollEnemynumber == 20)
+            {
+                Enemytarget();
+
+                if (targetedplayer == "player1istargetted")
+                {
+
+                    turns.player1currenthealth -= 6 / turns.barrierreducer;
+                    turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+
+                    turns.player2currenthealth -= 6;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else if (targetedplayer == "player2istargetted")
+                {
+                    turns.player2currenthealth -= 6 / turns.barrierreducer;
+                    turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+
+                    turns.player3currenthealth -= 6;
+                    turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                else
+                {
+                    turns.player3currenthealth -= 6 / turns.barrierreducer;
+                    turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+
+                    turns.player1currenthealth -= 6;
+                    turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                    turns.turnsleftofbarrier--;
+                }
+                turns.switchPlayer();
+            }
+        }
+
+
+
+
+        yield return new WaitForSeconds(.5F);
+        enenyusedmoveholder.SetActive(false);
+    }
+
+    IEnumerator PebbleHealing()
+    {
+        enenyusedmoveholder.SetActive(true);
+        enemymoveused.text = "The Rocky used Pebble Healing";
+
+        int rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        if(rollEnemynumber == 1)
+        {
+            rockslost += 2;
+            turns.switchPlayer();
+        }
+        if(rollEnemynumber >= 2 && rollEnemynumber <= 3)
+        {
+            rockslost++;
+            turns.switchPlayer();
+        }
+        if(rollEnemynumber >=4 && rollEnemynumber <= 5)
+        {
+            turns.enemycurrenthealth += 3;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+        if(rollEnemynumber >=5 && rollEnemynumber <=10)
+        {
+            rockslost--;
+
+            turns.enemycurrenthealth += 3;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+        if (rollEnemynumber >= 11 && rollEnemynumber <= 15)
+        {
+            rockslost-=2;
+
+            turns.enemycurrenthealth += 5;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+        if (rollEnemynumber >= 16 && rollEnemynumber <= 19)
+        {
+            rockslost-=3;
+
+            turns.enemycurrenthealth += 10;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+        if (rollEnemynumber == 20)
+        {
+            rockslost = 0;
+
+            turns.enemycurrenthealth = turns.enemymaxhealth;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+
+        }
+    }
 
     IEnumerator Slimebonk()
     {
@@ -1843,6 +2443,296 @@ public class EnemyTurns : MonoBehaviour
 
     }
 
+    IEnumerator SpewLava()
+    {
+
+        enenyusedmoveholder.SetActive(true);
+        enemymoveused.text = "The " + turns.currentturn + " used Spew lava";
+
+        int rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+
+        if(rollEnemynumber >=1 && rollEnemynumber <= 3)
+        {
+            turns.enemycurrenthealth -= 10 * Enemydamagemodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+
+        }
+        if(rollEnemynumber >= 4 && rollEnemynumber <= 5)
+        {
+
+            turns.enemycurrenthealth -= 8 * Enemydamagemodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+        if(rollEnemynumber >=6 && rollEnemynumber <=10)
+        {
+            turns.player1currenthealth -= 2 * Enemydamagemodifier / turns.barrierreducer;
+            turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+
+            turns.player2currenthealth -= 2 * Enemydamagemodifier / turns.barrierreducer;
+            turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+
+            turns.player3currenthealth -= 2*Enemydamagemodifier / turns.barrierreducer;
+            turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+
+            turns.enemycurrenthealth -= 6 * Enemydamagemodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.turnsleftofbarrier--;
+            turns.switchPlayer();
+        }
+        if (rollEnemynumber >= 11 && rollEnemynumber <= 15)
+        {
+            turns.player1currenthealth -= 5 * Enemydamagemodifier / turns.barrierreducer;
+            turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+
+            turns.player2currenthealth -= 5 * Enemydamagemodifier / turns.barrierreducer;
+            turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+
+            turns.player3currenthealth -= 5 * Enemydamagemodifier / turns.barrierreducer;
+            turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+
+            turns.enemycurrenthealth -= 4 * Enemydamagemodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+
+            turns.turnsleftofbarrier--;
+            turns.switchPlayer();
+        }
+        if (rollEnemynumber >= 16 && rollEnemynumber <= 19)
+        {
+            turns.player1currenthealth -= 7 * Enemydamagemodifier / turns.barrierreducer;
+            turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+
+            turns.player2currenthealth -= 7 * Enemydamagemodifier / turns.barrierreducer;
+            turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+
+            turns.player3currenthealth -= 7 * Enemydamagemodifier / turns.barrierreducer;
+            turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+
+            turns.enemycurrenthealth -= 2 * Enemydamagemodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+
+            turns.turnsleftofbarrier--;
+            turns.switchPlayer();
+        }
+        if(rollEnemynumber == 20)
+        {
+
+            turns.player1currenthealth -= 10 * Enemydamagemodifier / turns.barrierreducer;
+            turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+
+            turns.player2currenthealth -= 10 * Enemydamagemodifier / turns.barrierreducer;
+            turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+
+            turns.player3currenthealth -= 10 * Enemydamagemodifier / turns.barrierreducer;
+            turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+            turns.turnsleftofbarrier--;
+            turns.switchPlayer();
+        }
+    }
+
+    IEnumerator LavaBackhand()
+    {
+        enenyusedmoveholder.SetActive(true);
+        enemymoveused.text = "The Lava Monster used Lava Backhand";
+
+        int rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        if (rollEnemynumber >= 1 && rollEnemynumber <= 5)
+        {
+            Enemytarget();
+
+            if (targetedplayer == "player1istargetted")
+            {
+
+                turns.player1currenthealth -= 4 / turns.barrierreducer; 
+                turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                turns.player2currenthealth -= 4 / turns.barrierreducer;
+                turns.enemycurrenthealth -= 10;
+                turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+                turns.turnsleftofbarrier--;
+                
+            }
+            else if (targetedplayer == "player2istargetted")
+            {
+                turns.player2currenthealth -= 4 / turns.barrierreducer;
+                turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                turns.player3currenthealth -= 4 / turns.barrierreducer;
+                turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                turns.enemycurrenthealth -= 10;
+                turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+                turns.turnsleftofbarrier--;
+            }
+            else
+            {
+                turns.player3currenthealth -= 4 / turns.barrierreducer;
+                turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                turns.player1currenthealth -= 4 / turns.barrierreducer;
+                turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                turns.enemycurrenthealth -= 10;
+                turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+                turns.turnsleftofbarrier--;
+            }
+            turns.switchPlayer();
+        }
+        if (rollEnemynumber >= 6 && rollEnemynumber <= 10)
+        {
+            Enemytarget();
+
+            if (targetedplayer == "player1istargetted")
+            {
+
+                turns.player1currenthealth -= 4 / turns.barrierreducer;
+                turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                turns.player2currenthealth -= 4 / turns.barrierreducer;
+                turns.turnsleftofbarrier--;
+
+            }
+            else if (targetedplayer == "player2istargetted")
+            {
+                turns.player2currenthealth -= 4 / turns.barrierreducer;
+                turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                turns.player3currenthealth -= 4 / turns.barrierreducer;
+                turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+                turns.turnsleftofbarrier--;
+            }
+            else
+            {
+                turns.player3currenthealth -= 4 / turns.barrierreducer;
+                turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                turns.player1currenthealth -= 4 / turns.barrierreducer;
+                turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+                turns.turnsleftofbarrier--;
+            }
+            turns.switchPlayer();
+        }
+        if (rollEnemynumber >= 11 && rollEnemynumber <= 15)
+        {
+            Enemytarget();
+
+            if (targetedplayer == "player1istargetted")
+            {
+
+                turns.player1currenthealth -= 6 / turns.barrierreducer;
+                turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                turns.player2currenthealth -= 6 / turns.barrierreducer;
+                turns.turnsleftofbarrier--;
+
+            }
+            else if (targetedplayer == "player2istargetted")
+            {
+                turns.player2currenthealth -= 6 / turns.barrierreducer;
+                turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                turns.player3currenthealth -= 6 / turns.barrierreducer;
+                turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+                turns.turnsleftofbarrier--;
+            }
+            else
+            {
+                turns.player3currenthealth -= 6 / turns.barrierreducer;
+                turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                turns.player1currenthealth -= 6 / turns.barrierreducer;
+                turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+                turns.turnsleftofbarrier--;
+            }
+            turns.switchPlayer();
+        }
+        if (rollEnemynumber >= 16 && rollEnemynumber <= 19)
+        {
+            Enemytarget();
+
+            if (targetedplayer == "player1istargetted")
+            {
+
+                turns.player1currenthealth -= 7 / turns.barrierreducer;
+                turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+                turns.player2currenthealth -= 7 / turns.barrierreducer;
+                turns.turnsleftofbarrier--;
+
+            }
+            else if (targetedplayer == "player2istargetted")
+            {
+                turns.player2currenthealth -= 7 / turns.barrierreducer;
+                turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+                turns.player3currenthealth -= 7 / turns.barrierreducer;
+                turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+                turns.turnsleftofbarrier--;
+            }
+            else
+            {
+                turns.player3currenthealth -= 7 / turns.barrierreducer;
+                turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+                turns.player1currenthealth -= 7 / turns.barrierreducer;
+                turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+                turns.turnsleftofbarrier--;
+            }
+            turns.switchPlayer();
+        }
+        if(rollEnemynumber == 20)
+        {
+            turns.player1currenthealth -= 10 / turns.barrierreducer;
+            turns.Player1health.text = turns.player1currenthealth.ToString() + "/" + turns.player1maxhealth;
+            turns.player2currenthealth -= 10 / turns.barrierreducer;
+            turns.Player2health.text = turns.player2currenthealth.ToString() + "/" + turns.player2maxthealth;
+            turns.player3currenthealth -= 10 / turns.barrierreducer;
+            turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
+            turns.turnsleftofbarrier--;
+        }
+    }
+
     public void MinesweeperAttack()
     {
         
@@ -1881,6 +2771,9 @@ public class EnemyTurns : MonoBehaviour
 
         enemymoveused.text = "You Win";
 
+        turns.enemycurrenthealth /= 2;
+        turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+
         yield return new WaitForSeconds(2F);
 
         enenyusedmoveholder.SetActive(false);
@@ -1888,7 +2781,7 @@ public class EnemyTurns : MonoBehaviour
         turns.switchPlayer();
     }
 
-
+    
 
 
     Vector2 CenterPosition()

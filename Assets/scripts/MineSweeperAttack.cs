@@ -41,34 +41,30 @@ public class MineSweeperAttack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            CreateGameBoard(7, 7, 9);
-            ResetGameState();
-        }
 
 
 
-            if (enemyturns.usingminesweeper == true)
+        if (enemyturns.usingminesweeper == true)
         {
             if(hasusedminesweeperyet == false)
             {
                 Debug.Log("creatboard");
-                
 
-                if(minecsweeperround == 1)
+                int minesweeperdifficultyrandom = Random.Range(1,4);
+
+                if(minesweeperdifficultyrandom == 1)
                 {
                     CreateGameBoard(7, 7, 9);
                     ResetGameState();
                     Debug.Log("Easy");
                 }
-                if (minecsweeperround == 2)
+                if (minesweeperdifficultyrandom == 2)
                 {
                     CreateGameBoard(10, 10, 12);
                     ResetGameState();
                     Debug.Log("Medium");
                 }
-                if (minecsweeperround == 3)
+                if (minesweeperdifficultyrandom == 3)
                 {
                     CreateGameBoard(20, 10, 40);
                     ResetGameState();

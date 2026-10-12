@@ -4824,7 +4824,7 @@ MonoBehaviour:
   ArmouredScorpion: {fileID: 684464679885953960, guid: f01237662142fe24da9e5659796e112e, type: 3}
   sandworm: {fileID: 3709277741235938934, guid: f01237662142fe24da9e5659796e112e, type: 3}
   GiantHydra: {fileID: 9018276614919945223, guid: 1024da499c1022c4fb7840258909d4f5, type: 3}
-  lavamonster: {fileID: 684464679885953960, guid: f01237662142fe24da9e5659796e112e, type: 3}
+  lavamonster: {fileID: 8766007335430861826, guid: 97c1b637fa2cffd4fa484976588beebb, type: 3}
   lavabeatle: {fileID: 684464679885953960, guid: f01237662142fe24da9e5659796e112e, type: 3}
   AreaBoss3: {fileID: 3709277741235938934, guid: f01237662142fe24da9e5659796e112e, type: 3}
   Bossminion1: {fileID: 0}
@@ -4862,7 +4862,7 @@ MonoBehaviour:
   sixrockslost: {fileID: 21300000, guid: f102e8fd1fd8cef429ac200994f99cba, type: 3}
   sevenrockslost: {fileID: 21300000, guid: 4055349cf182ef545820d1046f10872d, type: 3}
   eightrockslost: {fileID: 21300000, guid: 4d035ab2ac950d348a7d4cb84fb1461e, type: 3}
-  MinesweeperManagerEasy: {fileID: 0}
+  MinesweeperManagerEasy: {fileID: 1862365105}
   enenyusedmoveholder: {fileID: 1709356928}
   enemymoveused: {fileID: 569777132}
   hasenemyusedattack: 0
