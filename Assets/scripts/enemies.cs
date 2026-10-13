@@ -42,8 +42,8 @@ public class enemies : MonoBehaviour
     int GiantHydramaxhealth = 150;
     [SerializeField] GameObject lavamonster;
     int lavamonstermaxhealth = 200;
-    [SerializeField] GameObject lavabeatle;
-    int lavabeatlemaxhealth = 175;
+    [SerializeField] GameObject lavasnail;
+    int lavasnailmaxhealth = 175;
     [SerializeField] GameObject AreaBoss3;
 
     [Header("Area final")]
@@ -194,12 +194,12 @@ public class enemies : MonoBehaviour
             turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
             summoningnewenemy = false;
         }
-        if (randomencounters.currentenemy == "lavabeatle")
+        if (randomencounters.currentenemy == "lavasnail")
         {
             turns.inbattle = true;
-            turns.enemymaxhealth = lavabeatlemaxhealth;            
+            turns.enemymaxhealth = lavasnailmaxhealth;            
             turns.enemycurrenthealth = turns.enemymaxhealth;
-            var enemyType = determineenemy < 90 ? lavabeatle : lavabeatle;
+            var enemyType = determineenemy < 90 ? lavasnail : lavasnail;
             var enemy = Instantiate(enemyType, CenterPosition(), Quaternion.identity);
             enemy.transform.SetParent(currentenemies);
             turns.Enemyhealth = enemy.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();

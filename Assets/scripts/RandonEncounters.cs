@@ -115,7 +115,7 @@ public class RandonEncounters : MonoBehaviour
                     }
                     else
                     {
-                        currentenemy = "lavabeatle";
+                        currentenemy = "lavasnail";
                         Enemies.summoningnewenemy = true;
                     }
                }

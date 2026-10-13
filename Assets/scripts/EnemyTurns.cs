@@ -41,6 +41,7 @@ public class EnemyTurns : MonoBehaviour
     [SerializeField] TextMeshProUGUI enemymoveused;
 
     int Enemydamagemodifier = 1;
+    int Enemyarmourmodifier = 1;
 
 
     bool hasslimegonecrazy = false;
@@ -163,15 +164,26 @@ public class EnemyTurns : MonoBehaviour
         if (turns.inbattle == false)
         {
             Enemydamagemodifier = 1;
+            Enemyarmourmodifier = 1;
         }
 
         if(randomencounters.currentenemy == "lavamonster")
         {
             Enemydamagemodifier = 3;
         }
-        if (randomencounters.currentenemy == "lavabeatle")
+        if (randomencounters.currentenemy == "lavasnail")
+        {
+            Enemydamagemodifier = 2; 
+            Enemyarmourmodifier = 2;
+        }
+        if(randomencounters.currentenemy == "ArmouredScorpion")
         {
             Enemydamagemodifier = 2;
+            Enemyarmourmodifier = 3;
+        }
+        if(randomencounters.currentenemy == "GiantHydra")
+        {
+            Enemydamagemodifier = 4;
         }
 
 
@@ -2443,6 +2455,77 @@ public class EnemyTurns : MonoBehaviour
 
     }
 
+    IEnumerator TougherArmour()
+    {
+        enenyusedmoveholder.SetActive(true);
+        enemymoveused.text = "The " + turns.currentturn + " used Tougher Armour";
+
+        int rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        if(rollEnemynumber >=1 && rollEnemynumber <= 3)
+        {
+            turns.armourtoughnessscale = -2 * Enemyarmourmodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+        if (rollEnemynumber >= 4 && rollEnemynumber <= 5)
+        {
+            turns.armourtoughnessscale = -1 * Enemyarmourmodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+        if (rollEnemynumber >= 6 && rollEnemynumber <= 10)
+        {
+            turns.armourtoughnessscale = 1 * Enemyarmourmodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+        if (rollEnemynumber >= 11 && rollEnemynumber <= 15)
+        {
+            turns.armourtoughnessscale = 2 * Enemyarmourmodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+        if (rollEnemynumber >= 16 && rollEnemynumber <= 19)
+        {
+            turns.armourtoughnessscale = 3 * Enemyarmourmodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+        if(rollEnemynumber == 20)
+        {
+            turns.armourtoughnessscale = 4 * Enemyarmourmodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+    }
+
     IEnumerator SpewLava()
     {
 
@@ -2731,6 +2814,79 @@ public class EnemyTurns : MonoBehaviour
             turns.Player3health.text = turns.player3currenthealth.ToString() + "/" + turns.player3maxhealth;
             turns.turnsleftofbarrier--;
         }
+    }
+
+    IEnumerator magmaregeneration()
+    {
+        enenyusedmoveholder.SetActive(true);
+        enemymoveused.text = "The " + turns.currentturn + " used Magma regeneration";
+
+        int rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        rollEnemynumber = turns.enemyroll();
+        yield return new WaitForSeconds(.2F);
+
+        if (rollEnemynumber >= 1 && rollEnemynumber <= 3)
+        {
+            turns.enemycurrenthealth -= 5 * Enemydamagemodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+        if (rollEnemynumber >= 4 && rollEnemynumber <= 5)
+        {
+            turns.enemycurrenthealth -= 3 * Enemydamagemodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+        if (rollEnemynumber >= 6 && rollEnemynumber <= 10)
+        {
+            turns.enemycurrenthealth += 5 * Enemydamagemodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+        if (rollEnemynumber >= 11 && rollEnemynumber <= 15)
+        {
+            turns.enemycurrenthealth += 7 * Enemydamagemodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+        if (rollEnemynumber >= 16 && rollEnemynumber <= 19)
+        {
+            turns.enemycurrenthealth += 10 * Enemydamagemodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+        if(rollEnemynumber ==20)
+        {
+
+            turns.enemycurrenthealth += 15 * Enemydamagemodifier;
+            turns.Enemyhealth.text = turns.enemycurrenthealth.ToString() + "/" + turns.enemymaxhealth;
+            turns.switchPlayer();
+        }
+
     }
 
     public void MinesweeperAttack()

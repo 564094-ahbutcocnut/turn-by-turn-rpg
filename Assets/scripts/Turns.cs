@@ -97,6 +97,9 @@ public class Turns : MonoBehaviour
 
     public string lastusedmove = "";
 
+    public bool isarmourtoughened;
+    public int armourtoughnessscale;
+
     //public int turnstillyoucanuseTeratonhammeragain = 0;
 
     
@@ -108,6 +111,11 @@ public class Turns : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(inbattle == false)
+        {
+            armourtoughnessscale = 0;
+        }
 
         if (player1currenthealth < 0 && player1currenthealth > -100)
         {
@@ -548,7 +556,7 @@ public class Turns : MonoBehaviour
 
             if (damagetoboss > 0)
             {
-                bossdamagetransitionvalue = enemycurrenthealth;
+                bossdamagetransitionvalue = enemycurrenthealth - armourtoughnessscale;
                 enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
                 Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
                 damagetoboss = 0;
@@ -905,7 +913,7 @@ public class Turns : MonoBehaviour
 
         if (damagetoboss > 0)
         {
-            bossdamagetransitionvalue = enemycurrenthealth;
+            bossdamagetransitionvalue = enemycurrenthealth - armourtoughnessscale;
             enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
             Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             damagetoboss = 0;
@@ -982,7 +990,7 @@ public class Turns : MonoBehaviour
 
         if (damagetoboss != 0)
         {
-            bossdamagetransitionvalue = enemycurrenthealth;
+            bossdamagetransitionvalue = enemycurrenthealth - armourtoughnessscale;
             enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
             Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             damagetoboss = 0;
@@ -1176,10 +1184,11 @@ public class Turns : MonoBehaviour
 
         if (damagetoboss > 0)
         {
-            bossdamagetransitionvalue = enemycurrenthealth;
+            bossdamagetransitionvalue = enemycurrenthealth - armourtoughnessscale;
             enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
             Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             damagetoboss = 0;
+
 
         }
     }
@@ -1234,10 +1243,11 @@ public class Turns : MonoBehaviour
 
         if (damagetoboss > 0)
         {
-            bossdamagetransitionvalue = enemycurrenthealth;
+            bossdamagetransitionvalue = enemycurrenthealth - armourtoughnessscale;
             enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
             Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             damagetoboss = 0;
+
 
         }
 
@@ -1303,10 +1313,11 @@ public class Turns : MonoBehaviour
 
         if (damagetoboss > 0)
         {
-            bossdamagetransitionvalue = enemycurrenthealth;
+            bossdamagetransitionvalue = enemycurrenthealth - armourtoughnessscale;
             enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
             Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             damagetoboss = 0;
+
         }
     }
 
@@ -1362,10 +1373,11 @@ public class Turns : MonoBehaviour
         }
         if (damagetoboss > 0)
         {
-            bossdamagetransitionvalue = enemycurrenthealth;
+            bossdamagetransitionvalue = enemycurrenthealth - armourtoughnessscale;
             enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
             Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             damagetoboss = 0;
+
 
         }
     }
@@ -1429,10 +1441,11 @@ public class Turns : MonoBehaviour
         }
         if (damagetoboss > 0)
         {
-            bossdamagetransitionvalue = enemycurrenthealth;
+            bossdamagetransitionvalue = enemycurrenthealth - armourtoughnessscale;
             enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
             Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             damagetoboss = 0;
+
 
         }
     }
@@ -1605,10 +1618,11 @@ public class Turns : MonoBehaviour
 
         if (damagetoboss > 0)
         {
-            bossdamagetransitionvalue = enemycurrenthealth;
+            bossdamagetransitionvalue = enemycurrenthealth - armourtoughnessscale;
             enemycurrenthealth = bossdamagetransitionvalue - damagetoboss;
             Enemyhealth.text = enemycurrenthealth.ToString() + "/" + enemymaxhealth;
             damagetoboss = 0;
+
 
         }
 

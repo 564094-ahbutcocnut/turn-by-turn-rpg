@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1193914334225926676}
   - component: {fileID: 4849406495390875500}
   m_Layer: 5
-  m_Name: Lava health health
+  m_Name: Lava monster health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
