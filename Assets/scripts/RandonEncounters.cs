@@ -17,7 +17,7 @@ public class RandonEncounters : MonoBehaviour
     public string currentarea = "";
 
 
-    int numbertillencounter = 2;
+    int numbertillencounter = 10;
     public int increasingnumber = 0;
 
     int randomiserforincreaingnumber = 0;
@@ -59,19 +59,19 @@ public class RandonEncounters : MonoBehaviour
                if(currentarea == "Area1")
                 {
                     forrestbattlebackground.SetActive(true);
-                    var area1randomiser = Random.Range(1, 4);
+                    var area1randomiser = Random.Range(1, 11);
 
-                    if(area1randomiser == 1)
+                    if(area1randomiser >= 1 && area1randomiser <= 4)
                     {
                         currentenemy = "Goblin";
                         Enemies.summoningnewenemy = true;
                     }
-                    if (area1randomiser == 2)
+                    else if (area1randomiser == 5 || area1randomiser == 6)
                     {
                         currentenemy = "Rocky";
                         Enemies.summoningnewenemy = true;
                     }
-                    if(area1randomiser == 3)
+                    else
                     {
                         currentenemy = "Slime";
                         Enemies.summoningnewenemy = true;
@@ -80,14 +80,14 @@ public class RandonEncounters : MonoBehaviour
                if (currentarea == "Area2")
                {
                     desertbattlebackground.SetActive(true);
-                    var area1randomiser = Random.Range(1, 4);
+                    var area2randomiser = Random.Range(1, 101);
 
-                    if (area1randomiser == 1)
+                    if (area2randomiser >= 1 && area2randomiser <= 30)
                     {
                         currentenemy = "Cactus";
                         Enemies.summoningnewenemy = true;
                     }
-                    else if (area1randomiser == 2)
+                    else if (area2randomiser >=31 && area2randomiser <= 80)
                     {
                         currentenemy = "minihydra";
                         Enemies.summoningnewenemy = true;
@@ -101,14 +101,14 @@ public class RandonEncounters : MonoBehaviour
                if (currentarea == "Area3")
                {
                     lavabattlebackground.SetActive(true);
-                    var area1randomiser = Random.Range(1, 4);
+                    var area3randomiser = Random.Range(1, 101);
 
-                    if (area1randomiser == 1)
+                    if (area3randomiser >= 1 && area3randomiser <= 50)
                     {
                         currentenemy = "GiantHydra";
                         Enemies.summoningnewenemy = true;
                     }
-                    else if (area1randomiser == 2)
+                    else if (area3randomiser >= 51 && area3randomiser < 70)
                     {
                         currentenemy = "lavamonster";
                         Enemies.summoningnewenemy = true;

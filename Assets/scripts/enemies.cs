@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class enemies : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class enemies : MonoBehaviour
     [SerializeField] Turns turns;
     [SerializeField] RandonEncounters randomencounters;
     [SerializeField] EnemyTurns enemyturns;
+    [SerializeField] XpSystem xpsystem;
     [SerializeField] GameObject whoyouwinisstored;
 
 
@@ -55,8 +57,12 @@ public class enemies : MonoBehaviour
 
 
 
+    public bool hasenedbattle = false;
+
 
     public bool summoningnewenemy = false;
+
+
 
     Transform currentenemies;
     // Start is called before the first frame update
@@ -70,9 +76,13 @@ public class enemies : MonoBehaviour
     void Update()
     {
 
+
+
         if(summoningnewenemy == true)
         {
             Startingnewbattle();
+            xpsystem.hasgivenxp = false;
+            hasenedbattle = false;
         }
 
         if(turns.enemycurrenthealth < 0)
@@ -83,8 +93,11 @@ public class enemies : MonoBehaviour
 
         if(turns.enemycurrenthealth == 0)
         {
-            turns.enemycurrenthealth = 1;
-            StartCoroutine(textforyouwin());
+           if(hasenedbattle == false)
+            {
+                StartCoroutine(textforyouwin());
+                hasenedbattle = true;
+            }
         }
     }
 
@@ -239,7 +252,10 @@ public class enemies : MonoBehaviour
         whatwillbeinwintext = "you have won the battle";
         whoyouwinisstored.SetActive(true);
         yield return new WaitForSeconds(2F);
-        whatwillbeinwintext = "You have gain exp";
+
+        xpsystem.XPuponwinning();
+
+        whatwillbeinwintext = "You have gained "+ xpsystem.grantedxp + "xp";
         battlewintest.text = whatwillbeinwintext;
         yield return new WaitForSeconds(2F);
         whoyouwinisstored.SetActive(false);
@@ -263,12 +279,15 @@ public class enemies : MonoBehaviour
         turns.currentturn = "Player1";
         turns.whosTurnText.text = turns.currentturn + "'s turn";
 
+        enemyturns.rockslost = 0;
+
         turns.isbossconfused = false;
         turns.isbossparalysed = false;
         turns.rageactive = false;
         turns.turnsleftofbarrier = 0;
         turns.barrieractive = false;
 
+        enemyturns.hastoughenedarmour = false;
         enemyturns.hasenemyusedattack = false;
 
         //turns.turnstillyoucanuseTeratonhammeragain = 0;

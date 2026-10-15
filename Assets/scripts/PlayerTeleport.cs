@@ -4,45 +4,34 @@ using UnityEngine;
 
 public class PlayerTeleport : MonoBehaviour
 {
-    private GameObject currentTeleporter;
-    private int teleportcooldown = 240;
+    public GameObject currentTeleporter;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (teleportcooldown >= 240)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (currentTeleporter != null)
+            if(currentTeleporter != null)
             {
                 transform.position = currentTeleporter.GetComponent<AreaTeleporter>().GetDestination().position;
-
             }
-            teleportcooldown = 0;
-
         }
-        teleportcooldown += 1;
-    }
 
+    }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Teleporter"))
         {
-
             currentTeleporter = collision.gameObject;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Teleporter"))
+        if(collision.CompareTag("Teleporter"))
         {
-            if (collision.gameObject == currentTeleporter)
-            {
-                currentTeleporter = null;
-            }
-
+            currentTeleporter = null;
         }
     }
 }
