@@ -17,7 +17,7 @@ public class RandonEncounters : MonoBehaviour
     public string currentarea = "";
 
 
-    int numbertillencounter = 10;
+    int numbertillencounter = 10000000;
     public int increasingnumber = 0;
 
     int randomiserforincreaingnumber = 0;

@@ -7,7 +7,7 @@ public class AreaTeleporter : MonoBehaviour
     [SerializeField] private Transform destination;
 
     [SerializeField] RandonEncounters randomenconeter;
-    [SerializeField] string area;
+    [SerializeField] public string area;
 
 
     public Transform GetDestination()
